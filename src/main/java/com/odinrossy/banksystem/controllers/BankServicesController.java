@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/profile")
-public class ProfileController {
+@RequestMapping("/bankServices")
+public class BankServicesController {
 
     private final UserService userService;
     private final HttpSession session;
 
     @Autowired
-    public ProfileController(UserService userService, HttpSession session) {
+    public BankServicesController(UserService userService, HttpSession session) {
         this.userService = userService;
         this.session = session;
     }
@@ -29,7 +29,7 @@ public class ProfileController {
         try {
             userService.checkUserAuthorization(session);
             model.addAttribute("user", session.getAttribute("user"));
-            return "profile";
+            return "bankServices";
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
             return "redirect:/signIn";
         }
