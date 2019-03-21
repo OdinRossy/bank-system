@@ -111,3 +111,9 @@ a {
 .info-value {
     color: #686868;
 }
+
+.logout {
+    !important;
+    position: fixed;
+    right: 2%
+}
