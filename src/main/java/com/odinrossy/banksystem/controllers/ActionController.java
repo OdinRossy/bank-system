@@ -1,5 +1,6 @@
 package com.odinrossy.banksystem.controllers;
 
+import com.odinrossy.banksystem.configuration.Roles;
 import com.odinrossy.banksystem.exceptions.UserNotAuthorizedException;
 import com.odinrossy.banksystem.exceptions.UserNotFoundException;
 import com.odinrossy.banksystem.models.User;
@@ -14,13 +15,13 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/bankServices")
-public class BankServicesController {
+public class ActionController {
 
     private final UserService userService;
     private final HttpSession session;
 
     @Autowired
-    public BankServicesController(UserService userService, HttpSession session) {
+    public ActionController(UserService userService, HttpSession session) {
         this.userService = userService;
         this.session = session;
     }
@@ -30,6 +31,7 @@ public class BankServicesController {
         try {
             userService.checkUserAuthorization(session);
             model.addAttribute("user",(User) session.getAttribute("user"));
+            model.addAttribute("role", (String) Roles.ADMIN);
             return "bankServices";
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
             return "redirect:/user/signIn";
