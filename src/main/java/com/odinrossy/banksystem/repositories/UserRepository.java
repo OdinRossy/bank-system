@@ -1,14 +1,10 @@
 package com.odinrossy.banksystem.repositories;
 
 import com.odinrossy.banksystem.models.User;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository {
+public interface UserRepository extends CrudRepository<User, String> {
 
-    User getUser(String username);
-
-    User getUser(String username, String password);
-
-    User createUser(User user);
 }

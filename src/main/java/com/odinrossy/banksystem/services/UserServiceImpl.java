@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,11 +24,23 @@ public class UserServiceImpl implements UserService {
         User currentUser = (User) session.getAttribute("user");
         if (currentUser == null)
             throw new UserNotAuthorizedException("User is not authorized");
-        authorizeUser(currentUser.getUsername(), currentUser.getPassword(), session);
+        authorizeUser(currentUser, session);
     }
 
-    public void authorizeUser(String username, String password, HttpSession session) throws UserNotFoundException {
-        User user = userRepository.getUser(username, password);
-        session.setAttribute("user", user);
+    public void authorizeUser(User user, HttpSession session) throws UserNotFoundException {
+        String password = user.getPassword();
+        user = userRepository.findById(user.getIdPassport()).orElse(user);
+        if (user.getUsername() != null) {
+            if (user.getPassword().equals(password))
+                session.setAttribute("user", user);
+        } else
+            throw new UserNotFoundException(user + " not found in repository.");
+    }
+
+    public User saveUser(User user) {
+        if (user != null) {
+            return userRepository.save(user);
+        } else
+            throw new RuntimeException("User is null");
     }
 }

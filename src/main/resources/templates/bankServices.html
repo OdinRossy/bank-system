@@ -9,14 +9,19 @@
         <link rel="icon" th:href="@{/assets/bank-icon.png}">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+        <script th:src="@{js/bootstrap.min.js}"></script>
     </head>
     <body>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="">
                 <img th:src="@{/assets/bank-icon.png}"
                      width="30" height="30" class="d-inline-block align-top" alt=""> Bank-system
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -28,18 +33,21 @@
                         <a class="nav-link" href="profile">Профиль</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#"><span class="sr-only">(current)</span> Услуги</a>
+                        <a class="nav-link active" href="bankServices"><span class="sr-only">(current)</span> Услуги</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
                 <div style="position: fixed; right: 2%">
-                    <form class="form-inline my-2 my-lg-0" action="user/logOut">
-                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Выйти</button>
+                    <form class="form-inline my-2 my-lg-0" action="user/signOut">
+                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Выйти</button>
                     </form>
                 </div>
             </div>
+
         </nav>
         <div class="container-fluid">
             <div class="row row-center">
@@ -47,10 +55,15 @@
                 <div class="col-md-10">
                     <div class="rounded-container">
                         <div class="title">
-                            <div class="container-fluid">
-                                <h2 th:text="'Здравствуйте, ' + ${user}"></h2>
-                                <a th:href="@{/}" class="btn btn-primary">Главная</a>
-                            </div>
+                            <i class="fas fa-money-check-alt"></i>
+                            <h2>
+                                Здравствуйте,
+                                <span class="badge badge-success" th:text="${user.getUsername()}"></span>
+                            </h2>
+                        </div>
+                        <div class="title">
+                            <a th:href="@{/}" class="btn btn-primary">Главная</a>
+                        </div>
                         </div>
                     </div>
                 </div>
