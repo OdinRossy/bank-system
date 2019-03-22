@@ -1,6 +1,6 @@
 package com.odinrossy.banksystem.controllers;
 
-import com.odinrossy.banksystem.configuration.Roles;
+import com.odinrossy.banksystem.constants.Roles;
 import com.odinrossy.banksystem.exceptions.UserNotAuthorizedException;
 import com.odinrossy.banksystem.exceptions.UserNotFoundException;
 import com.odinrossy.banksystem.models.User;
