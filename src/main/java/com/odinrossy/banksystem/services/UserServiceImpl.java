@@ -1,9 +1,12 @@
 package com.odinrossy.banksystem.services;
 
+import com.odinrossy.banksystem.exceptions.RoleNotFoundException;
 import com.odinrossy.banksystem.exceptions.UserNotAuthorizedException;
 import com.odinrossy.banksystem.exceptions.UserNotFoundException;
 import com.odinrossy.banksystem.exceptions.WrongUserPasswordException;
+import com.odinrossy.banksystem.models.Role;
 import com.odinrossy.banksystem.models.User;
+import com.odinrossy.banksystem.repositories.RoleRepository;
 import com.odinrossy.banksystem.repositories.UserRepository;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -18,11 +21,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public void checkUserAuthorization(HttpSession session) throws RuntimeException {
@@ -54,6 +59,10 @@ public class UserServiceImpl implements UserService {
 
     public User saveUser(User user) throws RuntimeException {
         if (user != null) {
+//            Role userRole = roleRepository.findById(user.getIdRole())
+//                    .orElse(new Role(null));
+//            if (userRole.getIdRole() == null)
+//                throw new RoleNotFoundException("Role not found. Role details: " + user.getIdRole());
             user = userRepository.save(user);
             logger.log(Level.INFO,"User saved. User information: " + user);
             return user;

@@ -18,20 +18,13 @@ public class User {
     private String username;
     private String password;
 
+    private Long idRole;
+
     public User() {
     }
 
     public User(String idPassport, String password) {
         this.idPassport = idPassport;
-        this.password = password;
-    }
-
-    public User(String idPassport, String firstName, String middleName, String lastName, String username, String password) {
-        this.idPassport = idPassport;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.username = username;
         this.password = password;
     }
 
@@ -45,6 +38,25 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public User(String idPassport, String firstName, String middleName, String lastName,
+                String username, String password, Long idRole) {
+        this.idPassport = idPassport;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.idRole = idRole;
+    }
+
+    public Long getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(Long idRole) {
+        this.idRole = idRole;
     }
 
     public String getIdPassport() {

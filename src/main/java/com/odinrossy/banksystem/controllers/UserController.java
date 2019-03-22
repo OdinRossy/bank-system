@@ -52,10 +52,12 @@ public class UserController {
     @PostMapping
     public String createUser(@RequestParam String firstName, @RequestParam String lastName,
                              @RequestParam String middleName, @RequestParam String idPassport,
-                             @RequestParam String username, @RequestParam String password) {
+                             @RequestParam String username, @RequestParam String password,
+                             @RequestParam String idRole) {
         try {
+            Long role = Long.valueOf(idRole);
             User user =
-                    new User(idPassport,firstName, middleName, lastName, username, password);
+                    new User(idPassport,firstName, middleName, lastName, username, password, role);
             user = userService.saveUser(user);
             userService.authorizeUser(user, session);
             return "redirect:/user/profile";
