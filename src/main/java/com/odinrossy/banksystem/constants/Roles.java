@@ -1,4 +1,4 @@
-package com.odinrossy.banksystem.configuration;
+package com.odinrossy.banksystem.constants;
 
 public interface Roles {
     String ADMIN = "ADMIN";
