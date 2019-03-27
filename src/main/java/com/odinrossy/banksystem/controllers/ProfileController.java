@@ -14,67 +14,37 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/profile")
+public class ProfileController {
 
     private final UserService userService;
     private final HttpSession session;
 
     @Autowired
-    public UserController(UserService userService, HttpSession session) {
+    public ProfileController(UserService userService, HttpSession session) {
         this.userService = userService;
         this.session = session;
     }
 
-    @PostMapping("authenticate")
+    @RequestMapping("authenticate")
     public String authenticate(@RequestParam String idPassport, @RequestParam String password) {
         try {
             userService.authorizeUser(new User(idPassport, password), session);
-            return "redirect:/user/profile";
+            return "redirect:/profile";
         } catch (RuntimeException e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
-//    @PostMapping
-//    public String createUser(@RequestBody User user) {
-//        try {
-//            user = userService.saveUser(user);
-//            userService.authorizeUser(user, session);
-//            return "redirect:/profile";
-//        } catch (RuntimeException e) {
-//            e.printStackTrace();
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-//        }
-//    }
-
-    @PostMapping
-    public String createUser(@RequestParam String firstName, @RequestParam String lastName,
-                             @RequestParam String middleName, @RequestParam String idPassport,
-                             @RequestParam String username, @RequestParam String password,
-                             @RequestParam String idRole) {
-        try {
-            Long role = Long.valueOf(idRole);
-            User user =
-                    new User(idPassport,firstName, middleName, lastName, username, password, role);
-            user = userService.saveUser(user);
-            userService.authorizeUser(user, session);
-            return "redirect:/user/profile";
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
-    @GetMapping("profile")
+    @GetMapping
     public String render(Model model) {
         try {
             userService.checkUserAuthorization(session);
             model.addAttribute("user", (User) session.getAttribute("user"));
             return "profile";
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
-            return "redirect:/user/signIn";
+            return "redirect:/profile/signIn";
         }
     }
 
@@ -90,7 +60,7 @@ public class UserController {
 
     @RequestMapping("signOut")
     public String logOut(HttpSession session) {
-        session.removeAttribute("user");
+        userService.logOutUser(session);
         return "redirect:/";
     }
 }
