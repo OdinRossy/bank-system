@@ -34,7 +34,7 @@ public class ActionController {
             model.addAttribute("role", (String) Roles.ADMIN);
             return "bankServices";
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
-            return "redirect:/user/signIn";
+            return "redirect:/profile/signIn";
         }
     }
 }
