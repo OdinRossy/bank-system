@@ -18,57 +18,99 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-10 rounded-container">
                     <h1 class="title">Регистрация нового сотрудника</h1>
-                    <form th:action="@{/user}" method="post">
-                        <div class="input-group mb-2 mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-circle"></i></div>
-                            </div>
-                            <input type="text" name="lastName" class="form-control" placeholder="Введите фамилию">
-                        </div>
-                        <br>
-                        <div class="input-group mb-2 mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-circle"></i></div>
-                            </div>
-                            <input type="text" name="firstName" class="form-control" placeholder="Введите имя">
-                        </div>
-                        <br>
-                        <div class="input-group mb-2 mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-circle"></i></div>
-                            </div>
-                            <input type="text" name="middleName" class="form-control" placeholder="Введите отчество">
-                        </div>
-                        <br>
 
-                        <div class="input-group mb-2 mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-at"></i></div>
-                            </div>
-                            <input type="email" name="username" class="form-control" placeholder="Введите username">
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-circle"></i></div>
                         </div>
-                        <br>
-
-                        <div class="input-group mb-2 mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-passport"></i></div>
-                            </div>
-                            <input type="text" name="idPassport" class="form-control" placeholder="Введите ID паспорта">
+                        <input id="lastName" type="text" name="lastName" class="form-control"
+                               placeholder="Введите фамилию">
+                        <div class="invalid-feedback">
+                            Пожалуйста введите фамилию.
                         </div>
-                        <br>
-                        <div class="input-group mb-2 mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-key"></i></div>
-                            </div>
-                            <input type="password" name="password" class="form-control" placeholder="Придумайте пароль">
+                    </div>
+                    <br>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-circle"></i></div>
                         </div>
-                        <br>
-                        <input type="hidden" name="idRole" value="1">
-                        <button type="submit" class="btn btn-success btn-lg">Зарегистрировать</button>
-                    </form>
+                        <input id="firstName" type="text" name="firstName" class="form-control"
+                               placeholder="Введите имя">
+                        <div class="invalid-feedback">
+                            Пожалуйста введите имя.
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-circle"></i></div>
+                        </div>
+                        <input id="middleName" type="text" name="middleName" class="form-control"
+                               placeholder="Введите отчество">
+                        <div class="invalid-feedback">
+                            Пожалуйста введите отчество.
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-at"></i></div>
+                        </div>
+                        <input id="username" type="email" name="username" class="form-control"
+                               placeholder="Введите username">
+                        <div class="invalid-feedback">
+                            Пожалуйста введите username.
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-calendar-day"></i></div>
+                        </div>
+                        <input id="birthdate" type="date" name="date" class="form-control"
+                               placeholder="Введите дату рождения">
+                        <div class="invalid-feedback">
+                            Пожалуйста выберите дату рождения.
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-passport"></i></div>
+                        </div>
+                        <input id="idPassport" type="text" name="idPassport" class="form-control"
+                               placeholder="Введите ID паспорта">
+                        <div class="invalid-feedback">
+                            Пожалуйста введите корректный идентификационный номер.
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-key"></i></div>
+                        </div>
+                        <input id="password" type="password" name="password" class="form-control"
+                               placeholder="Придумайте пароль">
+                        <div class="invalid-feedback">
+                            Пожалуйста укажите пароль.
+                        </div>
+                    </div>
+                    <br>
+                    <input id="idRole" type="hidden" name="idRole" value="1">
+                    <button onclick="submitForm()" class="btn btn-success btn-lg">Зарегистрировать</button>
                 </div>
                 <div class="col-md-1"></div>
             </div>
         </div>
+        <script th:src="@{/js/jquery-3.3.1.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script th:src="@{/js/user/User.js}"></script>
+        <script th:src="@{/js/user/userService.js}"></script>
+        <script th:src="@{/js/user/userController.js}"></script>
     </body>
 </html>

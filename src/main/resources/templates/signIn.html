@@ -18,7 +18,7 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6 rounded-container">
                     <h1 class="title">Авторизация</h1>
-                    <form th:action="@{/user/authenticate}" method="post">
+                    <form th:action="@{/profile/authenticate}" method="post">
                         <div class="input-group mb-2 mr-sm-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fas fa-at"></i></div>
@@ -34,11 +34,22 @@
                         </div>
                         <br>
                         <button type="submit" class="btn btn-success btn-lg">Войти</button>
-                        <a th:href="@{/user/signUp}" role="button" class="btn btn-primary btn-lg">Зарегистрироваться</a>
+                        <a th:href="@{/profile/signUp}" role="button"
+                           class="btn btn-primary btn-lg">Зарегистрироваться</a>
                     </form>
                 </div>
                 <div class="col-md-3"></div>
             </div>
         </div>
+        <script th:src="@{/js/jquery-3.3.1.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script th:src="@{/js/user/User.js}"></script>
+        <script th:src="@{/js/user/userService.js}"></script>
+        <script th:src="@{/js/user/userController.js}"></script>
     </body>
 </html>

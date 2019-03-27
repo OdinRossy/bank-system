@@ -28,7 +28,7 @@
                         <a class="nav-link" th:href="@{/}">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/user/profile}"><span class="sr-only">(current)</span>
+                        <a class="nav-link active" th:href="@{/profile}"><span class="sr-only">(current)</span>
                             Профиль</a>
                     </li>
                     <li class="nav-item">
@@ -36,7 +36,7 @@
                     </li>
                 </ul>
                 <div class="logout">
-                    <form class="form-inline my-2 my-lg-0" th:action="@{/user/signOut}">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/profile/signOut}">
                         <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
                             <i class="fas fa-sign-out-alt"></i>
                             Выйти
@@ -61,17 +61,21 @@
                             <div class="card-header">
                                 <ul class="nav nav-pills card-header-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#">Общая информация</a>
+                                        <a id="btn-general" class="nav-link active" href="#"
+                                           onclick="showCard('#general', '#btn-general')">Общая
+                                            информация</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Персональные данные</a>
+                                        <a id="btn-personal" class="nav-link" href="#"
+                                           onclick="showCard('#personal', '#btn-personal')">Персональные
+                                            данные</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Редактировать</a>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="card-body">
+                            <div id="general" class="card-body">
                                 <div class="user-info">
                                     <h5>Фамилия: <span class="info-value" th:text="${user.getLastName()}"></span></h5>
                                     <h5>Имя: <span class="info-value" th:text="${user.getFirstName()}"></span></h5>
@@ -82,20 +86,31 @@
                                     <h5>Почта: <span class="info-value" th:text="${user.getUsername()}"></span></h5>
                                 </div>
                             </div>
+
+                            <div id="personal" class="card-body" style="display: none">
+                                <div class="user-info">
+                                    <h5>Пароль: <span class="info-value" th:text="${user.getPassword()}"></span></h5>
+                                    <h5>Дата рождения:<span class="info-value"
+                                                            th:text="${user.getBirthDate().toLocaleString().substring(0, 10)}">
+                                    </span>
+                                    </h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-1"></div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
+        <script th:src="@{/js/jquery-3.3.1.js}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
                 integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
                 crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
+        <script th:src="@{/js/user/User.js}"></script>
+        <script th:src="@{/js/user/userService.js}"></script>
+        <script th:src="@{/js/profile/profileController.js}"></script>
     </body>
 </html>
