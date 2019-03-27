@@ -2,7 +2,6 @@ package com.odinrossy.banksystem.services;
 
 import com.odinrossy.banksystem.exceptions.*;
 import com.odinrossy.banksystem.models.User;
-import com.odinrossy.banksystem.repositories.RoleRepository;
 import com.odinrossy.banksystem.repositories.UserRepository;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
