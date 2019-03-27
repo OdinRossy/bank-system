@@ -2,10 +2,9 @@ package com.odinrossy.banksystem.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
-@Table
 public class User {
 
     @Id
@@ -18,7 +17,9 @@ public class User {
     private String username;
     private String password;
 
-    private Long idRole;
+    private long idRole;
+
+    private Date birthDate;
 
     public User() {
     }
@@ -26,6 +27,17 @@ public class User {
     public User(String idPassport, String password) {
         this.idPassport = idPassport;
         this.password = password;
+    }
+
+    public User(String idPassport, String firstName, String middleName, String lastName, String username, String password, long idRole, Date birthDate) {
+        this.idPassport = idPassport;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.idRole = idRole;
+        this.birthDate = birthDate;
     }
 
     @Override
@@ -37,25 +49,16 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", idRole=" + idRole +
+                ", birthDate=" + birthDate +
                 '}';
     }
 
-    public User(String idPassport, String firstName, String middleName, String lastName,
-                String username, String password, Long idRole) {
-        this.idPassport = idPassport;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.idRole = idRole;
-    }
-
-    public Long getIdRole() {
+    public long getIdRole() {
         return idRole;
     }
 
-    public void setIdRole(Long idRole) {
+    public void setIdRole(long idRole) {
         this.idRole = idRole;
     }
 
@@ -105,6 +108,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }
 
