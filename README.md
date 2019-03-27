@@ -1,1 +1,1 @@
-# Bank-system is course project for my university.
+# Bank-system is a course project for my university.
