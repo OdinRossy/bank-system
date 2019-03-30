@@ -18,7 +18,7 @@ const userService = {
 
     save: function (user) {
         $.ajax({
-            url: '/bank-system/api/user',
+            url: APP.userRestService,
             type: 'POST',
             data: JSON.stringify(user),
             contentType: 'application/json; charset=utf-8',
@@ -27,7 +27,7 @@ const userService = {
             success: function (response) {
                 user = response;
                 console.info(user);
-                window.open('/bank-system/user/profile', '_self');
+                window.open(APP.url + '/profile', '_self');
             },
             error: function (response) {
                 let message = response.responseJSON.message;
