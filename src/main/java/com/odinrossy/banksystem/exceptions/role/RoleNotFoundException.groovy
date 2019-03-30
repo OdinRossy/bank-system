@@ -1,4 +1,4 @@
-package com.odinrossy.banksystem.exceptions
+package com.odinrossy.banksystem.exceptions.role
 
 class RoleNotFoundException extends RuntimeException {
     RoleNotFoundException(String message) {

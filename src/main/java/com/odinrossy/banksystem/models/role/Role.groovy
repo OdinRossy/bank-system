@@ -1,4 +1,4 @@
-package com.odinrossy.banksystem.models
+package com.odinrossy.banksystem.models.role
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

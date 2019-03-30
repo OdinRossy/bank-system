@@ -1,6 +1,6 @@
-package com.odinrossy.banksystem.repositories
+package com.odinrossy.banksystem.repositories.role
 
-import com.odinrossy.banksystem.models.Role
+import com.odinrossy.banksystem.models.role.Role
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

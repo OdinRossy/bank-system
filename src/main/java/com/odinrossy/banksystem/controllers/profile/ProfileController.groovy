@@ -1,9 +1,9 @@
-package com.odinrossy.banksystem.controllers
+package com.odinrossy.banksystem.controllers.profile
 
-import com.odinrossy.banksystem.exceptions.UserNotAuthorizedException
-import com.odinrossy.banksystem.exceptions.UserNotFoundException
-import com.odinrossy.banksystem.models.User
-import com.odinrossy.banksystem.services.UserService
+import com.odinrossy.banksystem.exceptions.user.UserNotAuthorizedException
+import com.odinrossy.banksystem.exceptions.user.UserNotFoundException
+import com.odinrossy.banksystem.services.security.AuthorizationService
+import com.odinrossy.banksystem.services.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
@@ -11,25 +11,23 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
-import javax.servlet.http.HttpSession
-
 @Controller
 @RequestMapping("/profile")
 class ProfileController {
 
     private final UserService userService
-    private final HttpSession session
+    private final AuthorizationService authorizationService
 
     @Autowired
-    ProfileController(UserService userService, HttpSession session) {
+    ProfileController(UserService userService, AuthorizationService authorizationService) {
         this.userService = userService
-        this.session = session
+        this.authorizationService = authorizationService
     }
 
     @RequestMapping("authenticate")
     String authenticate(@RequestParam String idPassport, @RequestParam String password) {
         try {
-            userService.authorizeUser(new User(idPassport, password), session)
+            userService.findByIdPassportAndPassword(idPassport, password)
             return "redirect:/profile"
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -38,29 +36,30 @@ class ProfileController {
     }
 
     @GetMapping
-    String render(Model model) {
+    String index(Model model) {
         try {
-            userService.checkUserAuthorization(session)
-            model.addAttribute("user", (User) session.getAttribute("user"))
+            userService.checkAuthorization()
+            model.addAttribute("user", authorizationService.getUserFromSession())
             return "profile"
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
+            e.printStackTrace()
             return "redirect:/profile/signIn"
         }
     }
 
     @RequestMapping("signIn")
-    String renderSignIn() {
+    String signIn() {
         return "signIn"
     }
 
     @RequestMapping("signUp")
-    String renderSignUp() {
+    String signUp() {
         return "signUp"
     }
 
     @RequestMapping("signOut")
-    String logOut(HttpSession session) {
-        userService.logOutUser(session)
+    String logOut() {
+        authorizationService.removeUserFromSession()
         return "redirect:/"
     }
 }

@@ -1,4 +1,4 @@
-package com.odinrossy.banksystem.exceptions
+package com.odinrossy.banksystem.exceptions.user
 
 class WrongUserPasswordException extends RuntimeException {
     WrongUserPasswordException(String message) {

@@ -1,7 +1,8 @@
-package com.odinrossy.banksystem.controllers
+package com.odinrossy.banksystem.controllers.user
 
-import com.odinrossy.banksystem.models.User
-import com.odinrossy.banksystem.services.UserService
+import com.odinrossy.banksystem.exceptions.user.UserNotFoundException
+import com.odinrossy.banksystem.models.user.User
+import com.odinrossy.banksystem.services.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -13,23 +14,21 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
-import javax.servlet.http.HttpSession
 
 @RestController
 class UserRestController {
+
     private final UserService userService
-    private final HttpSession session
 
     @Autowired
-    UserRestController(UserService userService, HttpSession session) {
+    UserRestController(UserService userService) {
         this.userService = userService
-        this.session = session
     }
 
     @GetMapping("/api/user")
     List<User> getUsersList() {
         try {
-            return userService.asList()
+            return userService.findAll()
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
@@ -39,7 +38,12 @@ class UserRestController {
     @GetMapping("/api/user/{idPassport}")
     User getUser(@PathVariable String idPassport) {
         try {
-            return userService.getUserByIdPassport(idPassport)
+            return userService.findByIdPassport(idPassport)
+
+        } catch (UserNotFoundException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage())
+
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
@@ -50,8 +54,8 @@ class UserRestController {
     User createUser(@RequestBody User user) {
         try {
             user = userService.save(user)
-            userService.authorizeUser(user, session)
             return user
+
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
@@ -62,8 +66,12 @@ class UserRestController {
     User updateUser(@RequestBody User user, @PathVariable String idPassport) {
         try {
             user = userService.update(idPassport, user)
-            userService.authorizeUser(user, session)
             return user
+
+        } catch (UserNotFoundException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage())
+
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
@@ -74,6 +82,11 @@ class UserRestController {
     void deleteUser(@PathVariable String idPassport) {
         try {
             userService.delete(idPassport)
+
+        } catch (UserNotFoundException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage())
+
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
