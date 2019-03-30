@@ -43,21 +43,21 @@ class ProfileController {
             return "profile"
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
             e.printStackTrace()
-            return "redirect:/profile/signIn"
+            return "redirect:/profile/logIn"
         }
     }
 
-    @RequestMapping("signIn")
-    String signIn() {
-        return "signIn"
+    @RequestMapping("logIn")
+    String logIn() {
+        return "logIn"
     }
 
-    @RequestMapping("signUp")
-    String signUp() {
-        return "signUp"
+    @RequestMapping("logUp")
+    String logUp() {
+        return "logUp"
     }
 
-    @RequestMapping("signOut")
+    @RequestMapping("logOut")
     String logOut() {
         authorizationService.removeUserFromSession()
         return "redirect:/"

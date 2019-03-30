@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Клиенты bank-system</title>
+        <link rel="icon" th:href="@{/assets/bank-icon.png}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="">
+                <img th:src="@{/assets/bank-icon.png}"
+                     width="30" height="30" class="d-inline-block align-top" alt=""> Bank-system
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/profile}">Профиль</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" th:href="@{/client}">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/bankServices}">Действия</a>
+                    </li>
+
+                </ul>
+                <div class="logout">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <script th:src="@{/js/jquery-3.3.1.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/user/User.js}"></script>
+        <script th:src="@{/js/user/userService.js}"></script>
+        <script th:src="@{/js/profile/profileController.js}"></script>
+    </body>
+</html>

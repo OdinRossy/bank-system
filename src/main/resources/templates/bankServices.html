@@ -30,13 +30,16 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/profile}">Профиль</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/client}">Клиенты</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Действия
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <th:block>
-                                <a class="dropdown-item" th:href="@{/profile/signUp}">Добавить сотрудника</a>
+                                <a class="dropdown-item" th:href="@{/profile/logUp}">Добавить сотрудника</a>
                             </th:block>
                             <a class="dropdown-item" href="#">Добавить клиента</a>
                             <div class="dropdown-divider"></div>
@@ -45,7 +48,7 @@
                     </li>
                 </ul>
                 <div class="logout">
-                    <form class="form-inline my-2 my-lg-0" th:action="@{/profile/signOut}">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/profile/logOut}">
                         <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
                             <i class="fas fa-sign-out-alt"></i>
                             Выйти
@@ -73,7 +76,25 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-1"></div>
+        <footer>
+            <div style="font-size: 64px">
+                <a href="https://www.mastercard.by/ru-by.html" target="_blank">
+                    <i class="fab fa-cc-mastercard"></i>
+                </a>
+                <a href="https://cis.visa.com/ru_TJ" target="_blank">
+                    <i class="fab fa-cc-visa"></i>
+                </a>
+                <a href="https://pay.amazon.com" target="_blank">
+                    <i class="fab fa-cc-amazon-pay"></i>
+                </a>
+                <a href="https://www.apple.com/ru/apple-pay/" target="_blank">
+                    <i class="fab fa-cc-apple-pay"></i>
+                </a>
+                <a href="https://www.paypal.com/by/home" target="_blank">
+                    <i class="fab fa-cc-paypal"></i>
+                </a>
+            </div>
+        </footer>
         <script th:src="@{/js/jquery-3.3.1.js}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
                 integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

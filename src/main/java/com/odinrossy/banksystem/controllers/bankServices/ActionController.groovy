@@ -34,7 +34,7 @@ class ActionController {
             return "bankServices"
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
             e.printStackTrace()
-            return "redirect:/profile/signIn"
+            return "redirect:/profile/logIn"
         }
     }
 }
