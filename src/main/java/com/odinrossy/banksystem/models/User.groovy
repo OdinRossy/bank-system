@@ -1,47 +1,47 @@
-package com.odinrossy.banksystem.models;
+package com.odinrossy.banksystem.models
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.Entity
+import javax.persistence.Id
+import java.util.Date
 
 @Entity
-public class User {
+class User {
 
     @Id
-    private String idPassport;
+    private String idPassport
 
-    private String firstName;
-    private String middleName;
-    private String lastName;
+    private String firstName
+    private String middleName
+    private String lastName
 
-    private String username;
-    private String password;
+    private String username
+    private String password
 
-    private long idRole;
+    private long idRole
 
-    private Date birthDate;
+    private Date birthDate
 
-    public User() {
+    User() {
     }
 
-    public User(String idPassport, String password) {
-        this.idPassport = idPassport;
-        this.password = password;
+    User(String idPassport, String password) {
+        this.idPassport = idPassport
+        this.password = password
     }
 
-    public User(String idPassport, String firstName, String middleName, String lastName, String username, String password, long idRole, Date birthDate) {
-        this.idPassport = idPassport;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.idRole = idRole;
-        this.birthDate = birthDate;
+    User(String idPassport, String firstName, String middleName, String lastName, String username, String password, long idRole, Date birthDate) {
+        this.idPassport = idPassport
+        this.firstName = firstName
+        this.middleName = middleName
+        this.lastName = lastName
+        this.username = username
+        this.password = password
+        this.idRole = idRole
+        this.birthDate = birthDate
     }
 
     @Override
-    public String toString() {
+    String toString() {
         return "User{" +
                 "idPassport='" + idPassport + '\'' +
                 ", firstName='" + firstName + '\'' +
@@ -51,71 +51,71 @@ public class User {
                 ", password='" + password + '\'' +
                 ", idRole=" + idRole +
                 ", birthDate=" + birthDate +
-                '}';
+                '}'
     }
 
-    public long getIdRole() {
-        return idRole;
+    long getIdRole() {
+        return idRole
     }
 
-    public void setIdRole(long idRole) {
-        this.idRole = idRole;
+    void setIdRole(long idRole) {
+        this.idRole = idRole
     }
 
-    public String getIdPassport() {
-        return idPassport;
+    String getIdPassport() {
+        return idPassport
     }
 
-    public void setIdPassport(String idPassport) {
-        this.idPassport = idPassport;
+    void setIdPassport(String idPassport) {
+        this.idPassport = idPassport
     }
 
-    public String getFirstName() {
-        return firstName;
+    String getFirstName() {
+        return firstName
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    void setFirstName(String firstName) {
+        this.firstName = firstName
     }
 
-    public String getMiddleName() {
-        return middleName;
+    String getMiddleName() {
+        return middleName
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    void setMiddleName(String middleName) {
+        this.middleName = middleName
     }
 
-    public String getLastName() {
-        return lastName;
+    String getLastName() {
+        return lastName
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    void setLastName(String lastName) {
+        this.lastName = lastName
     }
 
-    public String getUsername() {
-        return username;
+    String getUsername() {
+        return username
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    void setUsername(String username) {
+        this.username = username
     }
 
-    public String getPassword() {
-        return password;
+    String getPassword() {
+        return password
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    void setPassword(String password) {
+        this.password = password
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    Date getBirthDate() {
+        return birthDate
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate
     }
 }
 

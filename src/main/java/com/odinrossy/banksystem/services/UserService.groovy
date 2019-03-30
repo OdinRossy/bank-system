@@ -1,11 +1,11 @@
-package com.odinrossy.banksystem.services;
-import com.odinrossy.banksystem.models.User;
-import org.springframework.stereotype.Service;
-import javax.servlet.http.HttpSession;
-import java.util.List;
+package com.odinrossy.banksystem.services
+import com.odinrossy.banksystem.models.User
+import org.springframework.stereotype.Service
+import javax.servlet.http.HttpSession
+import java.util.List
 
 @Service
-public interface UserService {
+interface UserService {
 
     List<User> asList();
 
