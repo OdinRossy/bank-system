@@ -5,7 +5,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Клиенты bank-system</title>
+        <title th:text="'Клиент ' +  ${client.idPassport}"></title>
         <link rel="icon" th:href="@{/assets/bank-icon.png}">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -38,53 +38,21 @@
                     </li>
 
                 </ul>
-                <div class="logout">
-                    <!--                    <form action="client/show" >-->
-                    <div class="form-inline my-2 my-lg-0">
-                        <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"
-                               placeholder="Search"
-                               aria-label="Search" oninput="findClientById()">
-                        <button class="btn btn-outline-success my-2 my-sm-0" onclick="findClientById()">Search</button>
-                    </div>
-
-                    <!--                    </form>-->
-                </div>
             </div>
         </nav>
-        <!--        <div class="container-fluid">-->
-        <!--            <div class="row row-center">-->
-        <!--                <div class="col-md-12">-->
-        <table class="table table-striped" style="margin-top: 5%">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ID пасспорта</th>
-                    <th scope="col">ФИО:</th>
-                    <th scope="col">Пол:</th>
-                    <th scope="col">Адресс проживания:</th>
-                    <th scope="col">№ лицевого счета:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <th:block th:each="client : ${clients}">
-                    <tr th:id="${client.IdPassport}">
-                        <td><a th:href="'http://localhost:9090/bank-system/client/' + ${client.IdPassport}"
-                               th:text="${client.IdPassport}"></a></td>
-                        <td><span
-                                th:text="${client.lastName}
-                                                + ' ' + ${client.firstName.toString().charAt(0)}
-                                                + '. ' + ${client.middleName.toString().charAt(0)}"></span>
-                        </td>
-                        <td><span th:text="${client.firstName}"></span></td>
-                        <td><span th:text="${client.middleName}"></span></td>
-                        <td><span th:text="${client.middleName}"></span></td>
-                    </tr>
-                </th:block>
-            </tbody>
-        </table>
+        <div class="container-fluid">
+            <div class="row row-center">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="rounded-container">
+                        <h4>Фамилия: <span th:text="${client.lastName}"></span></h4>
+                        <h4>Имя: <span th:text="${client.firstName}"></span></h4>
+                        <h4>Отчество: <span th:text="${client.middleName}"></span></h4>
+                        <h4>Паспорт: <span th:text="${client.IdPassport}"></span></h4>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
         <script th:src="@{/js/jquery-3.3.1.js}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
                 integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -93,7 +61,6 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
-        <script th:src="@{/js/client/clientController.js}"></script>
         <script th:src="@{/js/user/User.js}"></script>
         <script th:src="@{/js/user/userService.js}"></script>
         <script th:src="@{/js/profile/profileController.js}"></script>
