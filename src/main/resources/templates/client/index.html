@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     </head>
-    <body>
+    <body class="background-img">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="">
                 <img th:src="@{/assets/bank-icon.png}"
@@ -39,52 +39,52 @@
 
                 </ul>
                 <div class="logout">
-                    <!--                    <form action="client/show" >-->
                     <div class="form-inline my-2 my-lg-0">
                         <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"
                                placeholder="Search"
                                aria-label="Search" oninput="findClientById()">
                         <button class="btn btn-outline-success my-2 my-sm-0" onclick="findClientById()">Search</button>
                     </div>
-
-                    <!--                    </form>-->
                 </div>
             </div>
         </nav>
-        <!--        <div class="container-fluid">-->
-        <!--            <div class="row row-center">-->
-        <!--                <div class="col-md-12">-->
-        <table class="table table-striped" style="margin-top: 5%">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ID пасспорта</th>
-                    <th scope="col">ФИО:</th>
-                    <th scope="col">Пол:</th>
-                    <th scope="col">Адресс проживания:</th>
-                    <th scope="col">№ лицевого счета:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <th:block th:each="client : ${clients}">
-                    <tr th:id="${client.IdPassport}">
-                        <td><a th:href="'http://localhost:9090/bank-system/client/' + ${client.IdPassport}"
-                               th:text="${client.IdPassport}"></a></td>
-                        <td><span
-                                th:text="${client.lastName}
+        <div class="container-fluid">
+            <div class="row row-center">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="rounded-container">
+                        <table class="table table-striped" style="margin-top: 5%">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">ID пасспорта</th>
+                                    <th scope="col">ФИО:</th>
+                                    <th scope="col">Пол:</th>
+                                    <th scope="col">Адресс проживания:</th>
+                                    <th scope="col">№ лицевого счета:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <th:block th:each="client : ${clients}">
+                                    <tr th:id="${client.IdPassport}">
+                                        <td><a th:href="'http://localhost:9090/bank-system/client/' + ${client.IdPassport}"
+                                               th:text="${client.IdPassport}"></a></td>
+                                        <td><span
+                                                th:text="${client.lastName}
                                                 + ' ' + ${client.firstName.toString().charAt(0)}
                                                 + '. ' + ${client.middleName.toString().charAt(0)}"></span>
-                        </td>
-                        <td><span th:text="${client.firstName}"></span></td>
-                        <td><span th:text="${client.middleName}"></span></td>
-                        <td><span th:text="${client.middleName}"></span></td>
-                    </tr>
-                </th:block>
-            </tbody>
-        </table>
+                                        </td>
+                                        <td><span th:text="${client.firstName}"></span></td>
+                                        <td><span th:text="${client.middleName}"></span></td>
+                                        <td><span th:text="${client.middleName}"></span></td>
+                                    </tr>
+                                </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
         <script th:src="@{/js/jquery-3.3.1.js}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
                 integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
