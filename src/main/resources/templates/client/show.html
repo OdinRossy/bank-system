@@ -13,33 +13,37 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     </head>
     <body class="background-img">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="">
+        <header class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand scroll-top">
                 <img th:src="@{/assets/bank-icon.png}"
-                     width="30" height="30" class="d-inline-block align-top" alt=""> Bank-system
+                     width="30" height="30" class="d-inline-block align-top" alt="Image"> <span
+                    th:text="#{app.name}"></span>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}">Главная</a>
+                        <a class="nav-link" th:href="@{/}"><span th:text="#{nav.home}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/profile}">Профиль</a>
-                    </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link" id="scroll-top">Клиенты</a>
+                        <a class="nav-link" th:href="@{/profile}"><span th:text="#{nav.profile}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/bankServices}">Действия</a>
+                        <a class="nav-link active scroll-top"><span th:text="#{nav.clients}"></span></a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/bankServices}"><span th:text="#{nav.actions}"></span></a>
+                    </li>
                 </ul>
+                <div class="logout">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/profile/logOut}">
+                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span th:text="#{nav.logout}"></span>
+                        </button>
+                    </form>
+                </div>
             </div>
-        </nav>
+        </header>
         <div class="container-fluid">
             <div class="row row-center">
                 <div class="col-md-1"></div>

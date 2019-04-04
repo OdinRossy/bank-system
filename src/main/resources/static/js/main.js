@@ -10,6 +10,6 @@ const APP = {
     userRestService: '/' + PROJECT_NAME + '/api/user'
 };
 
-$('#scroll-top').click(function () {
+$('.scroll-top').click(function () {
     $('html, body').animate({scrollTop: $('html, body').offset().top}, 500);
 });

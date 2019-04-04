@@ -33,7 +33,7 @@ class ActionController {
             userService.checkAuthorization()
             model.addAttribute("user", authorizationService.getUserFromSession())
             model.addAttribute("role", (String) Roles.ADMIN)
-            return "bankServices"
+            return "dashboard/bankServices"
         } catch (UserNotAuthorizedException e) {
             e.printStackTrace()
             return "redirect:/profile/logIn"

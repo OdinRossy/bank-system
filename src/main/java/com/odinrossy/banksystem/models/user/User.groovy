@@ -1,20 +1,46 @@
 package com.odinrossy.banksystem.models.user
 
+import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
-import java.util.Date
+import javax.persistence.Table
+import javax.validation.constraints.NotNull
+import javax.validation.constraints.Size
 
 @Entity
-class User {
+@Table(name = 'users')
+class User implements Serializable{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id
+
+    @NotNull
+    @Size(max = 14)
+    @Column(unique = true)
     private String idPassport
 
+    @NotNull
+    @Size(max = 25)
     private String firstName
+
+    @NotNull
+    @Size(max = 25)
     private String middleName
+
+    @NotNull
+    @Size(max = 25)
     private String lastName
 
+    @NotNull
+    @Size(max = 25)
+    @Column(unique = true)
     private String username
+
+    @NotNull
+    @Size(max = 10)
     private String password
 
     private long idRole

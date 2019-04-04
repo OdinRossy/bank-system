@@ -35,7 +35,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     User findByIdPassport(String idPassport) throws UserNotFoundException {
-        User user = userRepository.findById(idPassport).orElse(null)
+        User user = userRepository.findByIdPassport(idPassport)
         if (user == null)
             throw new UserNotFoundException("User with idPassport " + idPassport + " not found")
         else

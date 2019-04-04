@@ -5,6 +5,10 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository extends CrudRepository<User, String> {
+interface UserRepository extends CrudRepository<User, Long> {
+
+    User findByIdPassport(String idPassport)
+
     User findByIdPassportAndPassword(String idPassport, String password)
+
 }

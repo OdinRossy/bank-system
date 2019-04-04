@@ -3,7 +3,7 @@ package com.odinrossy.banksystem.models.client
 import javax.persistence.Id
 import java.util.Date
 
-class Client {
+class Client implements Serializable{
 
     String idPassport
     String firstName

@@ -40,7 +40,7 @@ class ProfileController {
         try {
             userService.checkAuthorization()
             model.addAttribute("user", authorizationService.getUserFromSession())
-            return "profile"
+            return "profile/profile"
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
             e.printStackTrace()
             return "redirect:/profile/logIn"
@@ -49,12 +49,12 @@ class ProfileController {
 
     @RequestMapping("logIn")
     String logIn() {
-        return "logIn"
+        return "profile/logIn"
     }
 
     @RequestMapping("logUp")
     String logUp() {
-        return "logUp"
+        return "profile/logUp"
     }
 
     @RequestMapping("logOut")
