@@ -108,3 +108,7 @@ p {
     position: fixed;
     right: 2%
 }
+
+.input {
+    margin: 5% 0;
+}
