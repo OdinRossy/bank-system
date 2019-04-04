@@ -39,7 +39,6 @@ class UserRestController {
     User getUser(@PathVariable String idPassport) {
         try {
             return userService.findByIdPassport(idPassport)
-
         } catch (UserNotFoundException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage())

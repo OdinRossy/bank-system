@@ -27,7 +27,7 @@ const userService = {
             success: function (response) {
                 user = response;
                 console.info(user);
-                window.open(APP.url + '/profile', '_self');
+                window.open(APP.url + '/worker', '_self');
             },
             error: function (response) {
                 let message = response.responseJSON.message;

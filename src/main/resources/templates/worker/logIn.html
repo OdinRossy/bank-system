@@ -24,48 +24,40 @@
                         <a class="nav-link" th:href="@{/}"><span th:text="#{nav.home}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/profile}"><span th:text="#{nav.profile}"></span></a>
+                        <a class="nav-link" th:href="@{/worker/profile}"><span th:text="#{nav.profile}"></span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/client}"><span th:text="#{nav.clients}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/bankServices}"><span th:text="#{nav.actions}"></span></a>
+                        <a class="nav-link" th:href="@{/operations}"><span th:text="#{nav.actions}"></span></a>
                     </li>
                 </ul>
-                <div class="logout">
-                    <form class="form-inline my-2 my-lg-0" th:action="@{/profile/logOut}">
-                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span th:text="#{nav.logout}"></span>
-                        </button>
-                    </form>
-                </div>
             </div>
         </header>
         <div class="container">
             <div class="row row-center">
                 <div class="col-md-3"></div>
                 <div class="col-md-6 rounded-container">
-                    <h1 class="title">Авторизация</h1>
-                    <form th:action="@{/profile/authenticate}" method="post">
-                        <div class="input-group mb-2 mr-sm-2">
+                    <h1>Авторизация</h1>
+                    <form th:action="@{/worker/authenticate}" method="post">
+                        <div class="input-group mb-2 mr-sm-2 input">
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fas fa-passport"></i></div>
                             </div>
                             <input type="text" name="idPassport" class="form-control" placeholder="Введите ID паспорта">
                         </div>
-                        <br>
-                        <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group mb-2 mr-sm-2 input">
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fas fa-key"></i></div>
                             </div>
                             <input type="password" name="password" class="form-control" placeholder="Введите пароль">
                         </div>
-                        <br>
-                        <button type="submit" class="btn btn-success btn-lg">Войти</button>
-                        <a th:href="@{/profile/logUp}" role="button"
-                           class="btn btn-primary btn-lg">Зарегистрироваться</a>
+                        <div class="input">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <span th:text="#{btn.login}"></span>
+                            </button>
+                        </div>
                     </form>
                 </div>
                 <div class="col-md-3"></div>

@@ -16,7 +16,8 @@
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand scroll-top">
                 <img th:src="@{/assets/bank-icon.png}"
-                     width="30" height="30" class="d-inline-block align-top" alt="Image"> <span th:text="#{app.name}"></span>
+                     width="30" height="30" class="d-inline-block align-top" alt="Image"> <span
+                    th:text="#{app.name}"></span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,32 +30,24 @@
                     </li>
                     <li class="nav-item">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/profile}"><span th:text="#{nav.profile}"></span></a>
+                        <a class="nav-link" th:href="@{/worker/profile}"><span th:text="#{nav.profile}"></span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/client}"><span th:text="#{nav.clients}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/bankServices}"><span th:text="#{nav.actions}"></span></a>
+                        <a class="nav-link" th:href="@{/operations}"><span th:text="#{nav.actions}"></span></a>
                     </li>
                 </ul>
-                <div class="logout">
-                    <form class="form-inline my-2 my-lg-0" th:action="@{/profile/logOut}">
-                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span th:text="#{nav.logout}"></span>
-                        </button>
-                    </form>
-                </div>
             </div>
         </nav>
         <div class="container">
             <div class="row row-center">
                 <div class="col-md-1"></div>
                 <div class="col-md-10 rounded-container">
-                    <h1 class="title">Регистрация нового сотрудника</h1>
+                    <h1>Регистрация нового сотрудника</h1>
 
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group mb-2 mr-sm-2 input">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-circle"></i></div>
                         </div>
@@ -64,8 +57,7 @@
                             Пожалуйста введите фамилию.
                         </div>
                     </div>
-                    <br>
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group mb-2 mr-sm-2 input">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-circle"></i></div>
                         </div>
@@ -75,8 +67,7 @@
                             Пожалуйста введите имя.
                         </div>
                     </div>
-                    <br>
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group mb-2 mr-sm-2 input">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-circle"></i></div>
                         </div>
@@ -86,8 +77,7 @@
                             Пожалуйста введите отчество.
                         </div>
                     </div>
-                    <br>
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group mb-2 mr-sm-2 input">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-at"></i></div>
                         </div>
@@ -97,8 +87,7 @@
                             Пожалуйста введите username.
                         </div>
                     </div>
-                    <br>
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group mb-2 mr-sm-2 input">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-calendar-day"></i></div>
                         </div>
@@ -108,8 +97,7 @@
                             Пожалуйста выберите дату рождения.
                         </div>
                     </div>
-                    <br>
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group mb-2 mr-sm-2 input">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-passport"></i></div>
                         </div>
@@ -119,8 +107,7 @@
                             Пожалуйста введите корректный идентификационный номер.
                         </div>
                     </div>
-                    <br>
-                    <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group mb-2 mr-sm-2 input">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-key"></i></div>
                         </div>
@@ -130,9 +117,10 @@
                             Пожалуйста укажите пароль.
                         </div>
                     </div>
-                    <br>
                     <input id="idRole" type="hidden" name="idRole" value="1">
-                    <button onclick="submitForm()" class="btn btn-success btn-lg">Зарегистрировать</button>
+                    <div class="input">
+                        <button onclick="submitForm()" class="btn btn-success btn-lg">Зарегистрировать</button>
+                    </div>
                 </div>
                 <div class="col-md-1"></div>
             </div>

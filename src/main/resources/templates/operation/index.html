@@ -16,41 +16,30 @@
         <header class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand scroll-top">
                 <img th:src="@{/assets/bank-icon.png}"
-                     width="30" height="30" class="d-inline-block align-top" alt=""> Bank-system
+                     width="30" height="30" class="d-inline-block align-top" alt="Image"> <span
+                    th:text="#{app.name}"></span>
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}">Главная</a>
+                        <a class="nav-link" th:href="@{/}"><span th:text="#{nav.home}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/profile}">Профиль</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/client}">Клиенты</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link active dropdown-toggle scroll-top" role="button"
-                           data-toggle="dropdown">Действия
+                        <a class="nav-link" th:href="@{/worker/profile}">
+                            <span th:text="#{nav.profile}"></span>
                         </a>
-                        <div class="dropdown-menu">
-                            <th:block>
-                                <a class="dropdown-item" th:href="@{/profile/logUp}">Добавить сотрудника</a>
-                            </th:block>
-                            <a class="dropdown-item" href="#">Добавить клиента</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Операции с кредитом/дебетом</a>
-                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/client}">
+                            <span th:text="#{nav.clients}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item active scroll-top">
+                        <a class="nav-link" th:href="@{/operations}">
+                            <span th:text="#{nav.actions}"></span>
+                        </a>
                     </li>
                 </ul>
-                <div class="logout">
-                    <form class="form-inline my-2 my-lg-0" th:action="@{/profile/logOut}">
-                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span th:text="#{nav.logout}"></span>
-                        </button>
-                    </form>
-                </div>
             </div>
         </header>
         <div class="container-fluid">

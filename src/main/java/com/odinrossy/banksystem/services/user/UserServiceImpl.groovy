@@ -29,7 +29,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     List<User> findAll() {
-        checkAuthorization()
+//        checkAuthorization()
         return (List<User>) userRepository.findAll()
     }
 

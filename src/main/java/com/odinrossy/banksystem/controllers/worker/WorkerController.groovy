@@ -1,4 +1,4 @@
-package com.odinrossy.banksystem.controllers.profile
+package com.odinrossy.banksystem.controllers.worker
 
 import com.odinrossy.banksystem.exceptions.user.UserNotAuthorizedException
 import com.odinrossy.banksystem.exceptions.user.UserNotFoundException
@@ -12,49 +12,49 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
 @Controller
-@RequestMapping("/profile")
-class ProfileController {
+@RequestMapping("/worker")
+class WorkerController {
 
     private final UserService userService
     private final AuthorizationService authorizationService
 
     @Autowired
-    ProfileController(UserService userService, AuthorizationService authorizationService) {
+    WorkerController(UserService userService, AuthorizationService authorizationService) {
         this.userService = userService
         this.authorizationService = authorizationService
     }
 
-    @RequestMapping("authenticate")
+    @RequestMapping("/authenticate")
     String authenticate(@RequestParam String idPassport, @RequestParam String password) {
         try {
             userService.findByIdPassportAndPassword(idPassport, password)
-            return "redirect:/profile"
+            return "redirect:/worker/profile"
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
         }
     }
 
-    @GetMapping
+    @GetMapping('/profile')
     String index(Model model) {
         try {
             userService.checkAuthorization()
             model.addAttribute("user", authorizationService.getUserFromSession())
-            return "profile/profile"
+            return "worker/profile"
         } catch (UserNotFoundException | UserNotAuthorizedException e) {
             e.printStackTrace()
-            return "redirect:/profile/logIn"
+            return "redirect:/worker/logIn"
         }
     }
 
     @RequestMapping("logIn")
     String logIn() {
-        return "profile/logIn"
+        return "worker/logIn"
     }
 
     @RequestMapping("logUp")
     String logUp() {
-        return "profile/logUp"
+        return "worker/logUp"
     }
 
     @RequestMapping("logOut")

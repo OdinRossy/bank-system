@@ -36,7 +36,7 @@ class ClientController {
             return "client/index"
         } catch (UserNotAuthorizedException e) {
             e.printStackTrace()
-            return "redirect:/profile/logIn"
+            return "redirect:/worker/logIn"
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
@@ -58,7 +58,7 @@ class ClientController {
             return "client/show"
         } catch (UserNotAuthorizedException e) {
             e.printStackTrace()
-            return "redirect:/profile/logIn"
+            return "redirect:/worker/logIn"
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)

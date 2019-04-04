@@ -1,8 +1,7 @@
-package com.odinrossy.banksystem.controllers.bankServices
+package com.odinrossy.banksystem.controllers.operations
 
 import com.odinrossy.banksystem.constants.Roles
 import com.odinrossy.banksystem.exceptions.user.UserNotAuthorizedException
-import com.odinrossy.banksystem.exceptions.user.UserNotFoundException
 import com.odinrossy.banksystem.services.security.AuthorizationService
 import com.odinrossy.banksystem.services.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,14 +14,14 @@ import org.springframework.web.server.ResponseStatusException
 
 
 @Controller
-@RequestMapping("/bankServices")
-class ActionController {
+@RequestMapping("/operations")
+class OperationController {
 
     private final UserService userService
     private final AuthorizationService authorizationService
 
     @Autowired
-    ActionController(UserService userService, AuthorizationService authorizationService) {
+    OperationController(UserService userService, AuthorizationService authorizationService) {
         this.userService = userService
         this.authorizationService = authorizationService
     }
@@ -33,10 +32,10 @@ class ActionController {
             userService.checkAuthorization()
             model.addAttribute("user", authorizationService.getUserFromSession())
             model.addAttribute("role", (String) Roles.ADMIN)
-            return "dashboard/bankServices"
+            return "operation/index"
         } catch (UserNotAuthorizedException e) {
             e.printStackTrace()
-            return "redirect:/profile/logIn"
+            return "redirect:/worker/logIn"
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)

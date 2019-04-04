@@ -25,20 +25,20 @@
                         <a class="nav-link" th:href="@{/}"><span th:text="#{nav.home}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/profile}"><span th:text="#{nav.profile}"></span></a>
+                        <a class="nav-link" th:href="@{/worker/profile}"><span th:text="#{nav.profile}"></span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active scroll-top"><span th:text="#{nav.clients}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/bankServices}"><span th:text="#{nav.actions}"></span></a>
+                        <a class="nav-link" th:href="@{/operations}"><span th:text="#{nav.actions}"></span></a>
                     </li>
                 </ul>
                 <div class="logout">
-                    <form class="form-inline my-2 my-lg-0" th:action="@{/profile/logOut}">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/worker/logOut}">
                         <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
                             <i class="fas fa-sign-out-alt"></i>
-                            <span th:text="#{nav.logout}"></span>
+                            <span th:text="#{btn.logout}"></span>
                         </button>
                     </form>
                 </div>
