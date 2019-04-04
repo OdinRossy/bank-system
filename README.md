@@ -1,11 +1,19 @@
 # Bank-system is a course project for my university.
 
-
-1. **Initialize Database:**
+### Starting guide:
+**1. Initialize Database:**
 ```
 CREATE SCHEMA `bank-system` DEFAULT CHARACTER SET utf8;
 ```
-2. **Start the application:**
+**2. Start the application:**
 ```
 mvn spring-boot:run
 ```
+
+### Used technologies:
+* [Spring-boot](https://spring.io/projects/spring-boot)
+* [MySQL](https://www.mysql.com)
+* [Apache groovy](http://groovy-lang.org)
+* Internationalisation (i18n)
+* [Bootstrap](https://getbootstrap.com/docs/4.3/examples/)
+* [git](https://git-scm.com)
