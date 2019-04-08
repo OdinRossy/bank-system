@@ -1,13 +1,13 @@
 package com.odinrossy.banksystem.services.security
 
-import com.odinrossy.banksystem.models.user.User
+import com.odinrossy.banksystem.models.worker.Worker
 
 interface AuthorizationService {
 
-    User getUserFromSession()
+    Worker getWorkerFromSession()
 
-    void putUserInSession(User user)
+    void putWorkerInSession(Worker worker)
 
-    void removeUserFromSession()
+    void removeWorkerFromSession()
 
 }
