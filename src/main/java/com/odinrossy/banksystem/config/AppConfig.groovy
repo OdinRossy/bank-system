@@ -36,8 +36,6 @@ class AppConfig extends WebMvcConfigurerAdapter {
     void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor localeInterceptor = new LocaleChangeInterceptor()
         localeInterceptor.setParamName("lang")
-
-
         registry.addInterceptor(localeInterceptor).addPathPatterns("/*")
     }
 }
