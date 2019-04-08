@@ -1,0 +1,77 @@
+package com.odinrossy.banksystem.services.accessLevel
+
+import com.odinrossy.banksystem.exceptions.ResourceAlreadyExistsException
+import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
+import com.odinrossy.banksystem.exceptions.ResourceNotValidException
+import com.odinrossy.banksystem.models.accessLevel.AccessLevel
+import com.odinrossy.banksystem.repositories.accessLevel.AccessLevelRepository
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+
+@Service(value = 'AccessLevelService')
+class AccessLevelServiceImpl implements AccessLevelService {
+
+    @Autowired
+    AccessLevelRepository accessLevelRepository
+
+    @Override
+    List<AccessLevel> findAll() {
+        return accessLevelRepository.findAll() as List<AccessLevel>
+    }
+
+    @Override
+    AccessLevel findById(short id) throws ResourceNotFoundException {
+        def accessLevel = accessLevelRepository.findById(id)
+
+        if (!accessLevel)
+            throw new ResourceNotFoundException('Access level not found. Id:' + id)
+
+        return accessLevel
+    }
+
+    @Override
+    AccessLevel findByLabel(String label) throws ResourceNotFoundException {
+        AccessLevel accessLevel = accessLevelRepository.findByLabel(label)
+
+        if (!accessLevel)
+            throw new ResourceNotFoundException('Access level not found. label:' + label)
+
+        return accessLevel
+    }
+
+    @Override
+    AccessLevel save(AccessLevel accessLevel) {
+        if (accessLevel) {
+            try {
+                findById(accessLevel.id)
+                throw new ResourceAlreadyExistsException('AccessLevel already exists. Details: ' + accessLevel)
+
+            } catch (ResourceNotFoundException e) {
+                e.printStackTrace()
+                return accessLevelRepository.save(accessLevel)
+            }
+        } else
+            throw new ResourceNotValidException('AccessLevel is not valid')
+    }
+
+    @Override
+    AccessLevel update(short id, AccessLevel accessLevel) {
+        if (accessLevel) {
+            findById(id)
+            accessLevel.id = id
+            return accessLevelRepository.save(accessLevel)
+        } else
+            throw new ResourceNotValidException('AccessLevel is not valid')
+    }
+
+    @Override
+    void delete(short id) {
+        try {
+            def accessLevelFromDB = findById(id)
+            accessLevelRepository.delete(accessLevelFromDB)
+
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace()
+        }
+    }
+}
