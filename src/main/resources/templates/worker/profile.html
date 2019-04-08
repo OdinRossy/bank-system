@@ -55,8 +55,8 @@
                         <div class="title">
                             <i class="fas fa-user-circle"></i>
                             <h2>
-                                <span th:text="#{user.greeting.text}"></span>
-                                <span class="badge badge-success" th:text="${user.getUsername()}"></span>
+                                <span th:text="#{worker.greeting.text}"></span>
+                                <span class="badge badge-success" th:text="${worker.username}"></span>
                             </h2>
                         </div>
                         <div class="card">
@@ -64,37 +64,84 @@
                                 <ul class="nav nav-pills card-header-pills">
                                     <li class="nav-item">
                                         <a id="btn-general" class="nav-link active" href="#"
-                                           onclick="showCard('#general', '#btn-general')">Общая
-                                            информация</a>
+                                           onclick="showCard('#general', '#btn-general')">
+                                            <span th:text="#{worker.public.information}"></span>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a id="btn-personal" class="nav-link" href="#"
-                                           onclick="showCard('#personal', '#btn-personal')">Персональные
-                                            данные</a>
+                                           onclick="showCard('#personal', '#btn-personal')">
+                                            <span th:text="#{worker.private.information}"></span>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Редактировать</a>
+                                        <a class="nav-link">
+                                            <span th:text="#{worker.profile.edit}"></span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
+
                             <div id="general" class="card-body">
                                 <div class="user-info">
-                                    <h5>Фамилия: <span class="info-value" th:text="${user.getLastName()}"></span></h5>
-                                    <h5>Имя: <span class="info-value" th:text="${user.getFirstName()}"></span></h5>
-                                    <h5>Отчество: <span class="info-value" th:text="${user.getMiddleName()}"></span>
+                                    <h5>
+                                        <span th:text="#{passport.last.name}"></span>:
+                                        <span th:text="${worker.passport.lastName}"></span>
                                     </h5>
-                                    <h5>ID паспорта: <span class="info-value" th:text="${user.getIdPassport()}"></span>
+                                    <h5>
+                                        <span th:text="#{passport.first.name}"></span>:
+                                        <span th:text="${worker.passport.firstName}"></span>
                                     </h5>
-                                    <h5>Почта: <span class="info-value" th:text="${user.getUsername()}"></span></h5>
+                                    <h5>
+                                        <span th:text="#{passport.middle.name}"></span>:
+                                        <span th:text="${worker.passport.middleName}"></span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{worker.username}"></span>:
+                                        <span th:text="${worker.username}"></span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{worker.access.level}"></span>:
+                                        <span th:text="${worker.accessLevel.label}"></span>
+                                    </h5>
                                 </div>
                             </div>
 
                             <div id="personal" class="card-body" style="display: none">
                                 <div class="user-info">
-                                    <h5>Пароль: <span class="info-value" th:text="${user.getPassword()}"></span></h5>
-                                    <h5>Дата рождения:<span class="info-value"
-                                                            th:text="${user.getBirthDate().toLocaleString().substring(0, 10)}">
-                                    </span>
+                                    <h5>
+                                        <span th:text="#{passport.birth.date}"></span>:
+                                        <span th:text="${worker.passport.birthDate}"></span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{passport.gender.label}"></span>:
+                                        <span th:text="(${worker.passport.isMale} ?
+                                            #{passport.gender.male} : #{passport.gender.female})">
+                                        </span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{passport.id}"></span>:
+                                        <span th:text="${worker.passport.id}"></span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{passport.series}"></span>:
+                                        <span th:text="${worker.passport.series}"></span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{passport.number}"></span>:
+                                        <span th:text="${worker.passport.number}"></span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{passport.country.name}"></span>:
+                                        <span th:text="${worker.passport.countryName}"></span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{passport.date.of.issue}"></span>:
+                                        <span th:text="${worker.passport.dateOfIssue}"></span>
+                                    </h5>
+                                    <h5>
+                                        <span th:text="#{passport.date.of.expire}"></span>:
+                                        <span th:text="${worker.passport.dateOfExpire}"></span>
                                     </h5>
                                 </div>
                             </div>
@@ -104,25 +151,6 @@
             </div>
             <div class="col-md-1"></div>
         </div>
-        <!--        <footer>-->
-        <!--            <div style="font-size: 64px">-->
-        <!--                <a href="https://www.mastercard.by/ru-by.html" target="_blank">-->
-        <!--                    <i class="fab fa-cc-mastercard"></i>-->
-        <!--                </a>-->
-        <!--                <a href="https://cis.visa.com/ru_TJ" target="_blank">-->
-        <!--                    <i class="fab fa-cc-visa"></i>-->
-        <!--                </a>-->
-        <!--                <a href="https://pay.amazon.com" target="_blank">-->
-        <!--                    <i class="fab fa-cc-amazon-pay"></i>-->
-        <!--                </a>-->
-        <!--                <a href="https://www.apple.com/ru/apple-pay/" target="_blank">-->
-        <!--                    <i class="fab fa-cc-apple-pay"></i>-->
-        <!--                </a>-->
-        <!--                <a href="https://www.paypal.com/by/home" target="_blank">-->
-        <!--                    <i class="fab fa-cc-paypal"></i>-->
-        <!--                </a>-->
-        <!--            </div>-->
-        <!--        </footer>-->
         <script th:src="@{/js/jquery-3.3.1.js}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
                 integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -132,7 +160,7 @@
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
         <script th:src="@{/js/user/User.js}"></script>
-        <script th:src="@{/js/user/userService.js}"></script>
+        <script th:src="@{/js/user/workerService.js}"></script>
         <script th:src="@{/js/profile/profileController.js}"></script>
     </body>
 </html>
