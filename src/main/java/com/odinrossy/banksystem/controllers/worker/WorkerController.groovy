@@ -1,33 +1,32 @@
 package com.odinrossy.banksystem.controllers.worker
 
-import com.odinrossy.banksystem.exceptions.user.UserNotAuthorizedException
-import com.odinrossy.banksystem.exceptions.user.UserNotFoundException
+import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.services.security.AuthorizationService
-import com.odinrossy.banksystem.services.user.UserService
+import com.odinrossy.banksystem.services.worker.WorkerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.server.ResponseStatusException
 
 @Controller
 @RequestMapping("/worker")
 class WorkerController {
 
-    private final UserService userService
-    private final AuthorizationService authorizationService
+    @Autowired
+    WorkerService workerService
 
     @Autowired
-    WorkerController(UserService userService, AuthorizationService authorizationService) {
-        this.userService = userService
-        this.authorizationService = authorizationService
-    }
+    AuthorizationService authorizationService
+
 
     @RequestMapping("/authenticate")
-    String authenticate(@RequestParam String idPassport, @RequestParam String password) {
+    String authenticate(@RequestParam String username, @RequestParam String password) {
         try {
-            userService.findByIdPassportAndPassword(idPassport, password)
+            workerService.findByUsernameAndPassword(username, password)
             return "redirect:/worker/profile"
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -38,10 +37,10 @@ class WorkerController {
     @GetMapping('/profile')
     String index(Model model) {
         try {
-            userService.checkAuthorization()
-            model.addAttribute("user", authorizationService.getUserFromSession())
+            workerService.checkAuthorization()
+            model.addAttribute("worker", (Worker) authorizationService.getWorkerFromSession())
             return "worker/profile"
-        } catch (UserNotFoundException | UserNotAuthorizedException e) {
+        } catch (RuntimeException e) {
             e.printStackTrace()
             return "redirect:/worker/logIn"
         }
@@ -59,7 +58,7 @@ class WorkerController {
 
     @RequestMapping("logOut")
     String logOut() {
-        authorizationService.removeUserFromSession()
+        authorizationService.removeWorkerFromSession()
         return "redirect:/"
     }
 }
