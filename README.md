@@ -17,3 +17,5 @@ mvn spring-boot:run
 * Internationalisation (i18n)
 * [Bootstrap](https://getbootstrap.com/docs/4.3/examples/)
 * [git](https://git-scm.com)
+
+##Developed by [OdinRossy](https://odinrossy.github.io).
