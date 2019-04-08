@@ -24,7 +24,7 @@ function submitForm() {
             idRole.val()
         );
 
-        console.info('Saving user..');
+        console.info('Saving worker..');
         console.info(user);
 
         userService.save(user);
