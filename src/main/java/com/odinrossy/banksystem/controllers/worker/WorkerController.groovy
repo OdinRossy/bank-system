@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.server.ResponseStatusException
 
+import java.text.SimpleDateFormat
+
 @Controller
 @RequestMapping("/worker")
 class WorkerController {
@@ -37,8 +39,17 @@ class WorkerController {
     @GetMapping('/profile')
     String index(Model model) {
         try {
+            Worker worker = authorizationService.getWorkerFromSession()
             workerService.checkAuthorization()
-            model.addAttribute("worker", (Worker) authorizationService.getWorkerFromSession())
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat('dd.MM.yyyy')
+
+            Map<String, String> dates = new HashMap()
+            dates.put('dateOfIssue', simpleDateFormat.format(worker.passport.dateOfIssue))
+            dates.put('dateOfExpire', simpleDateFormat.format(worker.passport.dateOfExpire))
+            dates.put('birthDate', simpleDateFormat.format(worker.passport.birthDate))
+
+            model.addAllAttributes(dates)
+            model.addAttribute("worker", (Worker) worker)
             return "worker/profile"
         } catch (RuntimeException e) {
             e.printStackTrace()
