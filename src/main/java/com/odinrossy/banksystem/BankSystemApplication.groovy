@@ -8,13 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 @SpringBootApplication
 class BankSystemApplication {
 
-    private final static Logger logger = LoggerFactory.getLogger(BankSystemApplication.class)
+    private final static Logger log = LoggerFactory.getLogger(this.class)
 
     private final static url = 'http://localhost:9090/bank-system'
 
     static void main(String[] args) {
         SpringApplication.run(BankSystemApplication.class, args)
-        logger.info(url)
+        log.info(url)
     }
 
 }

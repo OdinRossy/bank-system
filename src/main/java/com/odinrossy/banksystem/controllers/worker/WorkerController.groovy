@@ -3,6 +3,8 @@ package com.odinrossy.banksystem.controllers.worker
 import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.services.security.AuthorizationService
 import com.odinrossy.banksystem.services.worker.WorkerService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
@@ -17,6 +19,8 @@ import java.text.SimpleDateFormat
 @Controller
 @RequestMapping("/worker")
 class WorkerController {
+
+    private final static Logger log = LoggerFactory.getLogger(WorkerController.class)
 
     @Autowired
     WorkerService workerService

@@ -3,6 +3,8 @@ package com.odinrossy.banksystem.controllers.worker
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
 import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.services.worker.WorkerService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -12,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException
 @RestController
 @RequestMapping(value = '/api/worker')
 class WorkerRestController {
+
+    private final static Logger log = LoggerFactory.getLogger(this.class)
 
     @Autowired
     WorkerService workerService

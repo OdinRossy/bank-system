@@ -3,6 +3,8 @@ package com.odinrossy.banksystem.controllers.passport
 
 import com.odinrossy.banksystem.models.passport.Passport
 import com.odinrossy.banksystem.services.passport.PassportService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -12,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException
 @RestController
 @RequestMapping(value = '/api/passport')
 class PassportRestController {
+
+    private final static Logger log = LoggerFactory.getLogger(PassportRestController.class)
 
     @Autowired
     PassportService passportService
