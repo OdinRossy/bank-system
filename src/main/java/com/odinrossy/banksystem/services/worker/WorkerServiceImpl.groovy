@@ -3,6 +3,7 @@ package com.odinrossy.banksystem.services.worker
 import com.odinrossy.banksystem.exceptions.ResourceAlreadyExistsException
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
 import com.odinrossy.banksystem.exceptions.ResourceNotValidException
+import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
 import com.odinrossy.banksystem.exceptions.worker.WrongPasswordException
 import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.repositories.worker.WorkerRepository
@@ -125,10 +126,9 @@ class WorkerServiceImpl implements WorkerService {
     @Override
     void checkAuthorization() throws RuntimeException {
         log.debug('Checking authorization..')
-        Worker currentUser = authorizationService.getWorkerFromSession()
 
-        if (!currentUser)
-            throw new RuntimeException("Worker is not authorized.")
+        if (!authorizationService.getWorkerFromSession())
+            throw new WorkerNotAuthorizedException("Worker is not authorized.")
     }
 }
 

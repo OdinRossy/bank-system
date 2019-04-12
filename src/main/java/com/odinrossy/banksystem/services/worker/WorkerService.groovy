@@ -1,6 +1,7 @@
 package com.odinrossy.banksystem.services.worker
 
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
+import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
 import com.odinrossy.banksystem.exceptions.worker.WrongPasswordException
 import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.services.ApplicationService
@@ -24,6 +25,6 @@ interface WorkerService extends ApplicationService{
 
     void delete(long id)
 
-    void checkAuthorization()
+    void checkAuthorization() throws WorkerNotAuthorizedException
 
 }

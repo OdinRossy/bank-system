@@ -1,5 +1,7 @@
 package com.odinrossy.banksystem.controllers.worker
 
+import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
+import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
 import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.services.security.AuthorizationService
 import com.odinrossy.banksystem.services.worker.WorkerService
@@ -17,7 +19,7 @@ import org.springframework.web.server.ResponseStatusException
 import java.text.SimpleDateFormat
 
 @Controller
-@RequestMapping("/worker")
+@RequestMapping(value = "/worker")
 class WorkerController {
 
     private final static Logger log = LoggerFactory.getLogger(WorkerController.class)
@@ -30,21 +32,24 @@ class WorkerController {
 
 
     @RequestMapping("/authenticate")
-    String authenticate(@RequestParam String username, @RequestParam String password) {
+    def authenticate(@RequestParam String username, @RequestParam String password) {
         try {
             workerService.findByUsernameAndPassword(username, password)
             return "redirect:/worker/profile"
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.localizedMessage)
         } catch (RuntimeException e) {
             e.printStackTrace()
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.localizedMessage)
         }
     }
 
     @GetMapping('/profile')
-    String index(Model model) {
+    def index(Model model) {
         try {
-            Worker worker = authorizationService.getWorkerFromSession()
             workerService.checkAuthorization()
+            Worker worker = authorizationService.getWorkerFromSession()
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat('dd.MM.yyyy')
 
             Map<String, String> dates = new HashMap()
@@ -55,9 +60,12 @@ class WorkerController {
             model.addAllAttributes(dates)
             model.addAttribute("worker", (Worker) worker)
             return "worker/profile"
-        } catch (RuntimeException e) {
+        } catch (WorkerNotAuthorizedException e) {
             e.printStackTrace()
             return "redirect:/worker/logIn"
+        } catch (RuntimeException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.localizedMessage)
         }
     }
 
@@ -72,8 +80,16 @@ class WorkerController {
     }
 
     @RequestMapping("logOut")
-    String logOut() {
-        authorizationService.removeWorkerFromSession()
-        return "redirect:/"
+    def logOut() {
+        try {
+            authorizationService.removeWorkerFromSession()
+            workerService.checkAuthorization()
+        } catch (WorkerNotAuthorizedException e) {
+            e.printStackTrace()
+            return 'redirect:/'
+        } catch (RuntimeException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.localizedMessage)
+        }
     }
 }
