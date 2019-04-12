@@ -3,10 +3,11 @@ package com.odinrossy.banksystem.services.worker
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
 import com.odinrossy.banksystem.exceptions.worker.WrongPasswordException
 import com.odinrossy.banksystem.models.worker.Worker
+import com.odinrossy.banksystem.services.ApplicationService
 import org.springframework.stereotype.Service
 
 @Service
-interface WorkerService {
+interface WorkerService extends ApplicationService{
 
     List<Worker> findAll()
 

@@ -1,10 +1,11 @@
 package com.odinrossy.banksystem.services.accessLevel
 
 import com.odinrossy.banksystem.models.accessLevel.AccessLevel
+import com.odinrossy.banksystem.services.ApplicationService
 import org.springframework.stereotype.Service
 
 @Service
-interface AccessLevelService {
+interface AccessLevelService extends ApplicationService {
 
     List<AccessLevel> findAll()
 

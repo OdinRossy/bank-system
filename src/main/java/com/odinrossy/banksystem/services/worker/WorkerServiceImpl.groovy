@@ -7,15 +7,12 @@ import com.odinrossy.banksystem.exceptions.worker.WrongPasswordException
 import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.repositories.worker.WorkerRepository
 import com.odinrossy.banksystem.services.security.AuthorizationService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service(value = 'WorkerService')
 class WorkerServiceImpl implements WorkerService {
 
-    private final static Logger logger = LoggerFactory.getLogger(WorkerServiceImpl.class)
 
     @Autowired
     WorkerRepository workerRepository
@@ -30,7 +27,7 @@ class WorkerServiceImpl implements WorkerService {
 
     @Override
     Worker findById(long id) throws RuntimeException {
-        logger.info('...........findById: ' + id)
+        log.info('FindById: ' + id)
 
         Worker worker = workerRepository.findById(id)
 
@@ -42,23 +39,22 @@ class WorkerServiceImpl implements WorkerService {
 
     @Override
     Worker findByUsername(String username) throws RuntimeException {
-        logger.info('...........findByUsername: ' + username)
+        log.info('FindByUsername: ' + username)
 
         Worker worker = workerRepository.findByUsername(username)
 
         if (!worker)
             throw new ResourceNotFoundException('Worker not found. Worker username: ' + username)
         else
-            logger.info('...........Worker found. Worker information: ' + worker)
+            log.info('Worker found. Worker information: ' + worker)
 
         return worker
     }
 
-//    todo
     @Override
     Worker findByUsernameAndPassword(String username, String password)
             throws ResourceNotFoundException, WrongPasswordException {
-        logger.info('...........findByUsernameAndPassword: ' + username + ' ' + password)
+        log.info('FindByUsernameAndPassword: ' + username + ' ' + password)
 
         findByUsername(username)
 
@@ -66,7 +62,7 @@ class WorkerServiceImpl implements WorkerService {
 
         if (worker) {
             authorizationService.putWorkerInSession(worker)
-            logger.info('...........Worker authorized in session. Worker info: '+ worker)
+            log.info('Worker authorized in session. Worker info: '+ worker)
             return worker
         } else
             throw new WrongPasswordException("Invalid worker passport. ")
@@ -74,7 +70,7 @@ class WorkerServiceImpl implements WorkerService {
 
     @Override
     Worker save(Worker worker) throws RuntimeException {
-        logger.info('...........save: ' + worker)
+        log.info('save: ' + worker)
         if (worker) {
             try {
                 findById(worker.id)
@@ -84,7 +80,7 @@ class WorkerServiceImpl implements WorkerService {
                 e.printStackTrace()
                 worker = workerRepository.save(worker)
 
-                logger.info('...........Worker saved. Worker information: ' + worker)
+                log.info('Worker saved. Worker information: ' + worker)
                 authorizationService.putWorkerInSession(worker)
 
                 return worker
@@ -96,7 +92,7 @@ class WorkerServiceImpl implements WorkerService {
 
     @Override
     Worker update(long id, Worker worker) throws RuntimeException {
-        logger.debug('update: ' +  id + ' ' + worker)
+        log.debug('update: ' +  id + ' ' + worker)
         if (worker) {
 
             findById(id)
@@ -104,7 +100,7 @@ class WorkerServiceImpl implements WorkerService {
             worker.id = id
             worker = workerRepository.save(worker)
 
-            logger.info('...........Worker updated. Worker information: ' + worker)
+            log.info('Worker updated. Worker information: ' + worker)
             authorizationService.putWorkerInSession(worker)
 
             return worker
@@ -115,12 +111,12 @@ class WorkerServiceImpl implements WorkerService {
 
     @Override
     void delete(long id) {
-        logger.debug('delete: ' +  id)
+        log.debug('delete: ' +  id)
 
         Worker worker = findById(id)
 
         workerRepository.deleteById(id)
-        logger.info('...........Worker deleted. Worker information: ' + worker)
+        log.info('Worker deleted. Worker information: ' + worker)
 
         if (worker == authorizationService.getWorkerFromSession())
             authorizationService.removeWorkerFromSession()
@@ -128,7 +124,9 @@ class WorkerServiceImpl implements WorkerService {
 
     @Override
     void checkAuthorization() throws RuntimeException {
+        log.debug('Checking authorization..')
         Worker currentUser = authorizationService.getWorkerFromSession()
+
         if (!currentUser)
             throw new RuntimeException("Worker is not authorized.")
     }
