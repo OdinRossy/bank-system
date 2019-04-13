@@ -79,6 +79,7 @@ class WorkerServiceImpl implements WorkerService {
 
             } catch (ResourceNotFoundException e) {
                 e.printStackTrace()
+//                todo java.lang.IllegalStateException: org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : com.odinrossy.banksystem.models.worker.Worker.passport -> com.odinrossy.banksystem.models.passport.Passport
                 worker = workerRepository.save(worker)
 
                 log.info('Worker saved. Worker information: ' + worker)
