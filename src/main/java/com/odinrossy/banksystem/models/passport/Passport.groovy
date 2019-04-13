@@ -1,12 +1,17 @@
 package com.odinrossy.banksystem.models.passport
 
+import com.odinrossy.banksystem.models.registration.Registration
 import com.odinrossy.banksystem.models.worker.Worker
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
+import org.springframework.lang.NonNull
 
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
 import javax.persistence.Table
 import javax.validation.constraints.NotNull
@@ -47,6 +52,9 @@ class Passport {
     @NotNull
     String countryName
 
+    @NonNull
+    String birthPlace
+
     @NotNull
     boolean isMale
 
@@ -57,6 +65,12 @@ class Passport {
             cascade =  CascadeType.ALL,
             mappedBy = "passport")
     private Worker worker
+
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "registration_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Registration registration
 
     @Override
     String toString() {
@@ -70,8 +84,10 @@ class Passport {
                 ", dateOfIssue=" + dateOfIssue +
                 ", dateOfExpire=" + dateOfExpire +
                 ", countryName='" + countryName + '\'' +
+                ", birthPlace='" + birthPlace + '\'' +
                 ", isMale=" + isMale +
                 ", birthDate=" + birthDate +
+                ", registration=" + registration +
                 '}'
     }
 }
