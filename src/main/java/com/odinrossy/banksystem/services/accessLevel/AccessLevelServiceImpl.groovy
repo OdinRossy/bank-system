@@ -48,6 +48,7 @@ class AccessLevelServiceImpl implements AccessLevelService {
 
             } catch (ResourceNotFoundException e) {
                 e.printStackTrace()
+//                todo catch java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'Plain worker' for key 'UK_9lt2v43i3s8235emubg2iudef'
                 return accessLevelRepository.save(accessLevel)
             }
         } else
