@@ -1,25 +1,31 @@
-package com.odinrossy.banksystem.controllers.passport
+package com.odinrossy.banksystem.controllers.address
 
-
-import com.odinrossy.banksystem.models.passport.Passport
-import com.odinrossy.banksystem.services.passport.PassportService
+import com.odinrossy.banksystem.models.address.Address
+import com.odinrossy.banksystem.services.address.AddressService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/passport')
-class PassportRestController {
+@RequestMapping(value = '/api/address')
+class AddressRestController {
 
     @Autowired
-    PassportService passportService
+    AddressService addressService
 
     @GetMapping
-    List<Passport> getAll() {
+    List<Address> getAllAddresses() {
         try {
-            return passportService.findAll()
+            return addressService.findAll()
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -28,9 +34,9 @@ class PassportRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Passport getById(@PathVariable String id) {
+    Address getAddress(@PathVariable long id) {
         try {
-            return passportService.findById(id)
+            return addressService.findById(id)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -39,9 +45,9 @@ class PassportRestController {
     }
 
     @PostMapping
-    Passport create(@RequestBody Passport passport) {
+    Address createAddress(@RequestBody Address address) {
         try {
-            return passportService.save(passport)
+            return addressService.save(address)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -50,9 +56,9 @@ class PassportRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Passport update(@PathVariable String id, @RequestBody Passport passport) {
+    Address updateAddress(@PathVariable long id, @RequestBody Address address) {
         try {
-            return passportService.update(id, passport)
+            return addressService.update(id, address)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -61,9 +67,9 @@ class PassportRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity delete(@PathVariable String id) {
+    ResponseEntity deleteAddress(@PathVariable long id) {
         try {
-            passportService.delete(id)
+            addressService.delete(id)
             return ResponseEntity.ok().build()
 
         } catch (RuntimeException e) {

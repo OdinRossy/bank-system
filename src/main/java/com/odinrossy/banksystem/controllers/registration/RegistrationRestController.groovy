@@ -1,7 +1,7 @@
-package com.odinrossy.banksystem.controllers.accessLevel
+package com.odinrossy.banksystem.controllers.registration
 
-import com.odinrossy.banksystem.models.accessLevel.AccessLevel
-import com.odinrossy.banksystem.services.accessLevel.AccessLevelService
+import com.odinrossy.banksystem.models.registration.Registration
+import com.odinrossy.banksystem.services.registration.RegistrationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/accessLevel')
-class AccessLevelRestController {
+@RequestMapping(value = '/api/registration')
+class RegistrationRestController {
 
     @Autowired
-    AccessLevelService accessLevelService
+    RegistrationService registrationService
 
     @GetMapping
-    List<AccessLevel> getAsList() {
+    List<Registration> getAllRegistrations() {
         try {
-            return accessLevelService.findAll()
+            return registrationService.findAll()
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -34,9 +34,9 @@ class AccessLevelRestController {
     }
 
     @GetMapping(value = '/{id}')
-    AccessLevel getWorker(@PathVariable short id) {
+    Registration getRegistration(@PathVariable long id) {
         try {
-            return accessLevelService.findById(id)
+            return registrationService.findById(id)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -45,9 +45,9 @@ class AccessLevelRestController {
     }
 
     @PostMapping
-    AccessLevel createAccessLevel(@RequestBody AccessLevel accessLevel) {
+    Registration createRegistration(@RequestBody Registration registration) {
         try {
-            return accessLevelService.save(accessLevel)
+            return registrationService.save(registration)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -56,9 +56,9 @@ class AccessLevelRestController {
     }
 
     @PutMapping(value = '/{id}')
-    AccessLevel updateAccessLevel(@PathVariable short id, @RequestBody AccessLevel accessLevel) {
+    Registration updateRegistration(@PathVariable long id, @RequestBody Registration registration) {
         try {
-            return accessLevelService.update(id, accessLevel)
+            return registrationService.update(id, registration)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -67,9 +67,9 @@ class AccessLevelRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity deleteAccessLevel(@PathVariable short id) {
+    ResponseEntity deleteRegistration(@PathVariable long id) {
         try {
-            accessLevelService.delete(id)
+            registrationService.delete(id)
             return ResponseEntity.ok().build()
 
         } catch (RuntimeException e) {
@@ -77,4 +77,5 @@ class AccessLevelRestController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
         }
     }
+
 }
