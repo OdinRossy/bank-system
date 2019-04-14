@@ -1,5 +1,6 @@
 package com.odinrossy.banksystem.models.client
 
+import com.odinrossy.banksystem.models.address.Address
 import com.odinrossy.banksystem.models.passport.Passport
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 import javax.persistence.Table
 import javax.validation.constraints.NotNull
@@ -31,6 +33,23 @@ class Client {
     @OnDelete(action = OnDeleteAction.CASCADE)
     Passport passport
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = 'address_id')
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Address address
+
+    @Column(unique = true)
+    @NotNull
+    String mobilePhoneNumber
+
+    @NotNull
+    String homePhoneNumber
+
+    @Column(unique = true)
+    @NotNull
+    String email
+
     @NonNull
     boolean isDisabled
 
@@ -39,6 +58,13 @@ class Client {
 
     @NonNull
     boolean isBoundToMilitaryService
+
+    @NotNull
+    boolean isEmployed
+
+    String companyName
+
+    String position
 
 //    todo replace with BigDecimal
     @NonNull
@@ -49,9 +75,16 @@ class Client {
         return "Client{" +
                 "id=" + id +
                 ", passport=" + passport +
+                ", address=" + address +
+                ", mobilePhoneNumber=" + mobilePhoneNumber +
+                ", homePhoneNumber=" + homePhoneNumber +
+                ", email='" + email + '\'' +
                 ", isDisabled=" + isDisabled +
                 ", isRetiree=" + isRetiree +
                 ", isBoundToMilitaryService=" + isBoundToMilitaryService +
+                ", isEmployed=" + isEmployed +
+                ", companyName='" + companyName + '\'' +
+                ", position='" + position + '\'' +
                 ", incomePerMonth=" + incomePerMonth +
                 '}'
     }
