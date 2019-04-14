@@ -20,6 +20,6 @@ interface AddressService extends LoggerService {
 
     Address update(long id, Address address) throws ResourceNotFoundException, ResourceNotValidException
 
-    void delete(long id) throws ResourceNotFoundException
+    def delete(long id) throws ResourceNotFoundException
 
 }

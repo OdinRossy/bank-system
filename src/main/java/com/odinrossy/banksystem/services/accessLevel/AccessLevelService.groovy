@@ -17,6 +17,6 @@ interface AccessLevelService extends LoggerService {
 
     AccessLevel update(short id, AccessLevel accessLevel)
 
-    void delete(short id)
+    def delete(short id)
 
 }

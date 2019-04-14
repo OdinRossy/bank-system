@@ -79,13 +79,14 @@ class WorkerServiceImpl implements WorkerService {
 
             } catch (ResourceNotFoundException e) {
                 e.printStackTrace()
-//                todo java.lang.IllegalStateException: org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : com.odinrossy.banksystem.models.worker.Worker.passport -> com.odinrossy.banksystem.models.passport.Passport
+
                 worker = workerRepository.save(worker)
+                Worker workerFromDb = findById(worker.id)
 
-                log.info('Worker saved. Worker information: ' + worker)
-                authorizationService.putWorkerInSession(worker)
+                log.info('Worker saved. Worker information: ' + workerFromDb)
+                authorizationService.putWorkerInSession(workerFromDb)
 
-                return worker
+                return workerFromDb
             }
 
         } else
@@ -101,23 +102,24 @@ class WorkerServiceImpl implements WorkerService {
 
             worker.id = id
             worker = workerRepository.save(worker)
+            Worker workerFromDb = findById(worker.id)
 
-            log.info('Worker updated. Worker information: ' + worker)
-            authorizationService.putWorkerInSession(worker)
+            log.info('Worker updated. Worker information: ' + workerFromDb)
+            authorizationService.putWorkerInSession(workerFromDb)
 
-            return worker
+            return workerFromDb
 
         } else
             throw new ResourceNotValidException('Worker is not valid')
     }
 
     @Override
-    void delete(long id) {
+    def delete(long id) {
         log.debug('delete: ' +  id)
 
         Worker worker = findById(id)
 
-        workerRepository.deleteById(id)
+        workerRepository.delete(worker)
         log.info('Worker deleted. Worker information: ' + worker)
 
         if (worker == authorizationService.getWorkerFromSession())

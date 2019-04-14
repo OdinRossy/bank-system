@@ -62,7 +62,8 @@ class AddressServiceImpl implements AddressService {
                 throw new ResourceNotValidException("Address not valid. ${address}")
             }
 
-            return addressRepository.save(address)
+            address = addressRepository.save(address)
+            return findById(address.id)
         }
     }
 
@@ -77,15 +78,13 @@ class AddressServiceImpl implements AddressService {
             throw new ResourceNotValidException("Address not valid. ${address}")
         }
 
-        return addressRepository.save(address)
+        address = addressRepository.save(address)
+        return findById(address.id)
     }
 
     @Override
-    void delete(long id) throws ResourceNotFoundException {
+    def delete(long id) throws ResourceNotFoundException {
         log.debug("delete, id: ${id}.")
-
-        Address addressFromDB = findById(id)
-
-        addressRepository.delete(addressFromDB)
+        addressRepository.delete(findById(id))
     }
 }

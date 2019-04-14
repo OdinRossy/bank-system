@@ -30,31 +30,33 @@ class PassportServiceImpl implements PassportService {
 
     @Override
     Passport save(Passport passport) throws ResourceNotValidException {
-        if (passport) {
-            try {
-                findById(passport.id)
-                throw new ResourceAlreadyExistsException('Passport already exists. Passport: ' + passport)
+        try {
+            findById(passport.id)
+            throw new ResourceAlreadyExistsException('Passport already exists. Passport: ' + passport)
 
-            } catch (ResourceNotFoundException ignored) {
-                return passportRepository.save(passport)
+        } catch (ResourceNotFoundException ignored) {
+            if (!passport)
+                throw new ResourceNotValidException("Passport is not valid. ${passport}.")
 
-            }
-        } else throw new ResourceNotValidException('Passport is not valid')
+            passport = passportRepository.save(passport)
+            return findById(passport.id)
+        }
     }
 
     @Override
     Passport update(String id, Passport passport) throws ResourceNotFoundException, ResourceNotValidException {
-        if (passport) {
-            passport.id = id
-            findById(passport.id)
+        passport.id = id
+        findById(passport.id)
 
-            return passportRepository.save(passport)
+        if (!passport)
+            throw new ResourceNotValidException("Passport is not valid. ${passport}.")
 
-        } else throw new ResourceNotValidException('Passport is not valid')
+        passport = passportRepository.save(passport)
+        return findById(passport.id)
     }
 
     @Override
-    void delete(String id) throws ResourceNotFoundException {
+    def delete(String id) throws ResourceNotFoundException {
         passportRepository.delete(findById(id))
     }
 }

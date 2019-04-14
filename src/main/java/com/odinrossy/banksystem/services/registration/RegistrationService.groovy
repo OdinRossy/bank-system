@@ -20,6 +20,6 @@ interface RegistrationService extends LoggerService {
 
     Registration update(long id, Registration registration) throws ResourceNotFoundException, ResourceNotValidException
 
-    void delete(long id) throws ResourceNotFoundException
+    def delete(long id) throws ResourceNotFoundException
 
 }

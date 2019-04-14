@@ -49,8 +49,8 @@ class ClientServiceImpl implements ClientService {
                 throw new ResourceNotValidException("Client not valid. ${client}")
             }
 
-//            todo return findById(client.id) will better
-            return clientRepository.save(client)
+            client = clientRepository.save(client)
+            return findById(client.id)
         }
     }
 
@@ -65,15 +65,15 @@ class ClientServiceImpl implements ClientService {
             throw new ResourceNotValidException("Client not valid. ${client}")
         }
 
-        return clientRepository.save(client)
+        client = clientRepository.save(client)
+        return findById(client.id)
     }
 
     @Override
     def delete(long id) throws ResourceNotFoundException {
         log.debug("delete, id: ${id}.")
 
-        Client registrationFromDB = findById(id)
-        clientRepository.delete(registrationFromDB)
+        clientRepository.delete(findById(id))
     }
 
 }

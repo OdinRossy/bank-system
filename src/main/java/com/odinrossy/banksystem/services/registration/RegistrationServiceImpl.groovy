@@ -57,9 +57,9 @@ class RegistrationServiceImpl implements RegistrationService {
             if (!registration) {
                 throw new ResourceNotValidException("Registration not valid. ${registration}")
             }
+            registration = registrationRepository.save(registration)
 
-//            todo return findById(registration.id) will better
-            return registrationRepository.save(registration)
+            return findById(registration.id)
         }
     }
 
@@ -74,15 +74,16 @@ class RegistrationServiceImpl implements RegistrationService {
             throw new ResourceNotValidException("Registration not valid. ${registration}")
         }
 
-        return registrationRepository.save(registration)
+        registration = registrationRepository.save(registration)
+
+        return findById(registration.id)
     }
 
     @Override
-    void delete(long id) throws ResourceNotFoundException {
+    def delete(long id) throws ResourceNotFoundException {
         log.debug("delete, id: ${id}.")
 
-        Registration registrationFromDB = findById(id)
-        registrationRepository.delete(registrationFromDB)
+        registrationRepository.delete(findById(id))
     }
 
 }

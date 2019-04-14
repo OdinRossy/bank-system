@@ -17,5 +17,6 @@ interface PassportService extends LoggerService {
 
     Passport update(String id, Passport passport) throws ResourceNotFoundException, ResourceNotValidException
 
-    void delete(String id) throws ResourceNotFoundException
+    def delete(String id) throws ResourceNotFoundException
+
 }

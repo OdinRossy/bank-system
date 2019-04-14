@@ -41,32 +41,36 @@ class AccessLevelServiceImpl implements AccessLevelService {
 
     @Override
     AccessLevel save(AccessLevel accessLevel) {
-        if (accessLevel) {
             try {
                 findById(accessLevel.id)
                 throw new ResourceAlreadyExistsException('AccessLevel already exists. Details: ' + accessLevel)
 
-            } catch (ResourceNotFoundException e) {
-                e.printStackTrace()
+            } catch (ResourceNotFoundException ignored) {
+                if (!accessLevel)
+                    throw new ResourceNotValidException('AccessLevel is not valid')
+
 //                todo catch java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'Plain worker' for key 'UK_9lt2v43i3s8235emubg2iudef'
-                return accessLevelRepository.save(accessLevel)
+                accessLevel = accessLevelRepository.save(accessLevel)
+                return findById(accessLevel.id)
             }
-        } else
-            throw new ResourceNotValidException('AccessLevel is not valid')
+
     }
 
     @Override
     AccessLevel update(short id, AccessLevel accessLevel) {
-        if (accessLevel) {
-            findById(id)
-            accessLevel.id = id
-            return accessLevelRepository.save(accessLevel)
-        } else
+        accessLevel.id = id
+        findById(accessLevel.id)
+
+
+        if (!accessLevel)
             throw new ResourceNotValidException('AccessLevel is not valid')
+
+        accessLevel = accessLevelRepository.save(accessLevel)
+        return findById(accessLevel.id)
     }
 
     @Override
-    void delete(short id) {
+    def delete(short id) {
         try {
             def accessLevelFromDB = findById(id)
             accessLevelRepository.delete(accessLevelFromDB)

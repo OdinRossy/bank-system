@@ -23,7 +23,7 @@ interface WorkerService extends LoggerService{
 
     Worker update(long id, Worker user)
 
-    void delete(long id)
+    def delete(long id)
 
     void checkAuthorization() throws WorkerNotAuthorizedException
 
