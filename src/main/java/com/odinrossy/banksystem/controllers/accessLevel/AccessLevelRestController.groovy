@@ -23,7 +23,7 @@ class AccessLevelRestController {
     AccessLevelService accessLevelService
 
     @GetMapping
-    List<AccessLevel> getAsList() {
+    List<AccessLevel> findAll() {
         try {
             return accessLevelService.findAll()
 
@@ -34,7 +34,7 @@ class AccessLevelRestController {
     }
 
     @GetMapping(value = '/{id}')
-    AccessLevel getWorker(@PathVariable short id) {
+    AccessLevel findById(@PathVariable short id) {
         try {
             return accessLevelService.findById(id)
 
@@ -45,7 +45,7 @@ class AccessLevelRestController {
     }
 
     @PostMapping
-    AccessLevel createAccessLevel(@RequestBody AccessLevel accessLevel) {
+    AccessLevel create(@RequestBody AccessLevel accessLevel) {
         try {
             return accessLevelService.save(accessLevel)
 
@@ -56,7 +56,7 @@ class AccessLevelRestController {
     }
 
     @PutMapping(value = '/{id}')
-    AccessLevel updateAccessLevel(@PathVariable short id, @RequestBody AccessLevel accessLevel) {
+    AccessLevel update(@PathVariable short id, @RequestBody AccessLevel accessLevel) {
         try {
             return accessLevelService.update(id, accessLevel)
 
@@ -67,7 +67,7 @@ class AccessLevelRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity deleteAccessLevel(@PathVariable short id) {
+    ResponseEntity delete(@PathVariable short id) {
         try {
             accessLevelService.delete(id)
             return ResponseEntity.ok().build()

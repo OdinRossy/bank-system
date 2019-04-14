@@ -23,7 +23,7 @@ class AddressRestController {
     AddressService addressService
 
     @GetMapping
-    List<Address> getAllAddresses() {
+    List<Address> findAll() {
         try {
             return addressService.findAll()
 
@@ -34,7 +34,7 @@ class AddressRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Address getAddress(@PathVariable long id) {
+    Address findById(@PathVariable long id) {
         try {
             return addressService.findById(id)
 
@@ -45,7 +45,7 @@ class AddressRestController {
     }
 
     @PostMapping
-    Address createAddress(@RequestBody Address address) {
+    Address create(@RequestBody Address address) {
         try {
             return addressService.save(address)
 
@@ -56,7 +56,7 @@ class AddressRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Address updateAddress(@PathVariable long id, @RequestBody Address address) {
+    Address update(@PathVariable long id, @RequestBody Address address) {
         try {
             return addressService.update(id, address)
 
@@ -67,7 +67,7 @@ class AddressRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity deleteAddress(@PathVariable long id) {
+    ResponseEntity delete(@PathVariable long id) {
         try {
             addressService.delete(id)
             return ResponseEntity.ok().build()

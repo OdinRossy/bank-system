@@ -15,13 +15,11 @@ import org.springframework.web.server.ResponseStatusException
 @RequestMapping(value = '/api/worker')
 class WorkerRestController {
 
-    private final static Logger log = LoggerFactory.getLogger(this.class)
-
     @Autowired
     WorkerService workerService
 
     @GetMapping
-    List<Worker> getWorkersAsList() {
+    List<Worker> findAll() {
         try {
             return workerService.findAll()
 
@@ -32,7 +30,7 @@ class WorkerRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Worker getWorker(@PathVariable long id) {
+    Worker findById(@PathVariable long id) {
         try {
             return workerService.findById(id)
 
@@ -47,7 +45,7 @@ class WorkerRestController {
     }
 
     @PostMapping
-    Worker createWorker(@RequestBody Worker worker) {
+    Worker create(@RequestBody Worker worker) {
         try {
             return workerService.save(worker)
 
@@ -58,7 +56,7 @@ class WorkerRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Worker updateWorker(@PathVariable long id, @RequestBody Worker worker) {
+    Worker update(@PathVariable long id, @RequestBody Worker worker) {
         try {
             return workerService.update(id, worker)
 
@@ -73,7 +71,7 @@ class WorkerRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity deleteWorker(@PathVariable long id) {
+    ResponseEntity delete(@PathVariable long id) {
         try {
             workerService.delete(id)
             return ResponseEntity.ok().build()

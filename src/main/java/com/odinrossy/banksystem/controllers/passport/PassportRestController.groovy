@@ -17,7 +17,7 @@ class PassportRestController {
     PassportService passportService
 
     @GetMapping
-    List<Passport> getAll() {
+    List<Passport> findAll() {
         try {
             return passportService.findAll()
 
@@ -28,7 +28,7 @@ class PassportRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Passport getById(@PathVariable String id) {
+    Passport findById(@PathVariable String id) {
         try {
             return passportService.findById(id)
 

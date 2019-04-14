@@ -23,7 +23,7 @@ class RegistrationRestController {
     RegistrationService registrationService
 
     @GetMapping
-    List<Registration> getAllRegistrations() {
+    List<Registration> findAll() {
         try {
             return registrationService.findAll()
 
@@ -34,7 +34,7 @@ class RegistrationRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Registration getRegistration(@PathVariable long id) {
+    Registration findById(@PathVariable long id) {
         try {
             return registrationService.findById(id)
 
@@ -45,7 +45,7 @@ class RegistrationRestController {
     }
 
     @PostMapping
-    Registration createRegistration(@RequestBody Registration registration) {
+    Registration create(@RequestBody Registration registration) {
         try {
             return registrationService.save(registration)
 
@@ -56,7 +56,7 @@ class RegistrationRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Registration updateRegistration(@PathVariable long id, @RequestBody Registration registration) {
+    Registration update(@PathVariable long id, @RequestBody Registration registration) {
         try {
             return registrationService.update(id, registration)
 
@@ -67,7 +67,7 @@ class RegistrationRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity deleteRegistration(@PathVariable long id) {
+    ResponseEntity delete(@PathVariable long id) {
         try {
             registrationService.delete(id)
             return ResponseEntity.ok().build()

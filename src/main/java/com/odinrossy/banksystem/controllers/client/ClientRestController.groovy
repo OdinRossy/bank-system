@@ -24,7 +24,7 @@ class ClientRestController {
     ClientService clientService
 
     @GetMapping
-    List<Client> getAllRegistrations() {
+    List<Client> findAll() {
         try {
             return clientService.findAll()
 
@@ -35,7 +35,7 @@ class ClientRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Client getRegistration(@PathVariable long id) {
+    Client findById(@PathVariable long id) {
         try {
             return clientService.findById(id)
 
@@ -50,7 +50,7 @@ class ClientRestController {
     }
 
     @PostMapping
-    Client createRegistration(@RequestBody Client registration) {
+    Client create(@RequestBody Client registration) {
         try {
             return clientService.save(registration)
 
@@ -61,7 +61,7 @@ class ClientRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Client updateRegistration(@PathVariable long id, @RequestBody Client registration) {
+    Client update(@PathVariable long id, @RequestBody Client registration) {
         try {
             return clientService.update(id, registration)
 
@@ -72,7 +72,7 @@ class ClientRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity deleteRegistration(@PathVariable long id) {
+    ResponseEntity delete(@PathVariable long id) {
         try {
             clientService.delete(id)
             return ResponseEntity.ok().build()
