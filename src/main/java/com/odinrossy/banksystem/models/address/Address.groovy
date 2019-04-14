@@ -1,5 +1,7 @@
 package com.odinrossy.banksystem.models.address
 
+import com.odinrossy.banksystem.models.client.Client
+import com.odinrossy.banksystem.models.country.Country
 import com.odinrossy.banksystem.models.registration.Registration
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
@@ -9,8 +11,11 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
+import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = 'addresses')
@@ -21,8 +26,11 @@ class Address {
     @NonNull
     long id
 
-    @NonNull
-    String country
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = 'country_iso3code')
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Country country
 
     @NonNull
     String city
@@ -43,11 +51,15 @@ class Address {
 
     @OneToMany(mappedBy = 'address')
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Registration> registrations
+    private List<Registration> registrationList
+
+    @OneToMany(mappedBy = 'address')
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Client> clientList
 
     @Override
     String toString() {
-        return "address.Address{" +
+        return "Address{" +
                 "id=" + id +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
