@@ -1,5 +1,6 @@
 package com.odinrossy.banksystem.models.passport
 
+import com.odinrossy.banksystem.models.client.Client
 import com.odinrossy.banksystem.models.registration.Registration
 import com.odinrossy.banksystem.models.worker.Worker
 import org.hibernate.annotations.OnDelete
@@ -61,10 +62,18 @@ class Passport {
     @NotNull
     Date birthDate
 
+    @NonNull
+    boolean isMarried
+
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "passport")
     private Worker worker
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "passport")
+    private Client client
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -87,6 +96,7 @@ class Passport {
                 ", birthPlace='" + birthPlace + '\'' +
                 ", isMale=" + isMale +
                 ", birthDate=" + birthDate +
+                ", isMarried=" + isMarried +
                 ", registration=" + registration +
                 '}'
     }
