@@ -1,6 +1,7 @@
 package com.odinrossy.banksystem.models.passport
 
 import com.odinrossy.banksystem.models.client.Client
+import com.odinrossy.banksystem.models.country.Country
 import com.odinrossy.banksystem.models.registration.Registration
 import com.odinrossy.banksystem.models.worker.Worker
 import org.hibernate.annotations.OnDelete
@@ -13,6 +14,7 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 import javax.persistence.OneToOne
 import javax.persistence.Table
 import javax.validation.constraints.NotNull
@@ -51,7 +53,10 @@ class Passport {
     Date dateOfExpire
 
     @NotNull
-    String countryName
+    @ManyToOne
+    @JoinColumn(name = 'country_iso3code')
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Country citizenship
 
     @NonNull
     String birthPlace
@@ -92,7 +97,7 @@ class Passport {
                 ", number=" + number +
                 ", dateOfIssue=" + dateOfIssue +
                 ", dateOfExpire=" + dateOfExpire +
-                ", countryName='" + countryName + '\'' +
+                ", citizenship=" + citizenship +
                 ", birthPlace='" + birthPlace + '\'' +
                 ", isMale=" + isMale +
                 ", birthDate=" + birthDate +
