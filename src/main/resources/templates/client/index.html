@@ -32,9 +32,13 @@
                            data-toggle="dropdown"><span th:text="#{nav.clients}"></span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item">Добавить</a>
+                            <a class="dropdown-item" th:text="#{nav.clients.create}"></a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item">Найти</a>
+                            <a class="dropdown-item" th:text="#{nav.clients.show.all}"></a>
+                            <a class="dropdown-item" th:text="#{nav.clients.find}"></a>
+                            <a class="dropdown-item" th:text="#{nav.clients.edit}"></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:text="#{nav.clients.delete}"></a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -59,27 +63,13 @@
                         <table class="table table-striped" style="margin-top: 5%">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">ID пасспорта</th>
-                                    <th scope="col">ФИО:</th>
-                                    <th scope="col">Пол:</th>
-                                    <th scope="col">Адресс проживания:</th>
-                                    <th scope="col">№ лицевого счета:</th>
+                                   <td>клиент</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <th:block th:each="client : ${clients}">
-                                    <tr th:id="${client.IdPassport}">
-                                        <td>
-                                            <a th:href="'http://localhost:9090/bank-system/client/' + ${client.IdPassport}"
-                                               th:text="${client.IdPassport}"></a></td>
-                                        <td><span
-                                                th:text="${client.lastName}
-                                                + ' ' + ${client.firstName.toString().charAt(0)}
-                                                + '. ' + ${client.middleName.toString().charAt(0)}"></span>
-                                        </td>
-                                        <td><span th:text="${client.firstName}"></span></td>
-                                        <td><span th:text="${client.middleName}"></span></td>
-                                        <td><span th:text="${client.middleName}"></span></td>
+                                    <tr>
+                                       <td th:text="${client}"></td>
                                     </tr>
                                 </th:block>
                             </tbody>
@@ -97,9 +87,9 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
-        <script th:src="@{/js/client/clientController.js}"></script>
-        <script th:src="@{/js/user/User.js}"></script>
-        <script th:src="@{/js/user/workerService.js}"></script>
+<!--        <script th:src="@{/js/client/clientController.js}"></script>-->
+<!--        <script th:src="@{/js/user/User.js}"></script>-->
+<!--        <script th:src="@{/js/user/workerService.js}"></script>-->
         <script th:src="@{/js/profile/profileController.js}"></script>
     </body>
 </html>
