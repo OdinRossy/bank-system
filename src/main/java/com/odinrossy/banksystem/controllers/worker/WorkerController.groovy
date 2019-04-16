@@ -31,7 +31,7 @@ class WorkerController {
     AuthorizationService authorizationService
 
 
-    @RequestMapping("/authenticate")
+    @RequestMapping(value = '/authenticate')
     def authenticate(@RequestParam String username, @RequestParam String password) {
         try {
             workerService.findByUsernameAndPassword(username, password)
@@ -45,7 +45,7 @@ class WorkerController {
         }
     }
 
-    @GetMapping('/profile')
+    @GetMapping(value = '/profile')
     def index(Model model) {
         try {
             workerService.checkAuthorization()
@@ -69,17 +69,17 @@ class WorkerController {
         }
     }
 
-    @RequestMapping("logIn")
-    String logIn() {
+    @RequestMapping(value = '/logIn')
+    def logIn() {
         return "worker/logIn"
     }
 
-    @RequestMapping("logUp")
-    String logUp() {
+    @RequestMapping(value = '/logUp')
+    def logUp() {
         return "worker/logUp"
     }
 
-    @RequestMapping("logOut")
+    @RequestMapping(value = '/logOut')
     def logOut() {
         try {
             authorizationService.removeWorkerFromSession()

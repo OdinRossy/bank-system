@@ -1,6 +1,5 @@
 package com.odinrossy.banksystem.controllers.passport
 
-
 import com.odinrossy.banksystem.models.passport.Passport
 import com.odinrossy.banksystem.services.passport.PassportService
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,14 +9,14 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/passport')
+@RequestMapping(value = '/api/passport', produces = 'application/json')
 class PassportRestController {
 
     @Autowired
     PassportService passportService
 
     @GetMapping
-    List<Passport> findAll() {
+    def findAll() {
         try {
             return passportService.findAll()
 
@@ -28,7 +27,7 @@ class PassportRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Passport findById(@PathVariable String id) {
+    def findById(@PathVariable String id) {
         try {
             return passportService.findById(id)
 
@@ -39,7 +38,7 @@ class PassportRestController {
     }
 
     @PostMapping
-    Passport create(@RequestBody Passport passport) {
+    def create(@RequestBody Passport passport) {
         try {
             return passportService.save(passport)
 
@@ -50,7 +49,7 @@ class PassportRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Passport update(@PathVariable String id, @RequestBody Passport passport) {
+    def update(@PathVariable String id, @RequestBody Passport passport) {
         try {
             return passportService.update(id, passport)
 
@@ -61,7 +60,7 @@ class PassportRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity delete(@PathVariable String id) {
+    def delete(@PathVariable String id) {
         try {
             passportService.delete(id)
             return ResponseEntity.ok().build()

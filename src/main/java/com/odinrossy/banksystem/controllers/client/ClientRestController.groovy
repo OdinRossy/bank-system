@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/client')
+@RequestMapping(value = '/api/client', produces = 'application/json')
 class ClientRestController {
 
     @Autowired
     ClientService clientService
 
     @GetMapping
-    List<Client> findAll() {
+    def findAll() {
         try {
             return clientService.findAll()
 
@@ -35,7 +35,7 @@ class ClientRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Client findById(@PathVariable long id) {
+    def findById(@PathVariable long id) {
         try {
             return clientService.findById(id)
 
@@ -50,7 +50,7 @@ class ClientRestController {
     }
 
     @PostMapping
-    Client create(@RequestBody Client registration) {
+    def create(@RequestBody Client registration) {
         try {
             return clientService.save(registration)
 
@@ -61,7 +61,7 @@ class ClientRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Client update(@PathVariable long id, @RequestBody Client registration) {
+    def update(@PathVariable long id, @RequestBody Client registration) {
         try {
             return clientService.update(id, registration)
 
@@ -72,7 +72,7 @@ class ClientRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity delete(@PathVariable long id) {
+    def delete(@PathVariable long id) {
         try {
             clientService.delete(id)
             return ResponseEntity.ok().build()

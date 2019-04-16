@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/country')
-class CountryController {
+@RequestMapping(value = '/api/country', produces = 'application/json')
+class CountryRestController {
 
     @Autowired
     CountryService countryService
 
     @GetMapping
-    List<Country> findAll() {
+    def findAll() {
         try {
             return countryService.findAll()
 
@@ -35,7 +35,7 @@ class CountryController {
     }
 
     @GetMapping(value = '/{iso3code}')
-    Country findByIso3code(@PathVariable String iso3code) {
+    def findByIso3code(@PathVariable String iso3code) {
         try {
             return countryService.findByIso3code(iso3code)
 
@@ -50,7 +50,7 @@ class CountryController {
     }
 
     @PostMapping
-    Country create(@RequestBody Country country) {
+    def create(@RequestBody Country country) {
         try {
             return countryService.save(country)
 
@@ -61,7 +61,7 @@ class CountryController {
     }
 
     @PutMapping(value = '/{iso3code}')
-    Country update(@PathVariable String iso3code, @RequestBody Country country) {
+    def update(@PathVariable String iso3code, @RequestBody Country country) {
         try {
             return countryService.update(iso3code, country)
 
@@ -72,7 +72,7 @@ class CountryController {
     }
 
     @DeleteMapping(value = '/{iso3code}')
-    ResponseEntity delete(@PathVariable String iso3code) {
+    def delete(@PathVariable String iso3code) {
         try {
             countryService.delete(iso3code)
             return ResponseEntity.ok().build()

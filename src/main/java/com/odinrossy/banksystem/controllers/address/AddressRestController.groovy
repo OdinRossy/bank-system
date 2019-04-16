@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/address')
+@RequestMapping(value = '/api/address', produces = 'application/json')
 class AddressRestController {
 
     @Autowired
     AddressService addressService
 
     @GetMapping
-    List<Address> findAll() {
+    def findAll() {
         try {
             return addressService.findAll()
 
@@ -34,7 +34,7 @@ class AddressRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Address findById(@PathVariable long id) {
+    def findById(@PathVariable long id) {
         try {
             return addressService.findById(id)
 
@@ -45,7 +45,7 @@ class AddressRestController {
     }
 
     @PostMapping
-    Address create(@RequestBody Address address) {
+    def create(@RequestBody Address address) {
         try {
             return addressService.save(address)
 
@@ -56,7 +56,7 @@ class AddressRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Address update(@PathVariable long id, @RequestBody Address address) {
+    def update(@PathVariable long id, @RequestBody Address address) {
         try {
             return addressService.update(id, address)
 
@@ -67,7 +67,7 @@ class AddressRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity delete(@PathVariable long id) {
+    def delete(@PathVariable long id) {
         try {
             addressService.delete(id)
             return ResponseEntity.ok().build()

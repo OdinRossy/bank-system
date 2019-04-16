@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/accessLevel')
+@RequestMapping(value = '/api/accessLevel', produces = 'application/json')
 class AccessLevelRestController {
 
     @Autowired
     AccessLevelService accessLevelService
 
     @GetMapping
-    List<AccessLevel> findAll() {
+    def findAll() {
         try {
             return accessLevelService.findAll()
 
@@ -34,7 +34,7 @@ class AccessLevelRestController {
     }
 
     @GetMapping(value = '/{id}')
-    AccessLevel findById(@PathVariable short id) {
+    def findById(@PathVariable short id) {
         try {
             return accessLevelService.findById(id)
 
@@ -45,7 +45,7 @@ class AccessLevelRestController {
     }
 
     @PostMapping
-    AccessLevel create(@RequestBody AccessLevel accessLevel) {
+    def create(@RequestBody AccessLevel accessLevel) {
         try {
             return accessLevelService.save(accessLevel)
 
@@ -56,7 +56,7 @@ class AccessLevelRestController {
     }
 
     @PutMapping(value = '/{id}')
-    AccessLevel update(@PathVariable short id, @RequestBody AccessLevel accessLevel) {
+    def update(@PathVariable short id, @RequestBody AccessLevel accessLevel) {
         try {
             return accessLevelService.update(id, accessLevel)
 
@@ -67,7 +67,7 @@ class AccessLevelRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity delete(@PathVariable short id) {
+    def delete(@PathVariable short id) {
         try {
             accessLevelService.delete(id)
             return ResponseEntity.ok().build()

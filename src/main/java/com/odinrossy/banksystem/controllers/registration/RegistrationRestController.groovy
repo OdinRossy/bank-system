@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/registration')
+@RequestMapping(value = '/api/registration', produces = 'application/json')
 class RegistrationRestController {
 
     @Autowired
     RegistrationService registrationService
 
     @GetMapping
-    List<Registration> findAll() {
+    def findAll() {
         try {
             return registrationService.findAll()
 
@@ -34,7 +34,7 @@ class RegistrationRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Registration findById(@PathVariable long id) {
+    def findById(@PathVariable long id) {
         try {
             return registrationService.findById(id)
 
@@ -45,7 +45,7 @@ class RegistrationRestController {
     }
 
     @PostMapping
-    Registration create(@RequestBody Registration registration) {
+    def create(@RequestBody Registration registration) {
         try {
             return registrationService.save(registration)
 
@@ -56,7 +56,7 @@ class RegistrationRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Registration update(@PathVariable long id, @RequestBody Registration registration) {
+    def update(@PathVariable long id, @RequestBody Registration registration) {
         try {
             return registrationService.update(id, registration)
 
@@ -67,7 +67,7 @@ class RegistrationRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity delete(@PathVariable long id) {
+    def delete(@PathVariable long id) {
         try {
             registrationService.delete(id)
             return ResponseEntity.ok().build()

@@ -3,8 +3,6 @@ package com.odinrossy.banksystem.controllers.worker
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
 import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.services.worker.WorkerService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -12,14 +10,14 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/worker')
+@RequestMapping(value = '/api/worker', produces = 'application/json')
 class WorkerRestController {
 
     @Autowired
     WorkerService workerService
 
     @GetMapping
-    List<Worker> findAll() {
+    def findAll() {
         try {
             return workerService.findAll()
 
@@ -30,7 +28,7 @@ class WorkerRestController {
     }
 
     @GetMapping(value = '/{id}')
-    Worker findById(@PathVariable long id) {
+    def findById(@PathVariable long id) {
         try {
             return workerService.findById(id)
 
@@ -45,7 +43,7 @@ class WorkerRestController {
     }
 
     @PostMapping
-    Worker create(@RequestBody Worker worker) {
+    def create(@RequestBody Worker worker) {
         try {
             return workerService.save(worker)
 
@@ -56,7 +54,7 @@ class WorkerRestController {
     }
 
     @PutMapping(value = '/{id}')
-    Worker update(@PathVariable long id, @RequestBody Worker worker) {
+    def update(@PathVariable long id, @RequestBody Worker worker) {
         try {
             return workerService.update(id, worker)
 
@@ -71,7 +69,7 @@ class WorkerRestController {
     }
 
     @DeleteMapping(value = '/{id}')
-    ResponseEntity delete(@PathVariable long id) {
+    def delete(@PathVariable long id) {
         try {
             workerService.delete(id)
             return ResponseEntity.ok().build()
