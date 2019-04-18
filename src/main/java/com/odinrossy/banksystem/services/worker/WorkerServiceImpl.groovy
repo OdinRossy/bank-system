@@ -77,8 +77,7 @@ class WorkerServiceImpl implements WorkerService {
                 findById(worker.id)
                 throw new ResourceAlreadyExistsException('Worker already exists. Worker details: ' + worker)
 
-            } catch (ResourceNotFoundException e) {
-                e.printStackTrace()
+            } catch (ResourceNotFoundException ignored) {
 
                 worker = workerRepository.save(worker)
                 Worker workerFromDb = findById(worker.id)
