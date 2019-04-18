@@ -1,6 +1,7 @@
 package com.odinrossy.banksystem.models.client
 
 import com.odinrossy.banksystem.models.address.Address
+import com.odinrossy.banksystem.models.country.Country
 import com.odinrossy.banksystem.models.passport.Passport
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
@@ -26,6 +27,12 @@ class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NonNull
     long id
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = 'country_iso3code')
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Country birthplace
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -74,10 +81,11 @@ class Client {
     String toString() {
         return "Client{" +
                 "id=" + id +
+                ", birthplace=" + birthplace +
                 ", passport=" + passport +
                 ", address=" + address +
-                ", mobilePhoneNumber=" + mobilePhoneNumber +
-                ", homePhoneNumber=" + homePhoneNumber +
+                ", mobilePhoneNumber='" + mobilePhoneNumber + '\'' +
+                ", homePhoneNumber='" + homePhoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", isDisabled=" + isDisabled +
                 ", isRetiree=" + isRetiree +

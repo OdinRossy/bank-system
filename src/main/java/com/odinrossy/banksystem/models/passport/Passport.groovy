@@ -58,8 +58,8 @@ class Passport {
     @OnDelete(action = OnDeleteAction.CASCADE)
     Country citizenship
 
-    @NonNull
-    String birthPlace
+    @NotNull
+    String passportAuthority
 
     @NotNull
     boolean isMale
@@ -98,7 +98,7 @@ class Passport {
                 ", dateOfIssue=" + dateOfIssue +
                 ", dateOfExpire=" + dateOfExpire +
                 ", citizenship=" + citizenship +
-                ", birthPlace='" + birthPlace + '\'' +
+                ", passportAuthority='" + passportAuthority + '\'' +
                 ", isMale=" + isMale +
                 ", birthDate=" + birthDate +
                 ", isMarried=" + isMarried +

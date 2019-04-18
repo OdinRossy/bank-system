@@ -1,10 +1,5 @@
 package com.odinrossy.banksystem.models.accessLevel
 
-
-import com.odinrossy.banksystem.models.worker.Worker
-import org.hibernate.annotations.OnDelete
-import org.hibernate.annotations.OnDeleteAction
-
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
@@ -20,15 +15,6 @@ class AccessLevel {
     @NotNull
     @Column(unique = true)
     String label
-
-    @OneToMany(mappedBy = 'accessLevel')
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Worker> workers
-
-//    boolean asBoolean() {
-//        return id && label
-//    }
-
 
     @Override
     String toString() {
