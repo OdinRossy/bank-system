@@ -1,7 +1,6 @@
 package com.odinrossy.banksystem.controllers.client
 
 import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
-import com.odinrossy.banksystem.models.client.Client
 import com.odinrossy.banksystem.services.client.ClientService
 import com.odinrossy.banksystem.services.worker.WorkerService
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,9 +26,9 @@ class ClientController {
         try {
             workerService.checkAuthorization()
 
-            List<Client> clientList = clientService.findAll()
+            def clients = clientService.findAll() as Set
 
-            model.addAttribute("clients", clientList)
+            model.addAttribute("clients", clients)
 
         } catch (WorkerNotAuthorizedException e) {
             e.printStackTrace()

@@ -52,13 +52,13 @@ class WorkerController {
             Worker worker = authorizationService.getWorkerFromSession()
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat('dd.MM.yyyy')
 
-            Map<String, String> dates = new HashMap()
+            def dates = [:]
             dates.put('dateOfIssue', simpleDateFormat.format(worker.passport.dateOfIssue))
             dates.put('dateOfExpire', simpleDateFormat.format(worker.passport.dateOfExpire))
             dates.put('birthDate', simpleDateFormat.format(worker.passport.birthDate))
 
             model.addAllAttributes(dates)
-            model.addAttribute("worker", (Worker) worker)
+            model.addAttribute("worker", worker)
             return "worker/profile"
         } catch (WorkerNotAuthorizedException e) {
             e.printStackTrace()
