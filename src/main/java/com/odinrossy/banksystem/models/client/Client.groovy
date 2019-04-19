@@ -36,7 +36,7 @@ class Client {
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "passport_id", nullable = false)
+    @JoinColumn(name = "passport_id", nullable = false, unique = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     Passport passport
 
