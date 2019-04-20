@@ -4,7 +4,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Упс..</title>
+        <title th:text="#{title.error.oops}"></title>
         <link rel="icon" th:href="@{/assets/bank-icon.png}">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/error.css}">
@@ -21,7 +21,7 @@
                         <span th:text="${message}"></span>
                     </div>
                     <div class="button-container">
-                        <a th:href="@{/}" class="btn btn-warning btn-lg" role="button">На главную</a>
+                        <a th:href="@{/}" class="btn btn-warning btn-lg" role="button" th:text="#{nav.home}"></a>
                     </div>
                 </div>
                 <div class="col-md-3"></div>
