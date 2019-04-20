@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.server.ResponseStatusException
 
@@ -35,6 +36,34 @@ class ClientController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.localizedMessage)
         }
         return 'client/index'
+    }
+
+    @GetMapping(value = '/{id}')
+    def show(@PathVariable long id, Model model) {
+        try {
+            workerService.checkAuthorization()
+
+            def client = clientService.findById(id)
+
+            model.addAttribute("client", client)
+
+        } catch (WorkerNotAuthorizedException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.localizedMessage)
+        }
+        return 'client/show'
+    }
+
+    @GetMapping(value = '/create')
+    def create() {
+        try {
+            workerService.checkAuthorization()
+
+        } catch (WorkerNotAuthorizedException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.localizedMessage)
+        }
+        return 'client/create'
     }
 
 }
