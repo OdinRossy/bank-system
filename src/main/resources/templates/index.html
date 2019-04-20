@@ -5,7 +5,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Главная страница</title>
+        <title th:text="#{title.main.page}"></title>
         <link rel="icon" th:href="@{/assets/bank-icon.png}">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     </head>
     <body class="background-img">
-        <header class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <a class="navbar-brand scroll-top">
                 <img th:src="@{/assets/bank-icon.png}"
                      width="30" height="30" class="d-inline-block align-top" alt="Image"> <span
@@ -44,8 +44,7 @@
         </header>
         <div class="container-fluid">
             <div class="row row-center">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
+                <div class="col-12">
                     <div class="rounded-container">
                         <div class="card mb-3">
                             <div class="bd-example">
@@ -93,7 +92,10 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <h5 th:text="#{txt.card.greetings}" class="card-title"></h5>
+                                <h5 class="card-title">
+                                    <span><i class="fas fa-coffee"></i></span>
+                                    <span th:text="' ' + #{txt.card.greetings}"></span>
+                                </h5>
                                 <p th:text="#{txt.card.greetings.body}" class="card-text"></p>
                                 <p class="card-text">
                                     <small class="text-muted">
@@ -110,7 +112,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-1"></div>
             </div>
         </div>
 

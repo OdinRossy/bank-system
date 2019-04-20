@@ -5,7 +5,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Клиенты bank-system</title>
+        <title th:text="#{title.client.index}"></title>
         <link rel="icon" th:href="@{/assets/bank-icon.png}">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -32,13 +32,16 @@
                            data-toggle="dropdown"><span th:text="#{nav.clients}"></span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" th:text="#{nav.clients.create}"></a>
+                            <a class="dropdown-item"
+                               th:text="#{nav.clients.show}" th:href="@{/client}"></a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:text="#{nav.clients.show.all}"></a>
-                            <a class="dropdown-item" th:text="#{nav.clients.find}"></a>
-                            <a class="dropdown-item" th:text="#{nav.clients.edit}"></a>
+                            <a class="dropdown-item" target="_blank"
+                               th:text="#{nav.clients.create}" th:href="@{/client/create}"></a>
+                            <a class="dropdown-item"
+                               th:text="#{nav.clients.edit}" th:href="@{/client/edit}"></a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" th:text="#{nav.clients.delete}"></a>
+                            <a class="dropdown-item"
+                               th:text="#{nav.clients.delete}" th:href="@{/client/delete}"></a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -48,28 +51,57 @@
                 <div class="logout">
                     <div class="form-inline my-2 my-lg-0">
                         <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"
-                               placeholder="Search"
+                               th:placeholder="#{placeholder.input.passport.id} + ':'"
                                aria-label="Search" oninput="findClientById()">
-                        <button class="btn btn-outline-success my-2 my-sm-0" onclick="findClientById()">Search</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0"
+                                onclick="findClientById()">
+                            <span><i class="fas fa-search-dollar"></i></span>
+                            <span th:text="#{btn.search}"></span>
+                        </button>
                     </div>
                 </div>
             </div>
         </header>
         <div class="container-fluid">
             <div class="row row-center">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
+                <div class="col-12">
                     <div class="rounded-container">
-                        <table class="table table-striped" style="margin-top: 5%">
-                            <thead class="thead-dark">
+                        <div class="title">
+                            <i class="fas fa-users"></i>
+                            <h2>
+                                <span th:text="#{nav.clients} + ' '"></span>
+                                <span class="badge badge-success" th:text="#{app.name}"></span>
+
+                            </h2>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                   <td>клиент</td>
+                                    <th scope="col">#</th>
+                                    <th scope="col" th:text="#{passport.last.name}"></th>
+                                    <th scope="col" th:text="#{passport.first.name}"></th>
+                                    <th scope="col" th:text="#{passport.middle.name}"></th>
+                                    <th scope="col" th:text="#{passport.gender.label}"></th>
+                                    <th scope="col" th:text="#{passport.birth.date}"></th>
+                                    <th scope="col" th:text="#{passport.country.name}"></th>
+                                    <th scope="col" th:text="#{passport.id}"></th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <th:block th:each="client : ${clients}">
                                     <tr>
-                                       <td th:text="${client}"></td>
+                                        <td th:text="${client.id}"></td>
+                                        <td th:text="${client.passport.lastName}"></td>
+                                        <td th:text="${client.passport.firstName}"></td>
+                                        <td th:text="${client.passport.middleName}"></td>
+                                        <td th:text="${client.passport.isMale} ?
+                                        #{passport.gender.male} : #{passport.gender.female}"></td>
+                                        <td th:text="${client.passport.birthDate}"></td>
+                                        <td th:text="${client.passport.citizenship.countryName}"></td>
+                                        <td th:text="${client.passport.id}"></td>
+                                        <td><a th:href="@{'/client/' + ${client.id}}">
+                                            <i class="fas fa-chevron-right"></i></a></td>
                                     </tr>
                                 </th:block>
                             </tbody>
@@ -87,9 +119,9 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
-<!--        <script th:src="@{/js/client/clientController.js}"></script>-->
-<!--        <script th:src="@{/js/user/User.js}"></script>-->
-<!--        <script th:src="@{/js/user/workerService.js}"></script>-->
+        <!--        <script th:src="@{/js/client/clientController.js}"></script>-->
+        <!--        <script th:src="@{/js/user/User.js}"></script>-->
+        <!--        <script th:src="@{/js/user/workerService.js}"></script>-->
         <script th:src="@{/js/profile/profileController.js}"></script>
     </body>
 </html>
