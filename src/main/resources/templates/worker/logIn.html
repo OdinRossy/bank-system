@@ -13,10 +13,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     </head>
     <body class="background-img">
-        <header class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <header class="navbar fixed-top navbar-expand-lg navbar-light bg-light smooth-shadow">
             <a class="navbar-brand scroll-top">
                 <img th:src="@{/assets/bank-icon.png}"
-                     width="30" height="30" class="d-inline-block align-top" alt="Image"> <span th:text="#{app.name}"></span>
+                     width="30" height="30" class="d-inline-block align-top" alt="Image"> <span
+                    th:text="#{app.name}"></span>
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
@@ -38,27 +39,31 @@
         <div class="container">
             <div class="row row-center">
                 <div class="col-md-3"></div>
-                <div class="col-md-6 rounded-container">
-                    <h1>Авторизация</h1>
-                    <form th:action="@{/worker/authenticate}" method="post">
-                        <div class="input-group mb-2 mr-sm-2 input">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-passport"></i></div>
+                <div class="col-md-6 rounded-container smooth-shadow">
+                    <div class="form">
+                        <h1>Авторизация</h1>
+                        <form th:action="@{/worker/authenticate}" method="post">
+                            <div class="input-group mb-2 mr-sm-2 input">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">@</div>
+                                </div>
+                                <input id="username" type="email" name="username" class="form-control"
+                                       th:placeholder="#{worker.username} + ':'">
                             </div>
-                            <input type="text" name="username" class="form-control" placeholder="Введите ID паспорта">
-                        </div>
-                        <div class="input-group mb-2 mr-sm-2 input">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-key"></i></div>
+                            <div class="input-group mb-2 mr-sm-2 input">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fas fa-key"></i></div>
+                                </div>
+                                <input type="password" name="password" class="form-control"
+                                       th:placeholder="#{worker.password} + ':'">
                             </div>
-                            <input type="password" name="password" class="form-control" placeholder="Введите пароль">
-                        </div>
-                        <div class="input">
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <span th:text="#{btn.login}"></span>
-                            </button>
-                        </div>
-                    </form>
+                            <div class="input">
+                                <button type="submit" class="btn btn-custom btn-success">
+                                    <span th:text="#{btn.login}"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-md-3"></div>
             </div>
@@ -71,8 +76,7 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
-        <script th:src="@{/js/user/User.js}"></script>
-        <script th:src="@{/js/user/workerService.js}"></script>
-        <script th:src="@{/js/user/userController.js}"></script>
+        <script th:src="@{/js/worker/workerService.js}"></script>
+        <script th:src="@{/js/worker/workerController.js}"></script>
     </body>
 </html>

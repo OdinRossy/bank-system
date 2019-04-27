@@ -5,7 +5,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Профиль</title>
+        <title th:text="#{title.worker.profile}"></title>
         <link rel="icon" th:href="@{/assets/bank-icon.png}">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -50,8 +50,8 @@
         <div class="container-fluid">
             <div class="row row-center">
                 <div class="col-12">
-                    <div class="rounded-container">
-                        <div class="title">
+                    <div class="rounded-container smooth-shadow">
+                        <div class="title-container">
                             <div th:switch="${worker.accessLevel.id}">
                                 <span th:case="1"><i class="fas fa-user-secret"></i></span>
                                 <span th:case="*"><i class="fas fa-user-tie"></i></span>
@@ -61,7 +61,7 @@
                                 <span class="badge badge-success" th:text="${worker.username}"></span>
                             </h2>
                         </div>
-                        <div class="card">
+                        <div class="card smooth-shadow">
                             <div class="card-header">
                                 <ul class="nav nav-pills card-header-pills">
                                     <li class="nav-item">
@@ -160,8 +160,7 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
-        <script th:src="@{/js/user/User.js}"></script>
-        <script th:src="@{/js/user/workerService.js}"></script>
-        <script th:src="@{/js/profile/profileController.js}"></script>
+        <script th:src="@{/js/worker/workerService.js}"></script>
+        <script th:src="@{/js/worker/workerController.js}"></script>
     </body>
 </html>

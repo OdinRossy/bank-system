@@ -61,31 +61,42 @@
         <div class="container-fluid">
             <div class="row row-center">
                 <div class="col-12">
-                    <div class="rounded-container">
-                        <div class="title">
+                    <div class="rounded-container smooth-shadow">
+                        <div class="title-container">
                             <i class="fas fa-user-plus"></i>
                             <h2>
                                 <span th:text="#{title.client.create}"></span>
                             </h2>
                         </div>
-                        <div class="card">
+                        <div class="card smooth-shadow">
                             <div class="card-header">
                                 <ul class="nav nav-pills card-header-pills">
                                     <li class="nav-item">
-                                        <a id="btn-general" class="nav-link active" href="#"
-                                           onclick="showCard('#general', '#btn-general')">
-                                            <span th:text="#{worker.public.information}"></span>
+                                        <a id="btn-general" class="nav-link active"
+                                           onclick="showCard('#btn-general', ['#general'],
+                                           ['#personal', '#address', '#contacts'])">
+                                            <span th:text="#{client.general.information}"></span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a id="btn-personal" class="nav-link" href="#"
-                                           onclick="showCard('#personal', '#btn-personal')">
-                                            <span th:text="#{worker.private.information}"></span>
+                                        <a id="btn-personal" class="nav-link"
+                                           onclick="showCard('#btn-personal', ['#personal'],
+                                           ['#general', '#address', '#contacts'])">
+                                            <span th:text="#{client.private.information}"></span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link">
-                                            <span th:text="#{worker.profile.edit}"></span>
+                                        <a id="btn-address" class="nav-link"
+                                           onclick="showCard('#btn-address', ['#personal'],
+                                           ['#general', '#personal', '#contacts'])">
+                                            <span th:text="#{client.address.information}"></span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="btn-contacts" class="nav-link"
+                                           onclick="showCard('#btn-contacts', ['#personal'],
+                                           ['#general', '#general', '#personal'])">
+                                            <span th:text="#{client.contact.information}"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -93,56 +104,36 @@
 
                             <div id="general" class="card-body">
                                 <div class="user-info">
-                                    <h5>
-                                        <span th:text="#{passport.last.name}"></span>:
-<!--                                        <span th:text="${client.passport.lastName}"></span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.first.name}"></span>:
-<!--                                        <span th:text="${client.passport.firstName}"></span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.middle.name}"></span>:
-<!--                                        <span th:text="${client.passport.middleName}"></span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.gender.label}"></span>:
-<!--                                        <span th:text="(${client.passport.isMale} ?-->
-<!--                                            #{passport.gender.male} : #{passport.gender.female})">-->
-<!--                                        </span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.id}"></span>:
-<!--                                        <span th:text="${client.passport.id}"></span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.series}"></span>:
-<!--                                        <span th:text="${client.passport.series}"></span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.number}"></span>:
-<!--                                        <span th:text="${client.passport.number}"></span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.country.name}"></span>:
-<!--                                        <span th:text="${client.passport.citizenship.countryName}"></span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.date.of.issue}"></span>:
-<!--                                        <span th:text="${client.passport.dateOfIssue}"></span>-->
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.date.of.expire}"></span>:
-<!--                                        <span th:text="${client.passport.dateOfExpire}"></span>-->
-                                    </h5>
+                                    <button class="btn btn-primary">
+                                        <span th:text="#{btn.next}"></span>
+                                    </button>
                                 </div>
                             </div>
 
                             <div id="personal" class="card-body" style="display: none">
                                 <div class="user-info">
-
+                                    <button class="btn btn-primary">
+                                        <span th:text="#{btn.next}"></span>
+                                    </button>
                                 </div>
                             </div>
+
+                            <div id="address" class="card-body" style="display: none">
+                                <div class="user-info">
+                                    <button class="btn btn-primary">
+                                        <span th:text="#{btn.next}"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="contacts" class="card-body" style="display: none">
+                                <div class="user-info">
+                                    <button class="btn btn-primary">
+                                        <span th:text="#{btn.next}"></span>
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -156,8 +147,8 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
-        <script th:src="@{/js/user/User.js}"></script>
-        <script th:src="@{/js/user/workerService.js}"></script>
-        <script th:src="@{/js/profile/profileController.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/client/clientService.js}"></script>
+        <script th:src="@{/js/client/clientController.js}"></script>
     </body>
 </html>

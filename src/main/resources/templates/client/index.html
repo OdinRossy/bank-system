@@ -51,10 +51,10 @@
                 <div class="logout">
                     <div class="form-inline my-2 my-lg-0">
                         <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"
-                               th:placeholder="#{placeholder.input.passport.id} + ':'"
+                               th:placeholder="#{placeholder.input.id} + ':'"
                                aria-label="Search" oninput="findClientById()">
                         <button class="btn btn-outline-success my-2 my-sm-0"
-                                onclick="findClientById()">
+                                onclick="getLinkFindClient()">
                             <span><i class="fas fa-search-dollar"></i></span>
                             <span th:text="#{btn.search}"></span>
                         </button>
@@ -62,11 +62,12 @@
                 </div>
             </div>
         </header>
+
         <div class="container-fluid">
             <div class="row row-center">
                 <div class="col-12">
-                    <div class="rounded-container">
-                        <div class="title">
+                    <div class="rounded-container smooth-shadow">
+                        <div class="title-container">
                             <i class="fas fa-users"></i>
                             <h2>
                                 <span th:text="#{nav.clients} + ' '"></span>
@@ -74,38 +75,43 @@
 
                             </h2>
                         </div>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col" th:text="#{passport.last.name}"></th>
-                                    <th scope="col" th:text="#{passport.first.name}"></th>
-                                    <th scope="col" th:text="#{passport.middle.name}"></th>
-                                    <th scope="col" th:text="#{passport.gender.label}"></th>
-                                    <th scope="col" th:text="#{passport.birth.date}"></th>
-                                    <th scope="col" th:text="#{passport.country.name}"></th>
-                                    <th scope="col" th:text="#{passport.id}"></th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <th:block th:each="client : ${clients}">
-                                    <tr>
-                                        <td th:text="${client.id}"></td>
-                                        <td th:text="${client.passport.lastName}"></td>
-                                        <td th:text="${client.passport.firstName}"></td>
-                                        <td th:text="${client.passport.middleName}"></td>
-                                        <td th:text="${client.passport.isMale} ?
+                        <div class="rounded-container smooth-shadow">
+                            <div class="user-info">
+                                <table class="table table-borderless table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col" th:text="#{passport.last.name}"></th>
+                                            <th scope="col" th:text="#{passport.first.name}"></th>
+                                            <th scope="col" th:text="#{passport.middle.name}"></th>
+                                            <th scope="col" th:text="#{passport.gender.label}"></th>
+                                            <th scope="col" th:text="#{passport.birth.date}"></th>
+                                            <th scope="col" th:text="#{passport.country.name}"></th>
+                                            <th scope="col" th:text="#{passport.id}"></th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <th:block th:each="client : ${clients}">
+                                            <tr th:id="${client.id}">
+                                                <td th:text="${client.id}"></td>
+                                                <td th:text="${client.passport.lastName}"></td>
+                                                <td th:text="${client.passport.firstName}"></td>
+                                                <td th:text="${client.passport.middleName}"></td>
+                                                <td th:text="${client.passport.isMale} ?
                                         #{passport.gender.male} : #{passport.gender.female}"></td>
-                                        <td th:text="${client.passport.birthDate}"></td>
-                                        <td th:text="${client.passport.citizenship.countryName}"></td>
-                                        <td th:text="${client.passport.id}"></td>
-                                        <td><a th:href="@{'/client/' + ${client.id}}">
-                                            <i class="fas fa-chevron-right"></i></a></td>
-                                    </tr>
-                                </th:block>
-                            </tbody>
-                        </table>
+                                                <td th:text="${client.passport.birthDate}"></td>
+                                                <td th:text="${client.passport.citizenship.countryName}"></td>
+                                                <td th:text="${client.passport.id}"></td>
+                                                <td><a th:href="@{'/client/' + ${client.id}}">
+                                                    <i class="fas fa-chevron-right"></i></a></td>
+                                            </tr>
+                                        </th:block>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -119,9 +125,7 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
-        <!--        <script th:src="@{/js/client/clientController.js}"></script>-->
-        <!--        <script th:src="@{/js/user/User.js}"></script>-->
-        <!--        <script th:src="@{/js/user/workerService.js}"></script>-->
-        <script th:src="@{/js/profile/profileController.js}"></script>
+        <script th:src="@{/js/client/clientService.js}"></script>
+        <script th:src="@{/js/client/clientController.js}"></script>
     </body>
 </html>
