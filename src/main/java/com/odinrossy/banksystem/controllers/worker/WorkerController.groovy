@@ -5,8 +5,6 @@ import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
 import com.odinrossy.banksystem.models.worker.Worker
 import com.odinrossy.banksystem.services.security.AuthorizationService
 import com.odinrossy.banksystem.services.worker.WorkerService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
@@ -19,31 +17,14 @@ import org.springframework.web.server.ResponseStatusException
 import java.text.SimpleDateFormat
 
 @Controller
-@RequestMapping(value = "/worker")
+@RequestMapping(value = '/worker')
 class WorkerController {
-
-    private final static Logger log = LoggerFactory.getLogger(WorkerController.class)
 
     @Autowired
     WorkerService workerService
 
     @Autowired
     AuthorizationService authorizationService
-
-
-    @RequestMapping(value = '/authenticate')
-    def authenticate(@RequestParam String username, @RequestParam String password) {
-        try {
-            workerService.findByUsernameAndPassword(username, password)
-            return "redirect:/worker/profile"
-        } catch (ResourceNotFoundException e) {
-            e.printStackTrace()
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.localizedMessage)
-        } catch (RuntimeException e) {
-            e.printStackTrace()
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.localizedMessage)
-        }
-    }
 
     @GetMapping(value = '/profile')
     def index(Model model) {
@@ -58,11 +39,25 @@ class WorkerController {
             dates.put('birthDate', simpleDateFormat.format(worker.passport.birthDate))
 
             model.addAllAttributes(dates)
-            model.addAttribute("worker", worker)
-            return "worker/profile"
+            model.addAttribute('worker', worker)
+            return 'worker/profile'
         } catch (WorkerNotAuthorizedException e) {
             e.printStackTrace()
-            return "redirect:/worker/logIn"
+            return 'redirect:/worker/logIn'
+        } catch (RuntimeException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.localizedMessage)
+        }
+    }
+
+    @RequestMapping(value = '/authenticate')
+    def authenticate(@RequestParam String username, @RequestParam String password) {
+        try {
+            workerService.findByUsernameAndPassword(username, password)
+            return 'redirect:/worker/profile'
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.localizedMessage)
         } catch (RuntimeException e) {
             e.printStackTrace()
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.localizedMessage)
@@ -71,12 +66,12 @@ class WorkerController {
 
     @RequestMapping(value = '/logIn')
     def logIn() {
-        return "worker/logIn"
+        return 'worker/logIn'
     }
 
     @RequestMapping(value = '/logUp')
     def logUp() {
-        return "worker/logUp"
+        return 'worker/logUp'
     }
 
     @RequestMapping(value = '/logOut')
