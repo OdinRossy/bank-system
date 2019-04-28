@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     </head>
-    <body class="background-img">
+    <body class="bg-blue">
         <header class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand scroll-top">
                 <img th:src="@{/assets/bank-icon.png}"
@@ -54,7 +54,7 @@
                                th:placeholder="#{placeholder.input.id} + ':'"
                                aria-label="Search" oninput="findClientById()">
                         <button class="btn btn-outline-success my-2 my-sm-0"
-                                onclick="getLinkFindClient()">
+                                onclick="openClient()">
                             <span><i class="fas fa-search-dollar"></i></span>
                             <span th:text="#{btn.search}"></span>
                         </button>
@@ -62,7 +62,6 @@
                 </div>
             </div>
         </header>
-
         <div class="container-fluid">
             <div class="row row-center">
                 <div class="col-12">
@@ -93,7 +92,8 @@
                                     </thead>
                                     <tbody>
                                         <th:block th:each="client : ${clients}">
-                                            <tr th:id="${client.id}">
+                                            <tr th:id="${client.id}"
+                                                th:onclick="'openClient(' + ${client.id} + ')'">
                                                 <td th:text="${client.id}"></td>
                                                 <td th:text="${client.passport.lastName}"></td>
                                                 <td th:text="${client.passport.firstName}"></td>
@@ -109,11 +109,9 @@
                                         </th:block>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

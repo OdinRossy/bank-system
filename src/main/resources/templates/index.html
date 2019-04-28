@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     </head>
-    <body class="background-img">
+    <body class="bg-blue">
         <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <a class="navbar-brand scroll-top">
                 <img th:src="@{/assets/bank-icon.png}"
@@ -53,6 +53,7 @@
                         <div class="rounded-container smooth-shadow">
                             <div class="user-info">
                                 <p class="bd-title" th:text="#{txt.card.greetings.body}"></p>
+                                <hr>
                                 <blockquote class="blockquote small">
                                     <p class="mb-0">"<span th:text="#{txt.blockquote}"></span>"</p>
                                     <footer class="blockquote-footer" th:text="#{txt.blockquote.author}"></footer>
