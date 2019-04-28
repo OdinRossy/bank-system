@@ -1,5 +1,6 @@
 body {
     color: #333333;
+    background: #fafafa;
 }
 
 header {
@@ -51,7 +52,6 @@ tbody tr {
 }
 
 .title-container {
-    font-size: 64px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 2%;
@@ -154,7 +154,7 @@ tbody tr {
 }
 
 .error-container {
-    background: white;
+    background: #fafafa;
     padding: 2%;
     border-radius: .5rem;
     text-align: center;
@@ -163,4 +163,9 @@ tbody tr {
 
 .button-container {
     margin: 5% 0;
+}
+
+.container-fluid .avatar {
+    margin: 1% 0;
+    font-size: 64px;
 }
