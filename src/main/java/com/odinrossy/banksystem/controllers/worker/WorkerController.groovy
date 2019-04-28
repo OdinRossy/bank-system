@@ -31,14 +31,6 @@ class WorkerController {
         try {
             workerService.checkAuthorization()
             Worker worker = authorizationService.getWorkerFromSession()
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat('dd.MM.yyyy')
-
-            def dates = [:]
-            dates.put('dateOfIssue', simpleDateFormat.format(worker.passport.dateOfIssue))
-            dates.put('dateOfExpire', simpleDateFormat.format(worker.passport.dateOfExpire))
-            dates.put('birthDate', simpleDateFormat.format(worker.passport.birthDate))
-
-            model.addAllAttributes(dates)
             model.addAttribute('worker', worker)
             return 'worker/profile'
         } catch (WorkerNotAuthorizedException e) {
