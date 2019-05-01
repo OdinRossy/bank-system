@@ -21,12 +21,18 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+
+                    <!--Home-->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}"><span th:text="#{nav.home}"></span></a>
                     </li>
+
+                    <!--Profile-->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/worker/profile}"><span th:text="#{nav.profile}"></span></a>
                     </li>
+
+                    <!--Client-->
                     <li class="nav-item dropdown">
                         <a class="nav-link active dropdown-toggle scroll-top" role="button"
                            data-toggle="dropdown"><span th:text="#{nav.clients}"></span>
@@ -44,10 +50,14 @@
                                th:text="#{nav.clients.delete}" th:href="@{/client/delete}"></a>
                         </div>
                     </li>
+
+                    <!--Operation-->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/operations}"><span th:text="#{nav.actions}"></span></a>
                     </li>
                 </ul>
+
+                <!--Search-->
                 <div class="logout">
                     <div class="form-inline my-2 my-lg-0">
                         <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"

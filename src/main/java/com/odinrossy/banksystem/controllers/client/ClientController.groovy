@@ -54,8 +54,7 @@ class ClientController {
         return 'client/show'
     }
 
-    @GetMapping(value = '/create')
-    def create(Model model) {
+    @GetMapping(value = '/create') def create(Model model) {
         try {
             workerService.checkAuthorization()
             def countries = countryService.findAll() as Set
@@ -66,6 +65,22 @@ class ClientController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.message, e)
         }
         return 'client/create'
+    }
+
+    @RequestMapping(value = '/edit/{id}') def edit(@PathVariable long id, Model model) {
+        try {
+            workerService.checkAuthorization()
+            def client = clientService.findById(id)
+            def countries = countryService.findAll() as Set
+
+            model.addAttribute('client', client)
+            model.addAttribute("countries", countries)
+
+        } catch (WorkerNotAuthorizedException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.message, e)
+        }
+        return 'client/edit'
     }
 
 }

@@ -5,7 +5,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title th:text="#{title.client.show} + ' ' + ${client.passport.id}"></title>
+        <title th:text="#{title.client.edit}"></title>
         <link rel="icon" th:href="@{/assets/bank-icon.png}">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -63,14 +63,9 @@
                 <div class="col-12">
                     <div class="rounded-container smooth-shadow">
                         <div class="title-container">
-                            <i class="avatar fas fa-user-astronaut"></i>
+                            <i class="avatar fas fa-user-edit"></i>
                             <h2>
-                                <span th:text="
-                                    ${client.passport.lastName} + ' ' +
-                                    ${client.passport.firstName} + ' ' +
-                                    ${client.passport.middleName}">
-                                </span>
-                                <span class="badge badge-success"></span>
+                                <span th:text="#{title.client.edit}"></span>
                             </h2>
                         </div>
                         <div class="card smooth-shadow">
@@ -104,13 +99,6 @@
                                         </button>
                                     </li>
 
-                                    <!--Edit-->
-                                    <li class="nav-item">
-                                        <a class="btn nav-link" th:href="@{'/client/edit/' + ${client.id}}">
-                                            <span th:text="#{client.profile.edit}"></span>
-                                        </a>
-                                    </li>
-
                                 </ul>
                             </div>
 
@@ -135,7 +123,7 @@
                                                        th:text="#{label.input.last.name} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-last-name"
                                                        th:placeholder="#{placeholder.input.last.name}"
-                                                       th:value="${client.passport.lastName}" disabled/>
+                                                       th:value="${client.passport.lastName}"/>
                                             </div>
                                         </div>
 
@@ -147,7 +135,7 @@
                                                        th:text="#{label.input.first.name} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-first-name"
                                                        th:placeholder="#{placeholder.input.first.name}"
-                                                       th:value="${client.passport.firstName}" disabled/>
+                                                       th:value="${client.passport.firstName}"/>
                                             </div>
 
                                             <!--Middle Name-->
@@ -156,7 +144,8 @@
                                                        th:text="#{label.input.middle.name} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-middle-name"
                                                        th:placeholder="#{placeholder.input.middle.name}"
-                                                       th:value="${client.passport.middleName}" disabled/>
+                                                       th:value="${client.passport.middleName}"
+                                                />
                                             </div>
                                         </div>
                                         <br>
@@ -178,7 +167,7 @@
                                                        th:text="#{label.input.birth.date} + ':'"></label>
                                                 <input type="date" class="form-control" id="txt-birth-date"
                                                        th:placeholder="#{placeholder.input.birth.date}"
-                                                       th:value="${client.passport.birthDate}" disabled/>
+                                                       th:value="${client.passport.birthDate}"/>
                                             </div>
                                         </div>
                                     </section>
@@ -198,11 +187,11 @@
                                                 <br>
                                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                                     <label class="btn btn-outline-secondary btn-sm">
-                                                        <input type="radio" name="gender" value="true" disabled
+                                                        <input type="radio" name="gender" value="true"
                                                                checked> <span th:text="#{passport.gender.male}"></span>
                                                     </label>
                                                     <label class="btn btn-outline-secondary btn-sm">
-                                                        <input type="radio" name="gender" value="false" disabled>
+                                                        <input type="radio" name="gender" value="false">
                                                         <span th:text="#{passport.gender.female}"></span>
                                                     </label>
                                                 </div>
@@ -226,7 +215,7 @@
                                                        th:text="#{label.input.company.name} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-company-name"
                                                        th:placeholder="#{placeholder.input.company.name}"
-                                                       th:value="${client.companyName}" disabled/>
+                                                       th:value="${client.companyName}"/>
                                             </div>
                                         </div>
 
@@ -237,7 +226,7 @@
                                                        th:text="#{label.input.position} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-position"
                                                        th:placeholder="#{placeholder.input.position}"
-                                                       th:value="${client.position}" disabled/>
+                                                       th:value="${client.position}"/>
                                             </div>
 
                                             <!--income-->
@@ -246,7 +235,7 @@
                                                        th:text="#{label.income.per.month} + ':'"></label>
                                                 <input type="number" class="form-control" id="txt-income-per-mouth"
                                                        th:placeholder="#{placeholder.income.per.month}"
-                                                       th:value="${client.incomePerMonth}" disabled/>
+                                                       th:value="${client.incomePerMonth}"/>
                                             </div>
                                         </div>
                                     </section>
