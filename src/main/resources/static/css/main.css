@@ -16,11 +16,22 @@ a {
 p {
     font-size: 1.25rem;
     line-height: 1.5;
-    /*white-space: pre-wrap;*/
 }
 
 tbody tr {
     cursor: pointer;
+}
+
+blockquote {
+    quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote :before {
+    content: open-quote;
+}
+
+section {
+    margin: 3% 0;
 }
 
 .nav-link {
@@ -52,9 +63,8 @@ tbody tr {
 }
 
 .title-container {
-    font-weight: bold;
     text-align: center;
-    margin-bottom: 2%;
+    margin: 2% 0;
     padding: 3% 2%;
     border-radius: .5rem;
 }

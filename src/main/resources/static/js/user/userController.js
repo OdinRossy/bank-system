@@ -12,7 +12,7 @@
 //         firstName, lastName, middleName, username, birthdate, idPassport, password, idRole
 //     ];
 //
-//     if (!userService.isEmpty(fields)) {
+//     if (!userService.validate(fields)) {
 //         const user = new User(
 //             lastName.val(),
 //             middleName.val(),

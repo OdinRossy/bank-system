@@ -4,6 +4,7 @@ import com.odinrossy.banksystem.exceptions.ResourceAlreadyExistsException
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
 import com.odinrossy.banksystem.exceptions.ResourceNotValidException
 import com.odinrossy.banksystem.models.address.Address
+import com.odinrossy.banksystem.models.country.Country
 import com.odinrossy.banksystem.repositories.address.AddressRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -21,20 +22,16 @@ class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    List<Address> findAllByCountryAndCityAndBuildingNumber(String country, String city, short buildingNumber)
-            throws ResourceNotFoundException {
+    Address findByCountryAndCityAndStreetAndBuildingNumberAndApartmentNumberAndPostCode(Country country, String city, String street, short buildingNumber, short apartmentNumber, int postCode) throws ResourceNotFoundException {
 
         log.debug('findAllByCountryAndCityAndBuildingNumber')
 
-        List<Address> addressList = addressRepository.findAllByCountryAndCityAndBuildingNumber(country, city, buildingNumber)
+        Address address = addressRepository.findByCountryAndCityAndStreetAndBuildingNumberAndApartmentNumberAndPostCode(country, city, street, buildingNumber, apartmentNumber, postCode)
 
-        if (addressList.size() == 0)
-            throw new ResourceNotFoundException("Address not found, " +
-                    "\nCountry: ${country}, " +
-                    "\nCity: ${city}, " +
-                    "\nBulding: ${buildingNumber}.")
+        if (!address)
+            throw new ResourceNotFoundException("Address not found: ${address}" )
 
-        return addressList
+        return address
     }
 
     @Override

@@ -78,4 +78,16 @@ class AddressRestController {
         }
     }
 
+    @PostMapping(value = 'findByCountryAndCityAndStreetAndBuildingNumberAndApartmentNumberAndPostCode')
+    def findAllByCountryAndCityAndBuildingNumber(@RequestBody Address address) {
+        try {
+            return addressService.findByCountryAndCityAndStreetAndBuildingNumberAndApartmentNumberAndPostCode(address.country,
+                    address.city, address.street, address.buildingNumber, address.apartmentNumber, address.postCode)
+
+        } catch (RuntimeException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
+        }
+    }
+
 }

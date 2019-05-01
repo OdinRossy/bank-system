@@ -77,32 +77,32 @@
                             <div class="card-header">
                                 <ul class="nav nav-pills card-header-pills">
                                     <li class="nav-item">
-                                        <a id="btn-general" class="nav-link active"
+                                        <button id="btn-general" class="btn nav-link active"
                                            onclick="showCard('#btn-general', ['#general'],
                                            ['#personal', '#address', '#contacts'])">
                                             <span th:text="#{client.general.information}"></span>
-                                        </a>
+                                        </button>
                                     </li>
                                     <li class="nav-item">
-                                        <a id="btn-personal" class="nav-link"
+                                        <button id="btn-personal" class="btn nav-link"
                                            onclick="showCard('#btn-personal', ['#personal'],
                                            ['#general', '#address', '#contacts'])">
                                             <span th:text="#{client.private.information}"></span>
-                                        </a>
+                                        </button>
                                     </li>
                                     <li class="nav-item">
-                                        <a id="btn-address" class="nav-link"
+                                        <button id="btn-address" class="btn nav-link"
                                            onclick="showCard('#btn-address', ['#personal'],
                                            ['#general', '#personal', '#contacts'])">
                                             <span th:text="#{client.address.information}"></span>
-                                        </a>
+                                        </button>
                                     </li>
                                     <li class="nav-item">
-                                        <a id="btn-contacts" class="nav-link"
+                                        <button id="btn-contacts" class="btn nav-link"
                                            onclick="showCard('#btn-contacts', ['#personal'],
                                            ['#general', '#general', '#personal'])">
                                             <span th:text="#{client.contact.information}"></span>
-                                        </a>
+                                        </button>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link">

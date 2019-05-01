@@ -2,18 +2,18 @@ const userService = {
 
     user: null,
 
-    isEmpty: function (arr) {
-        let isEmpty = false;
+    validate: function (arr) {
+        let isValid = true;
         for (const arrElement of arr) {
             if (arrElement.val() === undefined || arrElement.val().trim() === '') {
                 arrElement.addClass('is-invalid');
-                isEmpty = true;
+                isValid = false;
             } else {
                 arrElement.removeClass('is-invalid');
                 arrElement.addClass('is-valid');
             }
         }
-        return isEmpty;
+        return isValid;
     },
 
     save: function (user) {
