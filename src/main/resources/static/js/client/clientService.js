@@ -66,7 +66,7 @@ const clientService = {
         });
     },
 
-    savePassportIfNotExist: function(data) {
+    savePassportIfNotExist: function(data, elementId) {
         $.ajax({
             url: '/bank-system/api/passport/' + data.id,
             type: 'GET',
@@ -74,11 +74,14 @@ const clientService = {
             success: function (response) {
                 console.log(response);
                 passport = response;
-                isContinue = true;
+                isContinue = false;
+                $(elementId).addClass('is-invalid');
             },
             error: function (response) {
                 console.error(response);
                 savePassport(data);
+                $(elementId).removeClass('is-invalid');
+                $(elementId).addClass('is-valid');
             }
         });
     },
@@ -152,6 +155,7 @@ let savePassport = function(data) {
         async: false,
         success: function (response) {
             passport = response;
+            isContinue = true;
         },
         error: function (response) {
             console.error(response);

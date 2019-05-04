@@ -12,6 +12,9 @@ let isGeneralInfoValid = false;
 let isContactInfoValid = false;
 let isPersonalInfoValid = false;
 
+let isLivingAddressAlreadyExist = false;
+let isRegistrationAddressAlreadyExist = false;
+
 
 let showCard = function (activeButton, showElems, hideElems) {
 
@@ -74,7 +77,7 @@ let saveGeneralInfo = function () {
         firstName, lastName, middleName, birthDate, companyName, position, income
     ];
 
-    console.debug('Validating general info..');
+    console.log('Validating general info..');
     if (clientService.validate(fields)) {
         isGeneralInfoValid = true;
 
@@ -117,7 +120,7 @@ let saveContactInfo = function () {
         email, homePhoneNumber, mobilePhoneNumber, postCode, buildingNumber, street, city, apartmentNumber, countryField
     ];
 
-    console.debug('Validating contact info..');
+    console.log('Validating contact info..');
     if (clientService.validate(fields)) {
         isContactInfoValid = true;
 
@@ -185,7 +188,7 @@ let savePersonalInfo = function () {
         registrationPostCode, registrationAuthority, registrationDate, citizenship
     ];
 
-    console.debug('Validating contact info..');
+    console.log('Validating contact info..');
     if (clientService.validate(fields)) {
         isPersonalInfoValid = true;
 
