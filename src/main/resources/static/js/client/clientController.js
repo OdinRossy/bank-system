@@ -12,6 +12,61 @@ let isGeneralInfoValid = false;
 let isContactInfoValid = false;
 let isPersonalInfoValid = false;
 
+// General info
+let lastNameInput = $('#txt-last-name');
+let firstNameInput = $('#txt-first-name');
+let middleNameInput = $('#txt-middle-name');
+let birthDateInput = $('#txt-birth-date');
+let companyNameInput = $('#txt-company-name');
+let positionInput = $('#txt-position');
+let incomeInput = $('#txt-income-per-mouth');
+let isMaleInput = $('input[name=gender]:checked');
+let isEmployedInput = true;
+
+// Contact info
+let emailInput = $('#txt-email');
+let homePhoneNumberInput = $('#txt-home-number');
+let mobilePhoneNumberInput = $('#txt-mobile-number');
+let livingPostCodeInput = $('#txt-living-address-post-code');
+let livingBuildingNumberInput = $('#txt-living-address-building-number');
+let livingStreetInput = $('#txt-living-address-street');
+let livingCityInput = $('#txt-living-address-city');
+let livingApartmentNumberInput = $('#txt-living-address-apartment-number');
+let livingCountryFieldInput = $('#select-living-address-country');
+
+// Personal info
+let passportIdInput = $('#txt-passport-id');
+let passportSeriesInput = $('#txt-passport-series');
+let passportNumberInput = $('#txt-passport-number');
+let citizenshipInput = $('#select-birthplace');
+let passportAuthorityInput = $('#txt-passport-authority');
+let passportDateOfIssueInput = $('#date-passport-date-of-issue');
+let passportDateOfExpireInput = $('#date-passport-date-of-expire');
+let registrationCountryInput = $('#registration-country');
+let registrationCityInput = $('#txt-registration-city');
+let registrationStreetInput = $('#txt-registration-street');
+let registrationBuildingNumberInput = $('#txt-registration-building-number');
+let registrationApartmentNumberInput = $('#txt-registration-apartment-number');
+let registrationPostCodeInput = $('#txt-registration-post-code');
+let registrationAuthorityInput = $('#txt-registration-authority');
+let registrationDateInput = $('#date-registration-date');
+let isMarriedInput = $('input[name=isMarried]').prop('checked');
+let isBoundToMilitaryServiceInput = $('input[name=isBoundToMilitaryService]').prop('checked');
+let isRetireeInput = $('input[name=isRetiree]').prop('checked');
+let isDisabledInput = $('input[name=isDisabled]').prop('checked');
+
+
+function showGeneralInfo() {
+    showCard('#btn-general-info', ['#general-info'], ['#personal-info', '#contact-info']);
+}
+
+function showContactInfo() {
+    showCard('#btn-contacts', ['#contact-info'], ['#general-info', '#personal-info']);
+}
+
+function showPersonalInfo() {
+    showCard('#btn-personal-info', ['#personal-info'], ['#general-info', '#contact-info']);
+}
 
 let showCard = function (activeButton, showElems, hideElems) {
 
@@ -58,84 +113,106 @@ let showAllRows = function () {
     $('tbody tr').css('display', 'table-row');
 };
 
-let saveGeneralInfo = function () {
-
-    let lastName = $('#txt-last-name');
-    let firstName = $('#txt-first-name');
-    let middleName = $('#txt-middle-name');
-    let birthDate = $('#txt-birth-date');
-    let companyName = $('#txt-company-name');
-    let position = $('#txt-position');
-    let income = $('#txt-income-per-mouth');
-    let isMale = $('input[name=gender]:checked');
-    let isEmployed = true;
-
+// Validate
+function validateGeneralInfo() {
     const fields = [
-        firstName, lastName, middleName, birthDate, companyName, position, income
+        firstNameInput,
+        lastNameInput,
+        middleNameInput,
+        birthDateInput,
+        companyNameInput,
+        positionInput,
+        incomeInput
     ];
 
-    console.debug('Validating general info..');
-    if (clientService.validate(fields)) {
-        isGeneralInfoValid = true;
+    isGeneralInfoValid = clientService.validate(fields);
+    console.log('Validating general info.. ' + isGeneralInfoValid);
 
-        console.log('valid.');
-        passport.lastName = lastName.val();
-        passport.firstName = firstName.val();
-        passport.middleName = middleName.val();
-        passport.birthDate = birthDate.val();
-        passport.isMale = isMale.val();
-        client.companyName = companyName.val();
-        client.position = position.val();
-        client.incomePerMonth = income.val();
+}
+
+function validateContactInfo() {
+    const fields = [
+        emailInput,
+        homePhoneNumberInput,
+        mobilePhoneNumberInput,
+        livingPostCodeInput,
+        livingBuildingNumberInput,
+        livingStreetInput,
+        livingCityInput,
+        livingApartmentNumberInput,
+        livingCountryFieldInput
+    ];
+
+    isContactInfoValid = clientService.validate(fields);
+    console.log('Validating contact info.. ' + isContactInfoValid);
+}
+
+function validatePersonalInfo() {
+    const fields = [
+        passportIdInput,
+        passportSeriesInput,
+        passportNumberInput,
+        passportAuthorityInput,
+        passportDateOfIssueInput,
+        passportDateOfExpireInput,
+        registrationCountryInput,
+        registrationCityInput,
+        registrationStreetInput,
+        registrationBuildingNumberInput,
+        registrationApartmentNumberInput,
+        registrationPostCodeInput,
+        registrationAuthorityInput,
+        registrationDateInput,
+        citizenshipInput
+    ];
+
+    isPersonalInfoValid = clientService.validate(fields);
+    console.log('Validating contact info.. ' + isPersonalInfoValid);
+
+}
+
+// Save info
+function saveGeneralInfo() {
+    if (isGeneralInfoValid) {
+        passport.lastName = lastNameInput.val();
+        passport.firstName = firstNameInput.val();
+        passport.middleName = middleNameInput.val();
+        passport.birthDate = birthDateInput.val();
+        passport.isMale = isMaleInput.val();
+        client.companyName = companyNameInput.val();
+        client.position = positionInput.val();
+        client.incomePerMonth = incomeInput.val();
+        client.isEmployed = isEmployedInput;
         client.passport = passport;
-        client.isEmployed = isEmployed;
 
         console.log('client: ');
         console.log(client);
 
+        if (isContinue) {
+            showContactInfo();
+        }
 
-        showCard('#btn-contacts', ['#contact-info'], ['#general-info', '#personal-info'])
     } else {
-        console.error('Some fields not valid.');
-        isGeneralInfoValid = false;
+        console.error('General info not valid.')
     }
-};
+}
 
-let saveContactInfo = function () {
-
-    let email = $('#txt-email');
-    let homePhoneNumber = $('#txt-home-number');
-    let mobilePhoneNumber = $('#txt-mobile-number');
-    let postCode = $('#txt-living-address-post-code');
-    let buildingNumber = $('#txt-living-address-building-number');
-    let street = $('#txt-living-address-street');
-    let city = $('#txt-living-address-city');
-    let apartmentNumber = $('#txt-living-address-apartment-number');
-    let countryField = $('#select-living-address-country');
-
-    const fields = [
-        email, homePhoneNumber, mobilePhoneNumber, postCode, buildingNumber, street, city, apartmentNumber, countryField
-    ];
-
-    console.debug('Validating contact info..');
-    if (clientService.validate(fields)) {
-        isContactInfoValid = true;
-
-        console.log('valid.');
+function saveContactInfo() {
+    if (isContactInfoValid) {
 
         livingAddress.country = {
-            iso3code: countryField.val(),
+            iso3code: livingCountryFieldInput.val(),
         };
 
-        livingAddress.city = city.val();
-        livingAddress.street = street.val();
-        livingAddress.buildingNumber = buildingNumber.val();
+        livingAddress.city = livingCityInput.val();
+        livingAddress.street = livingStreetInput.val();
+        livingAddress.buildingNumber = livingBuildingNumberInput.val();
         livingAddress.isApartment = true;
-        livingAddress.apartmentNumber = apartmentNumber.val();
-        livingAddress.postCode = postCode.val();
-        client.email = email.val();
-        client.mobilePhoneNumber = mobilePhoneNumber.val();
-        client.homePhoneNumber = homePhoneNumber.val();
+        livingAddress.apartmentNumber = livingApartmentNumberInput.val();
+        livingAddress.postCode = livingPostCodeInput.val();
+        client.email = emailInput.val();
+        client.mobilePhoneNumber = mobilePhoneNumberInput.val();
+        client.homePhoneNumber = homePhoneNumberInput.val();
 
         clientService.saveLivingAddressIfNotExist(livingAddress);
 
@@ -147,60 +224,29 @@ let saveContactInfo = function () {
         console.log('client: ');
         console.log(client);
 
-        if (isContactInfoValid && isContinue) {
-            showCard('#btn-personal-info', ['#personal-info'], ['#general-info', '#contact-info'])
+        if (isContinue) {
+            showPersonalInfo();
         }
 
     } else {
-        console.error('Some fields not valid.');
+        console.error('Contact info not valid.');
         isContactInfoValid = false;
     }
-};
+}
 
-let savePersonalInfo = function () {
-
-    let idPassport = $('#txt-passport-id');
-    let series = $('#txt-passport-series');
-    let number = $('#txt-passport-number');
-    let citizenship = $('#select-birthplace');
-    let passportAuthority = $('#txt-passport-authority');
-    let dateOfIssue = $('#date-passport-date-of-issue');
-    let dateOfExpire = $('#date-passport-date-of-expire');
-    let registrationCountry = $('#registration-country');
-    let registrationCity = $('#txt-registration-city');
-    let registrationStreet = $('#txt-registration-street');
-    let registrationBuildingNumber = $('#txt-registration-building-number');
-    let registrationApartmentNumber = $('#txt-registration-apartment-number');
-    let registrationPostCode = $('#txt-registration-post-code');
-    let registrationAuthority = $('#txt-registration-authority');
-    let registrationDate = $('#date-registration-date');
-    let isMarried = $('input[name=isMarried]').prop('checked');
-    let isBoundToMilitaryService = $('input[name=isBoundToMilitaryService]').prop('checked');
-    let isRetiree = $('input[name=isRetiree]').prop('checked');
-    let isDisabled = $('input[name=isDisabled]').prop('checked');
-
-
-    const fields = [idPassport, series, number, passportAuthority, dateOfIssue, dateOfExpire, registrationCountry,
-        registrationCity, registrationStreet, registrationBuildingNumber, registrationApartmentNumber,
-        registrationPostCode, registrationAuthority, registrationDate, citizenship
-    ];
-
-    console.debug('Validating contact info..');
-    if (clientService.validate(fields)) {
-        isPersonalInfoValid = true;
-
-        console.log('valid.');
+function savePersonalInfo() {
+    if (isPersonalInfoValid) {
 
         registrationAddress.country = {
-            iso3code: registrationCountry.val(),
+            iso3code: registrationCountryInput.val(),
         };
 
-        registrationAddress.city = registrationCity.val();
-        registrationAddress.street = registrationStreet.val();
-        registrationAddress.buildingNumber = registrationBuildingNumber.val();
+        registrationAddress.city = registrationCityInput.val();
+        registrationAddress.street = registrationStreetInput.val();
+        registrationAddress.buildingNumber = registrationBuildingNumberInput.val();
         registrationAddress.isApartment = true;
-        registrationAddress.apartmentNumber = registrationApartmentNumber.val();
-        registrationAddress.postCode = registrationPostCode.val();
+        registrationAddress.apartmentNumber = registrationApartmentNumberInput.val();
+        registrationAddress.postCode = registrationPostCodeInput.val();
 
         clientService.saveRegistrationAddressIfNotExist(registrationAddress);
 
@@ -208,8 +254,8 @@ let savePersonalInfo = function () {
         console.log(registrationAddress);
 
         registration.address = registrationAddress;
-        registration.dateOfRegistration = registrationDate.val();
-        registration.registrationAuthority = registrationAuthority.val();
+        registration.dateOfRegistration = registrationDateInput.val();
+        registration.registrationAuthority = registrationAuthorityInput.val();
 
         clientService.saveRegistrationIfNotExist(registration);
 
@@ -218,17 +264,17 @@ let savePersonalInfo = function () {
 
         passport.registration = registration;
 
-        passport.id = idPassport.val();
-        passport.series = series.val();
-        passport.number = number.val();
-        passport.dateOfIssue = dateOfIssue.val();
-        passport.dateOfExpire = dateOfExpire.val();
+        passport.id = passportIdInput.val();
+        passport.series = passportSeriesInput.val();
+        passport.number = passportNumberInput.val();
+        passport.dateOfIssue = passportDateOfIssueInput.val();
+        passport.dateOfExpire = passportDateOfExpireInput.val();
         passport.citizenship = {
-            iso3code: citizenship.val()
+            iso3code: citizenshipInput.val()
         };
-        passport.passportAuthority = passportAuthority.val();
+        passport.passportAuthority = passportAuthorityInput.val();
 
-        passport.isMarried = isMarried;
+        passport.isMarried = isMarriedInput;
 
         clientService.savePassportIfNotExist(passport);
 
@@ -237,26 +283,48 @@ let savePersonalInfo = function () {
 
         client.birthplace = passport.citizenship;
         client.passport = passport;
-        client.isDisabled = isDisabled;
-        client.isRetiree = isRetiree;
-        client.isBoundToMilitaryService = isBoundToMilitaryService;
+        client.isDisabled = isDisabledInput;
+        client.isRetiree = isRetireeInput;
+        client.isBoundToMilitaryService = isBoundToMilitaryServiceInput;
 
-        if (isContinue && isGeneralInfoValid && isContactInfoValid && isPersonalInfoValid) {
-            console.log('Ready to save client');
-            clientService.saveClient(client);
-            console.log(client);
-            window.open('/bank-system/client/' + client.id, '_self');
-
-        } else {
-            console.error('isContinue: ' + isContinue);
-            console.error('isGeneralInfoValid: ' + isGeneralInfoValid);
-            console.error('isContactInfoValid: ' + isContactInfoValid);
-            console.error('isPersonalInfoValid: ' + isPersonalInfoValid);
-            console.error('client: ');
-            console.error(client);
-        }
     } else {
         console.error('Some fields not valid.');
         isPersonalInfoValid = false;
     }
-};
+}
+
+// Save client
+function saveClient() {
+
+    if (isContinue && isGeneralInfoValid && isContactInfoValid && isPersonalInfoValid) {
+        console.log('Ready to save client');
+        clientService.saveClient(client);
+        console.log(client);
+        window.open('/bank-system/client/' + client.id, '_self');
+
+    } else {
+        console.error('isContinue: ' + isContinue);
+        console.error('isGeneralInfoValid: ' + isGeneralInfoValid);
+        console.error('isContactInfoValid: ' + isContactInfoValid);
+        console.error('isPersonalInfoValid: ' + isPersonalInfoValid);
+        console.error('client: ');
+        console.error(client);
+    }
+}
+
+function updateClient() {
+    if (isContinue && isGeneralInfoValid && isContactInfoValid && isPersonalInfoValid) {
+        console.log('Ready to update client');
+        // clientService.saveClient(client);
+        console.log(client);
+        window.open('/bank-system/client/' + client.id, '_self');
+
+    } else {
+        console.error('isContinue: ' + isContinue);
+        console.error('isGeneralInfoValid: ' + isGeneralInfoValid);
+        console.error('isContactInfoValid: ' + isContactInfoValid);
+        console.error('isPersonalInfoValid: ' + isPersonalInfoValid);
+        console.error('client: ');
+        console.error(client);
+    }
+}

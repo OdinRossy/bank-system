@@ -75,8 +75,7 @@
                                     <!--General-info-->
                                     <li class="nav-item">
                                         <button id="btn-general-info" class="btn nav-link active"
-                                                onclick="showCard('#btn-general-info', ['#general-info'],
-                                           ['#personal-info', '#contact-info'])">
+                                                onclick="showGeneralInfo()">
                                             <span th:text="#{client.general.information}"></span>
                                         </button>
                                     </li>
@@ -84,8 +83,7 @@
                                     <!--Contacts-->
                                     <li class="nav-item">
                                         <button id="btn-contacts" class="btn nav-link"
-                                                onclick="showCard('#btn-contacts', ['#contact-info'],
-                                           ['#general-info', '#personal-info'])">
+                                                onclick="showContactInfo()">
                                             <span th:text="#{client.contact.information}"></span>
                                         </button>
                                     </li>
@@ -93,8 +91,7 @@
                                     <!--Personal-info-->
                                     <li class="nav-item">
                                         <button id="btn-personal-info" class="btn nav-link"
-                                                onclick="showCard('#btn-personal-info', ['#personal-info'],
-                                           ['#general-info', '#contact-info'])">
+                                                onclick="showPersonalInfo()">
                                             <span th:text="#{client.private.information}"></span>
                                         </button>
                                     </li>
@@ -236,7 +233,8 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-8"></div>
                                         <div class="form-group col-md-4">
-                                            <button class="btn btn-primary float-right" onclick="saveGeneralInfo()">
+                                            <button class="btn btn-primary float-right"
+                                                    onclick="validateGeneralInfo(); saveGeneralInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
                                             </button>
@@ -380,7 +378,8 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-8"></div>
                                         <div class="form-group col-md-4">
-                                            <button class="btn btn-primary float-right" onclick="saveContactInfo()">
+                                            <button class="btn btn-primary float-right"
+                                                    onclick="validateContactInfo(); saveContactInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
                                             </button>
@@ -607,7 +606,7 @@
                                         <div class="form-group col-md-8"></div>
                                         <div class="form-group col-md-4">
                                             <button class="btn btn-lg btn-success float-right"
-                                                    onclick="savePersonalInfo()">
+                                                    onclick="validatePersonalInfo(); saveClient(); savePersonalInfo()">
                                                 <i class="fas fa-save"></i>
                                                 <span th:text="#{btn.save}"></span>
                                             </button>
