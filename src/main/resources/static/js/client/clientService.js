@@ -14,6 +14,22 @@ const clientService = {
         return isValid;
     },
 
+    isPassportAlreadyExists: function (passportId) {
+        let isExists = false;
+        $.ajax({
+            url: '/bank-system/api/passport/' + passportId,
+            type: 'GET',
+            async: false,
+            success: function () {
+                isExists = true;
+            },
+            error: function () {
+                isExists = false;
+            }
+        });
+        return isExists;
+    },
+
     saveLivingAddressIfNotExist: function (address) {
         $.ajax({
             url: '/bank-system/api/address/findByCountryAndCityAndStreetAndBuildingNumberAndApartmentNumberAndPostCode',
@@ -66,19 +82,21 @@ const clientService = {
         });
     },
 
-    savePassportIfNotExist: function(data) {
+    savePassport: function(data) {
         $.ajax({
-            url: '/bank-system/api/passport/' + data.id,
-            type: 'GET',
+            url: '/bank-system/api/passport',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
             async: false,
             success: function (response) {
-                console.log(response);
                 passport = response;
-                isContinue = true;
             },
             error: function (response) {
                 console.error(response);
-                savePassport(data);
+                isContinue = false;
+                alert(response.responseJSON.message)
             }
         });
     },
@@ -94,6 +112,7 @@ const clientService = {
             success: function (response) {
                 client = response;
                 isContinue = true;
+                alert('Client saved.')
             },
             error: function (response) {
                 console.error(response);
@@ -142,25 +161,6 @@ let saveRegistrationAddress = function (address) {
     });
 };
 
-let savePassport = function(data) {
-    $.ajax({
-        url: '/bank-system/api/passport',
-        type: 'POST',
-        data: JSON.stringify(data),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        async: false,
-        success: function (response) {
-            passport = response;
-        },
-        error: function (response) {
-            console.error(response);
-            isContinue = false;
-            alert(response.responseJSON.message)
-        }
-    });
-};
-
 let saveRegistration = function (data) {
     $.ajax({
         url: '/bank-system/api/registration',
@@ -179,3 +179,4 @@ let saveRegistration = function (data) {
         }
     });
 };
+

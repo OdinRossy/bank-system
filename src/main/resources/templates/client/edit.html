@@ -27,22 +27,10 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/worker/profile}"><span th:text="#{nav.profile}"></span></a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link active dropdown-toggle scroll-top" role="button"
-                           data-toggle="dropdown"><span th:text="#{nav.clients}"></span>
+                    <li class="nav-item">
+                        <a class="nav-link active scroll-top" th:href="@{/client}">
+                            <span th:text="#{nav.clients}"></span>
                         </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item"
-                               th:text="#{nav.clients.show}" th:href="@{/client}"></a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" target="_blank"
-                               th:text="#{nav.clients.create}" th:href="@{/client/create}"></a>
-                            <a class="dropdown-item"
-                               th:text="#{nav.clients.edit}" th:href="@{/client/edit}"></a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item"
-                               th:text="#{nav.clients.delete}" th:href="@{/client/delete}"></a>
-                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/operations}"><span th:text="#{nav.actions}"></span></a>
@@ -255,7 +243,7 @@
                                                 <label for="txt-income-per-mouth"
                                                        th:text="#{label.income.per.month} + ':'"></label>
                                                 <input type="number" class="form-control" id="txt-income-per-mouth"
-                                                       th:placeholder="#{placeholder.income.per.month}"
+                                                       th:placeholder="#{placeholder.income.byn}"
                                                        th:value="${client.incomePerMonth}"/>
                                             </div>
                                         </div>
@@ -294,8 +282,7 @@
                                             <div class="form-group col-md-6">
                                                 <label for="select-living-address-country"
                                                        th:text="#{label.input.country} + ':'"></label>
-                                                <select id="select-living-address-country" class="form-control"
-                                                >
+                                                <select id="select-living-address-country" class="form-control">
                                                     <option th:value="${client.address.country.iso3code}"
                                                             th:text="${client.address.country.countryName}"></option>
                                                 </select>
@@ -304,12 +291,11 @@
                                             <!--City-->
                                             <div class="form-group col-md-6">
                                                 <label for="txt-living-address-city"
-                                                       th:text="#{label.input.city}">City</label>
+                                                       th:text="#{label.input.city} + ':'">City</label>
                                                 <input type="text" class="form-control"
                                                        id="txt-living-address-city"
                                                        th:placeholder="#{placeholder.input.city}"
-                                                       th:value="${client.address.city}"
-                                                />
+                                                       th:value="${client.address.city}"/>
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -321,8 +307,7 @@
                                                 <input type="text" class="form-control"
                                                        id="txt-living-address-street"
                                                        th:placeholder="#{placeholder.input.street}"
-                                                       th:value="${client.address.street}"
-                                                />
+                                                       th:value="${client.address.street}"/>
                                             </div>
 
                                             <!--Building number-->
@@ -332,8 +317,7 @@
                                                 <input type="number" class="form-control"
                                                        id="txt-living-address-building-number"
                                                        th:placeholder="#{placeholder.input.building.number}"
-                                                       th:value="${client.address.buildingNumber}"
-                                                />
+                                                       th:value="${client.address.buildingNumber}"/>
                                             </div>
 
                                             <!--Apartment number-->
@@ -343,8 +327,7 @@
                                                 <input type="number" class="form-control"
                                                        id="txt-living-address-apartment-number"
                                                        th:placeholder="#{placeholder.input.apartment.number}"
-                                                       th:value="${client.address.apartmentNumber}"
-                                                />
+                                                       th:value="${client.address.apartmentNumber}"/>
                                             </div>
 
                                         </div>
@@ -357,8 +340,7 @@
                                                 <input type="number" class="form-control"
                                                        id="txt-living-address-post-code"
                                                        th:placeholder="#{placeholder.input.post.code}"
-                                                       th:value="${client.address.postCode}"
-                                                />
+                                                       th:value="${client.address.postCode}"/>
                                             </div>
                                         </div>
                                     </section>
@@ -382,8 +364,7 @@
                                                        th:text="#{label.input.mobile.phone.number} + ':'"></label>
                                                 <input type="tel" class="form-control" id="txt-mobile-number"
                                                        th:placeholder="#{placeholder.input.mobile.phone.number}"
-                                                       th:value="${client.mobilePhoneNumber}"
-                                                />
+                                                       th:value="${client.mobilePhoneNumber}"/>
                                             </div>
 
                                             <!--Home phone-->
@@ -392,8 +373,7 @@
                                                        th:text="#{label.input.home.phone.number} + ':'"></label>
                                                 <input type="tel" class="form-control" id="txt-home-number"
                                                        th:placeholder="#{placeholder.input.home.phone.number}"
-                                                       th:value="${client.homePhoneNumber}"
-                                                />
+                                                       th:value="${client.homePhoneNumber}"/>
                                             </div>
                                         </div>
 
@@ -414,8 +394,7 @@
                                                        th:text="#{label.input.email} + ':'"></label>
                                                 <input type="email" class="form-control" id="txt-email"
                                                        th:placeholder="#{placeholder.input.email}"
-                                                       th:value="${client.email}"
-                                                />
+                                                       th:value="${client.email}"/>
                                             </div>
                                         </div>
                                         <div class="input-group mb-3">
@@ -457,8 +436,7 @@
                                                        th:text="#{label.input.passport.id} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-passport-id"
                                                        th:placeholder="#{placeholder.input.passport.id}"
-                                                       th:value="${client.passport.id}"
-                                                />
+                                                       th:value="${client.passport.id}"/>
                                             </div>
                                         </div>
 
@@ -470,8 +448,7 @@
                                                        th:text="#{label.input.passport.series} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-passport-series"
                                                        th:placeholder="#{placeholder.input.passport.series}"
-                                                       th:value="${client.passport.series}"
-                                                />
+                                                       th:value="${client.passport.series}"/>
                                             </div>
 
                                             <!--Passport number-->
@@ -480,8 +457,7 @@
                                                        th:text="#{label.input.passport.number}"></label>
                                                 <input type="number" class="form-control" id="txt-passport-number"
                                                        th:placeholder="#{placeholder.input.passport.number}"
-                                                       th:value="${client.passport.number}"
-                                                />
+                                                       th:value="${client.passport.number}"/>
                                             </div>
 
                                         </div>
@@ -508,8 +484,7 @@
                                                        th:text="#{label.input.passport.authority} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-passport-authority"
                                                        th:placeholder="#{placeholder.input.passport.authority}"
-                                                       th:value="${client.passport.passportAuthority}"
-                                                />
+                                                       th:value="${client.passport.passportAuthority}"/>
                                             </div>
 
                                             <!--Date of issue-->
@@ -519,8 +494,7 @@
                                                 <input type="text" class="form-control" id="date-passport-date-of-issue"
                                                        th:placeholder="#{placeholder.input.passport.date.of.issue}"
                                                        th:value="${#dates.format(client.passport.dateOfIssue,
-                                                       'dd.MM.yyyy')}"
-                                                />
+                                                       'dd.MM.yyyy')}"/>
                                             </div>
 
                                             <!--Date of expire-->
@@ -531,9 +505,7 @@
                                                        id="date-passport-date-of-expire"
                                                        th:placeholder="#{placeholder.input.passport.date.of.expire}"
                                                        th:value="${#dates.format(client.passport.dateOfExpire,
-                                                       'dd.MM.yyyy')}"
-                                                />
-
+                                                       'dd.MM.yyyy')}"/>
                                             </div>
                                         </div>
 
@@ -564,8 +536,7 @@
                                                        th:text="#{label.input.city} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-registration-city"
                                                        th:placeholder="#{placeholder.input.city}"
-                                                       th:value="${client.passport.registration.address.city}"
-                                                />
+                                                       th:value="${client.passport.registration.address.city}"/>
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -574,8 +545,7 @@
                                                        th:text="#{label.input.street} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-registration-street"
                                                        th:placeholder="#{placeholder.input.street}"
-                                                       th:value="${client.passport.registration.address.street}"
-                                                />
+                                                       th:value="${client.passport.registration.address.street}"/>
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="txt-registration-building-number"
@@ -583,8 +553,7 @@
                                                 <input type="number" class="form-control"
                                                        id="txt-registration-building-number"
                                                        th:placeholder="#{placeholder.input.building.number}"
-                                                       th:value="${client.passport.registration.address.buildingNumber}"
-                                                />
+                                                       th:value="${client.passport.registration.address.buildingNumber}"/>
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="txt-registration-apartment-number"
@@ -592,8 +561,7 @@
                                                 <input type="number" class="form-control"
                                                        id="txt-registration-apartment-number"
                                                        th:placeholder="#{placeholder.input.apartment.number}"
-                                                       th:value="${client.passport.registration.address.apartmentNumber}"
-                                                />
+                                                       th:value="${client.passport.registration.address.apartmentNumber}"/>
                                             </div>
                                         </div>
 
@@ -604,8 +572,7 @@
                                                 <input type="number" class="form-control"
                                                        id="txt-registration-post-code"
                                                        th:placeholder="#{placeholder.input.post.code}"
-                                                       th:value="${client.passport.registration.address.postCode}"
-                                                />
+                                                       th:value="${client.passport.registration.address.postCode}"/>
                                             </div>
                                         </div>
 
@@ -617,8 +584,7 @@
                                                        th:text="#{label.input.passport.registration.authority} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-registration-authority"
                                                        th:placeholder="#{placeholder.input.passport.registration.authority}"
-                                                       th:value="${client.passport.registration.registrationAuthority}"
-                                                />
+                                                       th:value="${client.passport.registration.registrationAuthority}"/>
                                             </div>
 
                                             <!--Date registration-->
@@ -628,8 +594,7 @@
                                                 <input type="text" class="form-control" id="date-registration-date"
                                                        th:placeholder="#{placeholder.input.passport.date.of.expire}"
                                                        th:value="${#dates.format(client.passport.registration.dateOfRegistration,
-                                                       'dd.MM.yyyy')}"
-                                                />
+                                                       'dd.MM.yyyy')}"/>
                                             </div>
                                         </div>
                                     </section>
@@ -673,8 +638,7 @@
                                         </div>
                                         <div class="custom-control custom-switch">
                                             <input class="custom-control-input" type="checkbox" id="check-is-"
-                                                   value="true" name="is" th:checked="${client.isDisabled}"
-                                            />
+                                                   value="true" name="is" th:checked="${client.isDisabled}"/>
                                             <label class="custom-control-label" for="check-is-"
                                                    th:text="#{client.is.disabled}"></label>
                                         </div>

@@ -1,7 +1,10 @@
 $(function () {
 
 });
+
+// Validation
 let isContinue = true;
+
 let passport = {};
 let client = {};
 let livingAddress = {};
@@ -11,6 +14,12 @@ let registration = {};
 let isGeneralInfoValid = false;
 let isContactInfoValid = false;
 let isPersonalInfoValid = false;
+
+// let isPassportAlreadyExists = false;
+let isPassportIdValid = false;
+let isPassportSeriesValid = false;
+let isPassportNumberValid = false;
+let isEmailValid = false;
 
 // General info
 let lastNameInput = $('#txt-last-name');
@@ -68,21 +77,21 @@ function showPersonalInfo() {
     showCard('#btn-personal-info', ['#personal-info'], ['#general-info', '#contact-info']);
 }
 
-let showCard = function (activeButton, showElems, hideElems) {
+function showCard(activeButton, idElementsToShow, idElementsToHide) {
 
-    hideElems.forEach(function (item) {
+    idElementsToHide.forEach(function (item) {
         $(item).css('display', 'none');
     });
 
-    showElems.forEach(function (item) {
+    idElementsToShow.forEach(function (item) {
         $(item).css('display', 'block');
     });
 
     $('.active').removeClass('active');
     $(activeButton).addClass("active");
-};
+}
 
-let openClient = function (id) {
+function openClient(id) {
     let clientId = $('#idPassport').val();
 
     if (id !== null && id !== undefined) {
@@ -91,11 +100,14 @@ let openClient = function (id) {
 
     window.open('/bank-system/client/' + clientId, '_self');
 
-};
+}
 
-let findClientById = function () {
+function findClientById() {
     let enteredId = $('#idPassport');
-    if (enteredId.val().trim() === '' || enteredId.val() === null) {
+
+    const fields = [enteredId];
+
+    if (clientService.validate(fields)) {
         showAllRows();
     } else {
         hideAllRows();
@@ -103,18 +115,19 @@ let findClientById = function () {
             $('#' + enteredId.val()).css('display', 'table-row');
         }
     }
-};
+}
 
-let hideAllRows = function () {
+function hideAllRows() {
     $('tbody tr').css('display', 'none');
-};
+}
 
-let showAllRows = function () {
+function showAllRows() {
     $('tbody tr').css('display', 'table-row');
-};
+}
 
 // Validate
 function validateGeneralInfo() {
+
     const fields = [
         firstNameInput,
         lastNameInput,
@@ -143,7 +156,7 @@ function validateContactInfo() {
         livingCountryFieldInput
     ];
 
-    isContactInfoValid = clientService.validate(fields);
+    isContactInfoValid = isEmailValid && clientService.validate(fields);
     console.log('Validating contact info.. ' + isContactInfoValid);
 }
 
@@ -166,9 +179,87 @@ function validatePersonalInfo() {
         citizenshipInput
     ];
 
-    isPersonalInfoValid = clientService.validate(fields);
-    console.log('Validating contact info.. ' + isPersonalInfoValid);
+    isPersonalInfoValid = isPassportValid() && clientService.validate(fields);
+    console.log('Validating personal info.. ' + isPersonalInfoValid);
 
+}
+
+function validatePassportId() {
+
+    if (clientService.validate([passportIdInput])) {
+        if (passportIdInput.val().trim().length === 14) {
+            if (clientService.isPassportAlreadyExists(passportIdInput.val())) {
+                console.error('Password already exist: ' + passportIdInput.val());
+                passportIdInput.addClass('is-invalid');
+                isPassportIdValid = false;
+            } else {
+                passportIdInput.addClass('is-valid');
+                isPassportIdValid = true;
+            }
+        } else {
+            passportIdInput.addClass('is-invalid');
+            isPassportIdValid = false;
+        }
+    } else {
+        isPassportIdValid = false;
+    }
+
+    console.log('Validating passport id.. ' + isPassportIdValid);
+}
+
+function validatePassportSeries() {
+
+    if (clientService.validate([passportSeriesInput])) {
+        if (passportSeriesInput.val().trim().length === 2) {
+            passportSeriesInput.addClass('is-valid');
+            isPassportSeriesValid = true;
+        } else {
+            passportSeriesInput.addClass('is-invalid');
+            isPassportSeriesValid = false;
+        }
+    } else {
+        isPassportSeriesValid = false;
+    }
+
+    console.log('Validating passport series.. ' + isPassportSeriesValid);
+}
+
+function validatePassportNumber() {
+
+    if (clientService.validate([passportNumberInput])) {
+        if (passportNumberInput.val().trim().length === 7) {
+            passportNumberInput.addClass('is-valid');
+            isPassportNumberValid = true;
+        } else {
+            passportNumberInput.addClass('is-invalid');
+            isPassportIdValid = false;
+        }
+    } else {
+        isPassportNumberValid = false;
+    }
+
+    console.log('Validating passport number.. ' + isPassportNumberValid);
+}
+
+function validateEmail() {
+
+    if (clientService.validate([emailInput])) {
+        if (emailInput.val().trim().length > 3 && emailInput.val().includes('@')) {
+            emailInput.addClass('is-valid');
+            isEmailValid = true;
+        } else {
+            emailInput.addClass('is-invalid');
+            isEmailValid = false;
+        }
+    } else {
+        isEmailValid = false;
+    }
+
+    console.log('Validating email.. ' + isEmailValid);
+}
+
+function isPassportValid() {
+    return isPassportIdValid && isPassportSeriesValid && isPassportNumberValid;
 }
 
 // Save info
@@ -198,7 +289,7 @@ function saveGeneralInfo() {
 }
 
 function saveContactInfo() {
-    if (isContactInfoValid) {
+    if (isEmailValid && isContactInfoValid) {
 
         livingAddress.country = {
             iso3code: livingCountryFieldInput.val(),
@@ -276,7 +367,7 @@ function savePersonalInfo() {
 
         passport.isMarried = isMarriedInput;
 
-        clientService.savePassportIfNotExist(passport);
+        clientService.savePassport(passport);
 
         console.log('passport : ');
         console.log(passport);
@@ -288,13 +379,17 @@ function savePersonalInfo() {
         client.isBoundToMilitaryService = isBoundToMilitaryServiceInput;
 
     } else {
-        console.error('Some fields not valid.');
+        console.error('Personal info not valid.');
         isPersonalInfoValid = false;
     }
 }
 
 // Save client
 function saveClient() {
+
+    validateGeneralInfo();
+    validateContactInfo();
+    validatePersonalInfo();
 
     if (isContinue && isGeneralInfoValid && isContactInfoValid && isPersonalInfoValid) {
         console.log('Ready to save client');
