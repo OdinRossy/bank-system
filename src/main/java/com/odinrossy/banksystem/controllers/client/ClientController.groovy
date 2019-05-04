@@ -26,7 +26,7 @@ class ClientController {
     @Autowired
     CountryService countryService
 
-    @GetMapping
+    @RequestMapping
     def index(Model model) {
         try {
             workerService.checkAuthorization()
@@ -40,7 +40,7 @@ class ClientController {
         return 'client/index'
     }
 
-    @GetMapping(value = '/{id}')
+    @RequestMapping(value = '/{id}')
     def show(@PathVariable long id, Model model) {
         try {
             workerService.checkAuthorization()
@@ -54,7 +54,7 @@ class ClientController {
         return 'client/show'
     }
 
-    @GetMapping(value = '/create')
+    @RequestMapping(value = '/create')
     def create(Model model) {
         try {
             workerService.checkAuthorization()
@@ -66,6 +66,20 @@ class ClientController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.message, e)
         }
         return 'client/create'
+    }
+
+    @RequestMapping(value = '/edit/{id}')
+    def edit(@PathVariable long id, Model model) {
+        try {
+            workerService.checkAuthorization()
+            def client = clientService.findById(id)
+            model.addAttribute("client", client)
+
+        } catch (WorkerNotAuthorizedException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.message, e)
+        }
+        return 'client/edit'
     }
 
 }
