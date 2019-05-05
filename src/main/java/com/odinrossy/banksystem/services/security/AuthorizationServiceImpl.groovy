@@ -1,6 +1,5 @@
 package com.odinrossy.banksystem.services.security
 
-
 import com.odinrossy.banksystem.models.worker.Worker
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
