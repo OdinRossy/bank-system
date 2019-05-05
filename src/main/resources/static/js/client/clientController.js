@@ -105,14 +105,13 @@ function openClient(id) {
 function findClientById() {
     let enteredId = $('#idPassport');
 
-    const fields = [enteredId];
-
-    if (clientService.validate(fields)) {
+    if (enteredId.val().trim().length === 0) {
         showAllRows();
     } else {
         hideAllRows();
-        if ($('#' + enteredId.val()) !== null && $('#' + enteredId.val()) !== undefined) {
-            $('#' + enteredId.val()).css('display', 'table-row');
+        const elementId = '#' + enteredId.val();
+        if ($(elementId) !== null && $(elementId) !== undefined) {
+            $(elementId).css('display', 'table-row');
         }
     }
 }
