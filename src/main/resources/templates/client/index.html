@@ -38,8 +38,10 @@
                            data-toggle="dropdown"><span th:text="#{nav.clients}"></span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item"
-                               th:text="#{nav.clients.create}" th:href="@{/client/create}"></a>
+                            <a class="dropdown-item" th:href="@{/client/create}">
+                                <i class="fas fa-user-plus"></i>
+                                <span th:text="#{nav.clients.create}"></span>
+                            </a>
                         </div>
                     </li>
 

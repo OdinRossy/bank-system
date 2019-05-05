@@ -32,14 +32,20 @@
                            data-toggle="dropdown"><span th:text="#{nav.clients}"></span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item"
-                               th:text="#{nav.clients.all}" th:href="@{/client}"></a>
+                            <a class="dropdown-item" th:href="@{/client}">
+                                <i class="fas fa-users"></i>
+                                <span th:text="#{nav.clients.all}"></span>
+                            </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item"
-                               th:text="#{nav.clients.edit}" th:href="@{'/client/edit/' + ${client.id}}"></a>
+                            <a class="dropdown-item" th:href="@{'/client/edit/' + ${client.id}}">
+                                <i class="fas fa-user-edit"></i>
+                                <span th:text="#{nav.clients.edit}"></span>
+                            </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item"
-                               th:text="#{nav.clients.delete}" th:href="@{/client/delete}"></a>
+                            <a class="dropdown-item text-danger" data-toggle="modal" data-target="#deleteClientModal">
+                                <i class="fas fa-user-times"></i>
+                                <span th:text="#{nav.clients.delete}"></span>
+                            </a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -107,6 +113,35 @@
                                     </li>
 
                                 </ul>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteClientModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-danger" id="exampleModalLabel">
+                                                <i class="fas fa-trash-alt"></i>
+                                                <span th:text="#{title.client.delete}"></span>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span th:text="#{txt.warning.delete.client}"></span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                                <span th:text="#{btn.cancel}"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-danger">
+                                                <span th:text="#{btn.delete}"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!--General-info-->

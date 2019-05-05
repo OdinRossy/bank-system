@@ -80,7 +80,7 @@ const clientService = {
             error: function (response) {
                 console.error(response);
                 isContinue = false;
-                alert(response.responseJSON.message)
+                clientService.showErrorModal(null, response.responseJSON.message);
             }
         });
     },
@@ -96,7 +96,6 @@ const clientService = {
             success: function (response) {
                 client = response;
                 isContinue = true;
-                alert('Client saved.')
             },
             error: function (response) {
                 console.error(response);
@@ -122,7 +121,7 @@ const clientService = {
             error: function (response) {
                 isSuccess = false;
                 console.error(response);
-                alert(response.responseJSON.message);
+                clientService.showErrorModal(null, response.responseJSON.message);
             }
         });
         return isSuccess;
@@ -145,7 +144,7 @@ const clientService = {
             error: function (response) {
                 isSuccess = false;
                 console.error(response);
-                alert(response.responseJSON.message);
+                clientService.showErrorModal(null, response.responseJSON.message);
             }
         });
         return isSuccess;
@@ -168,7 +167,7 @@ const clientService = {
             error: function (response) {
                 isSuccess = false;
                 console.error(response);
-                alert(response.responseJSON.message);
+                clientService.showErrorModal(null, response.responseJSON.message);
             }
         });
         return isSuccess;
@@ -191,7 +190,7 @@ const clientService = {
             error: function (response) {
                 isSuccess = false;
                 console.error(response);
-                alert(response.responseJSON.message);
+                clientService.showErrorModal(null, response.responseJSON.message);
             }
         });
         return isSuccess;
@@ -205,6 +204,14 @@ const clientService = {
         value = removeSymbolRecursively(value, ' ');
 
         return value;
+    },
+
+    showErrorModal: function (title, body) {
+        if (title) {
+            $('#error-modal-title').text(title);
+        }
+        $('#error-modal-body').text(body);
+        $('#error-modal').modal('show');
     }
 
 };
