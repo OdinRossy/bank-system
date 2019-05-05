@@ -59,10 +59,10 @@ let registrationApartmentNumberInput = $('#txt-registration-apartment-number');
 let registrationPostCodeInput = $('#txt-registration-post-code');
 let registrationAuthorityInput = $('#txt-registration-authority');
 let registrationDateInput = $('#date-registration-date');
-let isMarriedInput = $('input[name=isMarried]').prop('checked');
-let isBoundToMilitaryServiceInput = $('input[name=isBoundToMilitaryService]').prop('checked');
-let isRetireeInput = $('input[name=isRetiree]').prop('checked');
-let isDisabledInput = $('input[name=isDisabled]').prop('checked');
+let isMarriedInput = $('input[name=isMarried]');
+let isBoundToMilitaryServiceInput = $('input[name=isBoundToMilitaryService]');
+let isRetireeInput = $('input[name=isRetiree]');
+let isDisabledInput = $('input[name=isDisabled]');
 
 
 function showGeneralInfo() {
@@ -396,7 +396,7 @@ function savePersonalInfo() {
         };
         passport.passportAuthority = passportAuthorityInput.val();
 
-        passport.isMarried = isMarriedInput;
+        passport.isMarried = isMarriedInput.prop('checked');
 
         clientService.savePassport(passport);
 
@@ -405,9 +405,9 @@ function savePersonalInfo() {
 
         client.birthplace = passport.citizenship;
         client.passport = passport;
-        client.isDisabled = isDisabledInput;
-        client.isRetiree = isRetireeInput;
-        client.isBoundToMilitaryService = isBoundToMilitaryServiceInput;
+        client.isDisabled = isDisabledInput.prop('checked');
+        client.isRetiree = isRetireeInput.prop('checked');
+        client.isBoundToMilitaryService = isBoundToMilitaryServiceInput.prop('checked');
 
     } else {
         console.error('Personal info not valid.');
