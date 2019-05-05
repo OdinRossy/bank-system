@@ -217,7 +217,7 @@
                                             <div class="form-group col-md-4">
                                                 <label for="txt-income-per-mouth"
                                                        th:text="#{label.income.per.month} + ':'"></label>
-                                                <input type="number" class="form-control" id="txt-income-per-mouth"
+                                                <input type="number" class="form-control numbers-to-validate" id="txt-income-per-mouth"
                                                        th:placeholder="#{placeholder.income.byn}"/>
                                             </div>
                                         </div>
@@ -286,7 +286,7 @@
                                             <div class="form-group col-md-3">
                                                 <label for="txt-living-address-building-number"
                                                        th:text="#{label.input.building.number} + ':'"></label>
-                                                <input type="number" class="form-control"
+                                                <input type="number" class="form-control numbers-to-validate"
                                                        id="txt-living-address-building-number"
                                                        th:placeholder="#{placeholder.input.building.number}">
                                             </div>
@@ -295,7 +295,7 @@
                                             <div class="form-group col-md-3">
                                                 <label for="txt-living-address-apartment-number"
                                                        th:text="#{label.input.apartment.number} + ':'"></label>
-                                                <input type="number" class="form-control"
+                                                <input type="number" class="form-control numbers-to-validate"
                                                        id="txt-living-address-apartment-number"
                                                        th:placeholder="#{placeholder.input.apartment.number}">
                                             </div>
@@ -360,8 +360,7 @@
                                                 <label for="txt-email"
                                                        th:text="#{label.input.email} + ':'"></label>
                                                 <input type="email" class="form-control" id="txt-email"
-                                                       th:placeholder="#{placeholder.input.email}"
-                                                       onblur="validateEmail()"/>
+                                                       th:placeholder="#{placeholder.input.email}"/>
                                             </div>
                                         </div>
                                         <div class="input-group mb-3">
@@ -402,8 +401,7 @@
                                                 <label for="txt-passport-id"
                                                        th:text="#{label.input.passport.id} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-passport-id"
-                                                       th:placeholder="#{placeholder.input.passport.id}"
-                                                       onblur="validatePassportId()"/>
+                                                       th:placeholder="#{placeholder.input.passport.id}"/>
                                             </div>
                                         </div>
 
@@ -414,8 +412,7 @@
                                                 <label for="txt-passport-series"
                                                        th:text="#{label.input.passport.series} + ':'"></label>
                                                 <input type="text" class="form-control" id="txt-passport-series"
-                                                       th:placeholder="#{placeholder.input.passport.series}"
-                                                       onblur="validatePassportSeries()"/>
+                                                       th:placeholder="#{placeholder.input.passport.series}"/>
                                             </div>
 
                                             <!--Passport number-->
@@ -423,8 +420,7 @@
                                                 <label for="txt-passport-number"
                                                        th:text="#{label.input.passport.number}"></label>
                                                 <input type="number" class="form-control" id="txt-passport-number"
-                                                       th:placeholder="#{placeholder.input.passport.number}"
-                                                       onblur="validatePassportNumber()"/>
+                                                       th:placeholder="#{placeholder.input.passport.number}"/>
                                             </div>
 
                                         </div>
@@ -514,14 +510,14 @@
                                             <div class="form-group col-md-3">
                                                 <label for="txt-registration-building-number"
                                                        th:text="#{label.input.building.number} + ':'"></label>
-                                                <input type="number" class="form-control"
+                                                <input type="number" class="form-control numbers-to-validate"
                                                        id="txt-registration-building-number"
                                                        th:placeholder="#{placeholder.input.building.number}">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="txt-registration-apartment-number"
                                                        th:text="#{label.input.apartment.number} + ':'"></label>
-                                                <input type="number" class="form-control"
+                                                <input type="number" class="form-control numbers-to-validate"
                                                        id="txt-registration-apartment-number"
                                                        th:placeholder="#{placeholder.input.apartment.number}">
                                             </div>

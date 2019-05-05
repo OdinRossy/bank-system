@@ -76,4 +76,13 @@ class ClientServiceImpl implements ClientService {
         clientRepository.delete(findById(id))
     }
 
+    @Override
+    def isEmailInUse(String email) {
+        return clientRepository.findByEmail(email) ? true : false
+    }
+
+    @Override
+    def isMobilePhoneNumberInUse(String mobilePhoneNumber) {
+        return clientRepository.findByMobilePhoneNumber(mobilePhoneNumber) ? true : false
+    }
 }

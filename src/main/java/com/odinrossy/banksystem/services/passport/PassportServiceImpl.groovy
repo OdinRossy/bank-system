@@ -59,4 +59,14 @@ class PassportServiceImpl implements PassportService {
     def delete(String id) throws ResourceNotFoundException {
         passportRepository.delete(findById(id))
     }
+
+    @Override
+    def isPassportIdInUse(String id) {
+        return passportRepository.findById(id) ? true : false
+    }
+
+    @Override
+    def isPassportNumberInUse(int number) {
+        return passportRepository.findByNumber(number) ? true : false
+    }
 }

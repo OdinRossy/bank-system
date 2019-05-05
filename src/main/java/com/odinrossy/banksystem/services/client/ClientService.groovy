@@ -22,4 +22,8 @@ interface ClientService extends LoggerService {
 
     def delete(long id) throws ResourceNotFoundException
 
+    def isEmailInUse(String email)
+
+    def isMobilePhoneNumberInUse(String mobilePhoneNumber)
+
 }

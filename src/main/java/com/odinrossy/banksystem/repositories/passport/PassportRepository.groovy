@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PassportRepository extends CrudRepository<Passport, String>{
 
+    Passport findByNumber(int number)
+
 }

@@ -14,22 +14,6 @@ const clientService = {
         return isValid;
     },
 
-    isPassportAlreadyExists: function (passportId) {
-        let isExists = false;
-        $.ajax({
-            url: '/bank-system/api/passport/' + passportId,
-            type: 'GET',
-            async: false,
-            success: function () {
-                isExists = true;
-            },
-            error: function () {
-                isExists = false;
-            }
-        });
-        return isExists;
-    },
-
     saveLivingAddressIfNotExist: function (address) {
         $.ajax({
             url: '/bank-system/api/address/findByCountryAndCityAndStreetAndBuildingNumberAndApartmentNumberAndPostCode',
@@ -119,8 +103,118 @@ const clientService = {
                 isContinue = false;
             }
         });
+    },
+
+    checkIsEmailValid: function (data) {
+        let isSuccess = false;
+        $.ajax({
+            url: '/bank-system/api/client/checkIsEmailValid',
+            type: 'POST',
+            data: {
+                'email' : data.email
+            },
+            async: false,
+            success: function (response) {
+                isSuccess = true;
+                console.log(response);
+
+            },
+            error: function (response) {
+                isSuccess = false;
+                console.error(response);
+                alert(response.responseJSON.message);
+            }
+        });
+        return isSuccess;
+    },
+
+    checkIsMobilePhoneNumberValid: function (data) {
+        let isSuccess = false;
+        $.ajax({
+            url: '/bank-system/api/client/checkIsMobilePhoneNumberValid',
+            type: 'POST',
+            data: {
+                'mobilePhoneNumber' : data.mobilePhoneNumber
+            },
+            async: false,
+            success: function (response) {
+                isSuccess = true;
+                console.log(response);
+
+            },
+            error: function (response) {
+                isSuccess = false;
+                console.error(response);
+                alert(response.responseJSON.message);
+            }
+        });
+        return isSuccess;
+    },
+
+    checkIsPassportIdValid: function (data) {
+        let isSuccess = false;
+        $.ajax({
+            url: '/bank-system/api/passport/checkIsPassportIdValid',
+            type: 'POST',
+            data: {
+                'passportId' : data.passportId
+            },
+            async: false,
+            success: function (response) {
+                isSuccess = true;
+                console.log(response);
+
+            },
+            error: function (response) {
+                isSuccess = false;
+                console.error(response);
+                alert(response.responseJSON.message);
+            }
+        });
+        return isSuccess;
+    },
+
+    checkIsPassportNumberValid: function (data) {
+        let isSuccess = false;
+        $.ajax({
+            url: '/bank-system/api/passport/checkIsPassportNumberValid',
+            type: 'POST',
+            data: {
+                'passportNumber' : data.passportNumber
+            },
+            async: false,
+            success: function (response) {
+                isSuccess = true;
+                console.log(response);
+
+            },
+            error: function (response) {
+                isSuccess = false;
+                console.error(response);
+                alert(response.responseJSON.message);
+            }
+        });
+        return isSuccess;
+    },
+
+    removeSpecialSymbolsFromPhoneNumber: function(phoneNumber) {
+        let value = phoneNumber.trim();
+
+        value = removeSymbolRecursively(value, '+');
+        value = removeSymbolRecursively(value, '-');
+        value = removeSymbolRecursively(value, ' ');
+
+        return value;
     }
 
+};
+
+let removeSymbolRecursively = function(string, symbol){
+    if (string.includes(symbol)) {
+        string = string.replace(symbol, '');
+        return removeSymbolRecursively(string, symbol);
+    }
+    return string;
 };
 
 let saveLivingAddress = function (address) {

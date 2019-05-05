@@ -13,12 +13,19 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
+import sun.misc.Request
+
+import javax.servlet.http.HttpServletResponse
 
 @RestController
 @RequestMapping(value = '/api/client', produces = 'application/json')
 class ClientRestController {
+
+    final static Logger log = LoggerFactory.getLogger(this.class)
 
     @Autowired
     ClientService clientService
@@ -76,6 +83,48 @@ class ClientRestController {
         try {
             clientService.delete(id)
             return ResponseEntity.ok().build()
+
+        } catch (RuntimeException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
+        }
+    }
+
+    @PostMapping('/checkIsEmailValid')
+    def checkIsEmailValid(@RequestParam String email, HttpServletResponse httpServletResponse) {
+        try {
+            def responseMap = [:]
+
+            if (clientService.isEmailInUse(email)) {
+                httpServletResponse.status = HttpServletResponse.SC_BAD_REQUEST
+                responseMap['message'] = 'E-mail ' + email + ' already in use.'
+            } else {
+                httpServletResponse.status = HttpServletResponse.SC_OK
+                responseMap['message'] = 'E-mail ' + email + ' is valid.'
+            }
+
+            return responseMap
+
+        } catch (RuntimeException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
+        }
+    }
+
+    @PostMapping('/checkIsMobilePhoneNumberValid')
+    def checkIsMobilePhoneNumber(@RequestParam String mobilePhoneNumber, HttpServletResponse httpServletResponse) {
+        try {
+            def responseMap = [:]
+
+            if (clientService.isMobilePhoneNumberInUse(mobilePhoneNumber)) {
+                httpServletResponse.status = HttpServletResponse.SC_BAD_REQUEST
+                responseMap['message'] = 'Mobile phone number ' + mobilePhoneNumber + ' already in use.'
+            } else {
+                httpServletResponse.status = HttpServletResponse.SC_OK
+                responseMap['message'] = 'Mobile phone number ' + mobilePhoneNumber + ' is valid.'
+            }
+
+            return responseMap
 
         } catch (RuntimeException e) {
             e.printStackTrace()

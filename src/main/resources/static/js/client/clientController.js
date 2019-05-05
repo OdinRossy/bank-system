@@ -15,11 +15,11 @@ let isGeneralInfoValid = false;
 let isContactInfoValid = false;
 let isPersonalInfoValid = false;
 
-// let isPassportAlreadyExists = false;
 let isPassportIdValid = false;
 let isPassportSeriesValid = false;
 let isPassportNumberValid = false;
 let isEmailValid = false;
+let isMobilePhoneNumberValid = false;
 
 // General info
 let lastNameInput = $('#txt-last-name');
@@ -139,7 +139,7 @@ function validateGeneralInfo() {
     ];
 
     isGeneralInfoValid = clientService.validate(fields);
-    console.log('Validating general info.. ' + isGeneralInfoValid);
+    console.log('Validating general info: ' + isGeneralInfoValid);
 
 }
 
@@ -156,8 +156,8 @@ function validateContactInfo() {
         livingCountryFieldInput
     ];
 
-    isContactInfoValid = isEmailValid && clientService.validate(fields);
-    console.log('Validating contact info.. ' + isContactInfoValid);
+    isContactInfoValid = isEmailValid && isMobilePhoneNumberValid && clientService.validate(fields);
+    console.log('Validating contact info: ' + isContactInfoValid);
 }
 
 function validatePersonalInfo() {
@@ -180,83 +180,115 @@ function validatePersonalInfo() {
     ];
 
     isPersonalInfoValid = isPassportValid() && clientService.validate(fields);
-    console.log('Validating personal info.. ' + isPersonalInfoValid);
+    console.log('Validating personal info: ' + isPersonalInfoValid);
 
 }
 
-function validatePassportId() {
+passportIdInput.blur(function validatePassportId() {
 
     if (clientService.validate([passportIdInput])) {
-        if (passportIdInput.val().trim().length === 14) {
-            if (clientService.isPassportAlreadyExists(passportIdInput.val())) {
-                console.error('Password already exist: ' + passportIdInput.val());
-                passportIdInput.addClass('is-invalid');
-                isPassportIdValid = false;
-            } else {
-                passportIdInput.addClass('is-valid');
-                isPassportIdValid = true;
-            }
-        } else {
-            passportIdInput.addClass('is-invalid');
-            isPassportIdValid = false;
-        }
+
+        let isPassportIdLengthValid = passportIdInput.val().trim().length === 14;
+        let isPassportIdUniq = clientService.checkIsPassportIdValid({passportId: passportIdInput.val()});
+
+        isPassportIdValid = isPassportIdLengthValid && isPassportIdUniq;
+
     } else {
         isPassportIdValid = false;
     }
 
-    console.log('Validating passport id.. ' + isPassportIdValid);
-}
+    isPassportIdValid ? passportIdInput.addClass('is-valid') : passportIdInput.addClass('is-invalid');
 
-function validatePassportSeries() {
+    console.log('Validating passport id: ' + isPassportIdValid);
+});
+
+passportSeriesInput.blur(function validatePassportSeries() {
 
     if (clientService.validate([passportSeriesInput])) {
-        if (passportSeriesInput.val().trim().length === 2) {
-            passportSeriesInput.addClass('is-valid');
-            isPassportSeriesValid = true;
-        } else {
-            passportSeriesInput.addClass('is-invalid');
-            isPassportSeriesValid = false;
-        }
+
+        let isPassportSeriesLengthValid = passportSeriesInput.val().trim().length === 2;
+
+        isPassportSeriesValid = isPassportSeriesLengthValid;
+
     } else {
         isPassportSeriesValid = false;
     }
 
-    console.log('Validating passport series.. ' + isPassportSeriesValid);
-}
+    isPassportSeriesValid ? passportSeriesInput.addClass('is-valid') : passportSeriesInput.addClass('is-invalid');
 
-function validatePassportNumber() {
+    console.log('Validating passport series: ' + isPassportSeriesValid);
+});
+
+passportNumberInput.blur(function validatePassportNumber() {
 
     if (clientService.validate([passportNumberInput])) {
-        if (passportNumberInput.val().trim().length === 7) {
-            passportNumberInput.addClass('is-valid');
-            isPassportNumberValid = true;
-        } else {
-            passportNumberInput.addClass('is-invalid');
-            isPassportIdValid = false;
-        }
+        let isPassportNumberLengthValid = passportNumberInput.val().trim().length === 7;
+        let isPassportNumberUniq = clientService.checkIsPassportNumberValid({passportNumber: passportNumberInput.val()});
+
+        isPassportNumberValid = isPassportNumberLengthValid && isPassportNumberUniq;
+
     } else {
         isPassportNumberValid = false;
     }
 
-    console.log('Validating passport number.. ' + isPassportNumberValid);
-}
+    isPassportNumberValid ? passportNumberInput.addClass('is-valid') : passportNumberInput.addClass('is-invalid');
 
-function validateEmail() {
+    console.log('Validating passport number: ' + isPassportNumberValid);
+});
+
+emailInput.blur(function validateEmail() {
 
     if (clientService.validate([emailInput])) {
-        if (emailInput.val().trim().length > 3 && emailInput.val().includes('@')) {
-            emailInput.addClass('is-valid');
-            isEmailValid = true;
-        } else {
-            emailInput.addClass('is-invalid');
-            isEmailValid = false;
-        }
+        let isEmailLengthValid = emailInput.val().trim().length > 3;
+        let isEmailContainsSpecialSymbol = emailInput.val().includes('@');
+        let isEmailUniq = clientService.checkIsEmailValid({email: emailInput.val()});
+
+        isEmailValid = isEmailLengthValid && isEmailContainsSpecialSymbol && isEmailUniq;
+
     } else {
         isEmailValid = false;
     }
 
-    console.log('Validating email.. ' + isEmailValid);
-}
+    isEmailValid ? emailInput.addClass('is-valid') : emailInput.addClass('is-invalid');
+
+    console.log('Validating email: ' + isEmailValid);
+});
+
+mobilePhoneNumberInput.blur(function validateMobilePhoneNumber() {
+
+    if (clientService.validate([mobilePhoneNumberInput])) {
+        let value = clientService.removeSpecialSymbolsFromPhoneNumber(mobilePhoneNumberInput.val());
+        console.log('MobilePhoneNumber after replace: ' + value);
+
+        mobilePhoneNumberInput.val(value);
+
+        let isMobilePhoneNumberLengthValid = value.length >= 7;
+        let isMobilePhoneNumberUniq = clientService.checkIsMobilePhoneNumberValid({mobilePhoneNumber: value});
+
+        isMobilePhoneNumberValid = isMobilePhoneNumberLengthValid && isMobilePhoneNumberUniq;
+
+    } else {
+        isMobilePhoneNumberValid = false;
+    }
+
+    isMobilePhoneNumberValid ? mobilePhoneNumberInput.addClass('is-valid') : mobilePhoneNumberInput.addClass('is-invalid');
+
+    console.log('Validating mobilePhoneNumber: ' + isMobilePhoneNumberValid);
+});
+
+homePhoneNumberInput.blur(function () {
+
+    let value = clientService.removeSpecialSymbolsFromPhoneNumber(homePhoneNumberInput.val());
+    homePhoneNumberInput.val(value);
+
+});
+
+$('.numbers-to-validate').blur(function () {
+    let elements = $('.numbers-to-validate');
+    elements.each(function () {
+        $(this).val(clientService.removeSpecialSymbolsFromPhoneNumber($(this).val()))
+    })
+});
 
 function isPassportValid() {
     return isPassportIdValid && isPassportSeriesValid && isPassportNumberValid;
@@ -384,6 +416,10 @@ function savePersonalInfo() {
     }
 }
 
+function isReadyToSaveOrUpdateClient() {
+    return isContinue && isGeneralInfoValid && isContactInfoValid && isPersonalInfoValid
+}
+
 // Save client
 function saveClient() {
 
@@ -391,8 +427,8 @@ function saveClient() {
     validateContactInfo();
     validatePersonalInfo();
 
-    if (isContinue && isGeneralInfoValid && isContactInfoValid && isPersonalInfoValid) {
-        console.log('Ready to save client');
+    if (isReadyToSaveOrUpdateClient()) {
+        console.log('Saving client..');
         clientService.saveClient(client);
         console.log(client);
         window.open('/bank-system/client/' + client.id, '_self');
@@ -408,11 +444,11 @@ function saveClient() {
 }
 
 function updateClient() {
-    if (isContinue && isGeneralInfoValid && isContactInfoValid && isPersonalInfoValid) {
-        console.log('Ready to update client');
-        // clientService.saveClient(client);
+    if (isReadyToSaveOrUpdateClient()) {
+        console.log('Updating client..');
+        // clientService.updateClient(client);
         console.log(client);
-        window.open('/bank-system/client/' + client.id, '_self');
+        // window.open('/bank-system/client/' + client.id, '_self');
 
     } else {
         console.error('isContinue: ' + isContinue);

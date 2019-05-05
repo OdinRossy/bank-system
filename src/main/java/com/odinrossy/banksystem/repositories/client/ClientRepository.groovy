@@ -11,4 +11,8 @@ interface ClientRepository extends CrudRepository<Client, Long> {
 
     Client findByPassportId(String passportId)
 
+    Client findByEmail(String email)
+
+    Client findByMobilePhoneNumber(String mobilePhoneNumber)
+
 }

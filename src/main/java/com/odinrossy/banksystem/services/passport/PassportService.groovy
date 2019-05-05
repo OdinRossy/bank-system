@@ -19,4 +19,8 @@ interface PassportService extends LoggerService {
 
     def delete(String id) throws ResourceNotFoundException
 
+    def isPassportIdInUse(String id)
+
+    def isPassportNumberInUse(int number)
+
 }
