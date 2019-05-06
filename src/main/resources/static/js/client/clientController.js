@@ -584,7 +584,6 @@ function saveAccount(clientId) {
 }
 
 function deleteAccount(accountId) {
-
     clientService.deleteAccount(accountId,
         function (response) {
             location = location;
