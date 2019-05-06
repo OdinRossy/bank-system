@@ -16,6 +16,7 @@ mvn spring-boot:run
 * [Apache groovy](http://groovy-lang.org)
 * Internationalisation (i18n)
 * [Bootstrap](https://getbootstrap.com/docs/4.3/examples/)
+* [Font Awesome](https://fontawesome.com/)
 * [git](https://git-scm.com)
 
 ## Developed by [OdinRossy](https://odinrossy.github.io).
