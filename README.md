@@ -1,4 +1,4 @@
-# Bank-system is a my university course project.
+# Bank-system is my university course project.
 
 ### Starting guide:
 **1. Initialize Database:**
