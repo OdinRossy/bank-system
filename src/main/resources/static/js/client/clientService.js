@@ -14,11 +14,11 @@ const clientService = {
         return isValid;
     },
 
-    getAddress: function(address, successCallback, errorCallback) {
+    getAddress: function(data, successCallback, errorCallback) {
         $.ajax({
             url: '/bank-system/api/address/findByCountryAndCityAndStreetAndBuildingNumberAndApartmentNumberAndPostCode',
             type: 'GET',
-            data: JSON.stringify(address),
+            data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             async: false,
@@ -27,11 +27,11 @@ const clientService = {
         });
     },
 
-    saveAddress: function(address, successCallback, errorCallback) {
+    saveAddress: function(data, successCallback, errorCallback) {
         $.ajax({
             url: '/bank-system/api/address',
             type: 'POST',
-            data: JSON.stringify(address),
+            data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             async: false,
@@ -50,11 +50,11 @@ const clientService = {
         });
     },
 
-    saveRegistration: function(registration, successCallback, errorCallback) {
+    saveRegistration: function(data, successCallback, errorCallback) {
         $.ajax({
             url: '/bank-system/api/registration',
             type: 'POST',
-            data: JSON.stringify(registration),
+            data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             async: false,
@@ -138,9 +138,9 @@ const clientService = {
         return value;
     },
 
-    getClient: function(id, successCallback, errorCallback) {
+    getClient: function(data, successCallback, errorCallback) {
         $.ajax({
-            url: '/bank-system/api/client/' + id,
+            url: '/bank-system/api/client/' + data.id,
             type: 'GET',
             async: false,
             success: successCallback,
@@ -161,7 +161,7 @@ const clientService = {
         });
     },
 
-    updateClient: function(client, successCallback, errorCallback) {
+    updateClient: function(data, successCallback, errorCallback) {
         $.ajax({
             url: '/bank-system/api/client/' + client.id,
             type: 'PUT',

@@ -476,13 +476,13 @@ function saveClient() {
     clientService.saveClient(client,
         function (response) {
             client = response;
+            window.open('/bank-system/client/' + client.id, '_self');
         },
         function (response) {
             console.error(response);
             main.showErrorModal(null, response.responseJSON.message);
         });
     console.log(client);
-    window.open('/bank-system/client/' + client.id, '_self');
 }
 
 
