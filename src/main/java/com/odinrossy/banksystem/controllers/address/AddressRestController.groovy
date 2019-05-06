@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
-@RequestMapping(value = '/api/address', produces = 'application/json')
+@RequestMapping(value = '/api/address')
 class AddressRestController {
 
     @Autowired

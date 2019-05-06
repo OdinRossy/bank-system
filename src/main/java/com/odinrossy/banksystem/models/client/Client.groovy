@@ -73,7 +73,7 @@ class Client {
 
     String position
 
-//    todo replace with BigDecimal
+//    TODO: replace with BigDecimal
     @NonNull
     double incomePerMonth
 

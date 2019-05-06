@@ -49,18 +49,15 @@ class AccessLevelServiceImpl implements AccessLevelService {
                 if (!accessLevel)
                     throw new ResourceNotValidException('AccessLevel is not valid')
 
-//                todo catch java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'Plain worker' for key 'UK_9lt2v43i3s8235emubg2iudef'
                 accessLevel = accessLevelRepository.save(accessLevel)
                 return findById(accessLevel.id)
             }
-
     }
 
     @Override
     AccessLevel update(short id, AccessLevel accessLevel) {
         accessLevel.id = id
         findById(accessLevel.id)
-
 
         if (!accessLevel)
             throw new ResourceNotValidException('AccessLevel is not valid')

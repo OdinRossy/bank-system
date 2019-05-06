@@ -184,3 +184,12 @@ section {
     margin: 1% 0;
     font-size: 64px;
 }
+
+.action-icon {
+    cursor: pointer;
+    color: #cccccc;
+}
+
+.action-icon :hover {
+    color: #333333;
+}

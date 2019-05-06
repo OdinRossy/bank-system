@@ -48,24 +48,30 @@ let isDisabledInput = $('input[name=isDisabled]');
 
 
 function showGeneralInfo() {
-    showCard('#btn-general-info', ['#general-info'], ['#personal-info', '#contact-info']);
+    showCard('#btn-general-info', ['#general-info']);
 }
 
 
 function showContactInfo() {
-    showCard('#btn-contacts', ['#contact-info'], ['#general-info', '#personal-info']);
+    showCard('#btn-contacts', ['#contact-info']);
 }
 
 
 function showPersonalInfo() {
-    showCard('#btn-personal-info', ['#personal-info'], ['#general-info', '#contact-info']);
+    showCard('#btn-personal-info', ['#personal-info']);
+}
+
+function showClientAccounts() {
+    showCard('#btn-client-accounts', ['#client-accounts']);
 }
 
 
-function showCard(activeButton, idElementsToShow, idElementsToHide) {
+function showCard(activeButton, idElementsToShow) {
 
-    idElementsToHide.forEach(function (item) {
-        $(item).css('display', 'none');
+    let cards = $('.card-info');
+
+    cards.each(function () {
+        $(this).css('display', 'none');
     });
 
     idElementsToShow.forEach(function (item) {
@@ -555,4 +561,35 @@ function saveRegistrationIfNotExists(registration) {
                 });
         });
     return registration;
+}
+
+function saveAccount(clientId) {
+    let currencyId = $('#select-currency').val();
+    let data = {
+        client:{
+            id:clientId
+        },
+        currency:{
+            id: currencyId
+        },
+        value: 0
+    };
+    clientService.saveAccount(data,
+        function (response) {
+            location = location;
+        },
+        function (response) {
+            main.showErrorModal(null, response);
+        });
+}
+
+function deleteAccount(accountId) {
+
+    clientService.deleteAccount(accountId,
+        function (response) {
+            location = location;
+        },
+        function (response) {
+            main.showErrorModal(null, response);
+        });
 }
