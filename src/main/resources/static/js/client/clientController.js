@@ -11,7 +11,7 @@ let birthDateInput = $('#txt-birth-date');
 let companyNameInput = $('#txt-company-name');
 let positionInput = $('#txt-position');
 let incomeInput = $('#txt-income-per-mouth');
-let isMaleInput = $('input[name=gender]:checked');
+let isMaleInput = $('input[name=gender]');
 let isEmployedInput = true;
 
 // Contact info inputs
@@ -353,7 +353,7 @@ function saveGeneralInfo() {
         passport.firstName = firstNameInput.val();
         passport.middleName = middleNameInput.val();
         passport.birthDate = birthDateInput.val();
-        passport.isMale = isMaleInput.val();
+        passport.isMale = isMaleInput.prop('checked');
         client.companyName = companyNameInput.val();
         client.position = positionInput.val();
         client.incomePerMonth = incomeInput.val();
