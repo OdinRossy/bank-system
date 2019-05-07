@@ -37,7 +37,7 @@ class ClientController {
     def index(Model model) {
         try {
             workerService.checkAuthorization()
-            def clients = clientService.findAll() as Set
+            def clients = clientService.findAll()
             model.addAttribute('clients', clients)
 
         } catch (WorkerNotAuthorizedException e) {
@@ -69,7 +69,7 @@ class ClientController {
     def create(Model model) {
         try {
             workerService.checkAuthorization()
-            def countries = countryService.findAll() as Set
+            def countries = countryService.findAll()
             model.addAttribute('countries', countries)
 
         } catch (WorkerNotAuthorizedException e) {
