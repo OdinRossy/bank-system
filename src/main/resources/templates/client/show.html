@@ -24,9 +24,7 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}"><span th:text="#{nav.home}"></span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/worker/profile}"><span th:text="#{nav.profile}"></span></a>
-                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link active dropdown-toggle scroll-top" role="button"
                            data-toggle="dropdown"><span th:text="#{nav.clients}"></span>
@@ -58,13 +56,22 @@
                         <a class="nav-link" th:href="@{/operations}"><span th:text="#{nav.actions}"></span></a>
                     </li>
                 </ul>
-                <div class="logout">
-                    <form class="form-inline my-2 my-lg-0" th:action="@{/worker/logOut}">
-                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span th:text="#{btn.logout}"></span>
-                        </button>
-                    </form>
+            </div>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span th:text="${worker.passport.firstName + ' ' + worker.passport.lastName}"></span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" th:href="@{'/worker/' + ${worker.id}}">
+                        <i class="fas fa-user-circle"></i>
+                        <span th:text="#{nav.profile}"></span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" th:href="@{/worker/logOut}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span th:text="#{btn.logout}"></span>
+                    </a>
                 </div>
             </div>
         </header>
@@ -397,7 +404,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-8"></div>
                                         <div class="form-group col-md-4">
-                                            <button class="btn btn-primary float-right scroll-top"
+                                            <button class="btn btn-primary btn-custom float-right scroll-top"
                                                     onclick="showContactInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
@@ -559,7 +566,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-8"></div>
                                         <div class="form-group col-md-4">
-                                            <button class="btn btn-primary float-right scroll-top"
+                                            <button class="btn btn-primary btn-custom float-right scroll-top"
                                                     onclick="showPersonalInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>

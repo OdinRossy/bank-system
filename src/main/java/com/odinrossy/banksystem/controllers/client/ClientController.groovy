@@ -5,6 +5,7 @@ import com.odinrossy.banksystem.services.account.AccountService
 import com.odinrossy.banksystem.services.account.CurrencyService
 import com.odinrossy.banksystem.services.client.ClientService
 import com.odinrossy.banksystem.services.country.CountryService
+import com.odinrossy.banksystem.services.security.AuthorizationService
 import com.odinrossy.banksystem.services.worker.WorkerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -33,11 +34,16 @@ class ClientController {
     @Autowired
     CurrencyService currencyService
 
+    @Autowired
+    AuthorizationService authorizationService
+
     @RequestMapping
     def index(Model model) {
         try {
             workerService.checkAuthorization()
             def clients = clientService.findAll()
+            def worker = authorizationService.workerFromSession
+            model.addAttribute('worker', worker)
             model.addAttribute('clients', clients)
 
         } catch (WorkerNotAuthorizedException e) {
@@ -54,6 +60,8 @@ class ClientController {
             def client = clientService.findById(id)
             def accounts = accountService.findAllByClient(client)
             def currencies = currencyService.findAll()
+            def worker = authorizationService.workerFromSession
+            model.addAttribute('worker', worker)
             model.addAttribute('client', client)
             model.addAttribute('accounts', accounts)
             model.addAttribute('currencies', currencies)
@@ -70,6 +78,8 @@ class ClientController {
         try {
             workerService.checkAuthorization()
             def countries = countryService.findAll()
+            def worker = authorizationService.workerFromSession
+            model.addAttribute('worker', worker)
             model.addAttribute('countries', countries)
 
         } catch (WorkerNotAuthorizedException e) {
@@ -84,6 +94,8 @@ class ClientController {
         try {
             workerService.checkAuthorization()
             def client = clientService.findById(id)
+            def worker = authorizationService.workerFromSession
+            model.addAttribute('worker', worker)
             model.addAttribute('client', client)
 
         } catch (WorkerNotAuthorizedException e) {

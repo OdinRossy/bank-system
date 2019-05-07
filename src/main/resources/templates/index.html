@@ -25,11 +25,6 @@
                         <a class="nav-link"><span th:text="#{nav.home}"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/worker/profile}">
-                            <span th:text="#{nav.profile}"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/client}">
                             <span th:text="#{nav.clients}"></span>
                         </a>
@@ -41,13 +36,12 @@
                     </li>
                 </ul>
             </div>
-            <div class="logout">
+            <div>
                 <a th:href="#{link.github}" target="_blank">
                     <i class="fab fa-github"></i>
                     <span>GitHub</span>
                 </a>
             </div>
-
         </header>
         <div class="container-fluid">
             <div class="row row-center">
@@ -65,6 +59,7 @@
                                     <p class="mb-0" th:text="#{txt.blockquote}"></p>
                                     <footer class="blockquote-footer" th:text="#{txt.blockquote.author}"></footer>
                                 </blockquote>
+
                                 <!--Next-->
                                 <div class="form-row">
                                     <div class="form-group col-md-8"></div>

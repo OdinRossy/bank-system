@@ -27,11 +27,6 @@
                         <a class="nav-link" th:href="@{/}"><span th:text="#{nav.home}"></span></a>
                     </li>
 
-                    <!--Profile-->
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/worker/profile}"><span th:text="#{nav.profile}"></span></a>
-                    </li>
-
                     <!--Client-->
                     <li class="nav-item dropdown">
                         <a class="nav-link active dropdown-toggle scroll-top" role="button"
@@ -50,19 +45,31 @@
                         <a class="nav-link" th:href="@{/operations}"><span th:text="#{nav.actions}"></span></a>
                     </li>
                 </ul>
-
-                <!--Search-->
-                <div class="logout">
-                    <div class="form-inline my-2 my-lg-0">
-                        <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"
-                               th:placeholder="#{placeholder.input.id} + ':'"
-                               aria-label="Search" oninput="findClientById()">
-                        <button class="btn btn-outline-success my-2 my-sm-0"
-                                onclick="openClient()">
-                            <span><i class="fas fa-search-dollar"></i></span>
-                            <span th:text="#{btn.search}"></span>
-                        </button>
-                    </div>
+            </div>
+            <!--Search-->
+<!--            <div>-->
+<!--                <div class="form-inline my-2 my-lg-0">-->
+<!--                    <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"-->
+<!--                           th:placeholder="#{placeholder.input.id} + ':'"-->
+<!--                           aria-label="Search" oninput="findClientById()">-->
+<!--                    -->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span th:text="${worker.passport.firstName + ' ' + worker.passport.lastName}"></span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" th:href="@{'/worker/' + ${worker.id}}">
+                        <i class="fas fa-user-circle"></i>
+                        <span th:text="#{nav.profile}"></span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" th:href="@{/worker/logOut}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span th:text="#{btn.logout}"></span>
+                    </a>
                 </div>
             </div>
         </header>
