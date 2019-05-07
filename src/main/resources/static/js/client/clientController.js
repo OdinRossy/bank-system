@@ -579,7 +579,8 @@ function saveAccount(clientId) {
             location = location;
         },
         function (response) {
-            main.showErrorModal(null, response);
+            console.error(response);
+            main.showErrorModal(null, response.responseJSON.message);
         });
 }
 
@@ -589,6 +590,7 @@ function deleteAccount(accountId) {
             location = location;
         },
         function (response) {
-            main.showErrorModal(null, response);
+            console.error(response);
+            main.showErrorModal(null, response.responseJSON.message);
         });
 }

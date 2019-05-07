@@ -32,17 +32,23 @@
                            data-toggle="dropdown"><span th:text="#{nav.clients}"></span>
                         </a>
                         <div class="dropdown-menu">
+
+                            <!--Show all clients-->
                             <a class="dropdown-item" th:href="@{/client}">
                                 <i class="fas fa-users"></i>
                                 <span th:text="#{nav.clients.all}"></span>
                             </a>
                             <div class="dropdown-divider"></div>
+
+                            <!--Edit client-->
                             <a class="dropdown-item" th:href="@{'/client/edit/' + ${client.id}}">
                                 <i class="fas fa-user-edit"></i>
                                 <span th:text="#{nav.clients.edit}"></span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" data-toggle="modal" data-target="#deleteClientModal">
+
+                            <!--Delete client-->
+                            <a class="dropdown-item text-danger" data-toggle="modal" data-target="#delete-client-modal">
                                 <i class="fas fa-user-times"></i>
                                 <span th:text="#{nav.clients.delete}"></span>
                             </a>
@@ -124,7 +130,7 @@
                             </div>
 
                             <!-- Modal delete client-->
-                            <div class="modal fade" id="deleteClientModal" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="delete-client-modal" tabindex="-1" role="dialog"
                                  aria-labelledby="deleteClientModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -154,7 +160,7 @@
                             </div>
 
                             <!-- Modal create account-->
-                            <div class="modal fade" id="createAccountModal" tabindex="-1"
+                            <div class="modal fade" id="create-account-modal" tabindex="-1"
                                  role="dialog"
                                  aria-labelledby="deleteClientModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -192,6 +198,32 @@
                                             <button type="button" class="btn btn-success"
                                                     th:onclick="'saveAccount(' + ${client.id} + ')'">
                                                 <span th:text="#{btn.save}"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Error Modal -->
+                            <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
+                                 aria-labelledby="error-modal-label" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-danger" id="error-modal-label">
+                                                <i class="fas fa-exclamation-circle"></i>
+                                                <span id="error-modal-title" th:text="#{title.error.oops}"></span>
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span id="error-modal-body"></span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                                <span th:text="#{btn.close}"></span>
                                             </button>
                                         </div>
                                     </div>
@@ -656,7 +688,9 @@
                                                        th:text="#{placeholder.input.country} + ':'"></label>
                                                 <select id="registration-country" class="form-control" disabled>
                                                     <option th:value="${client.passport.registration.address.country.iso3code}"
-                                                            th:text="${client.passport.registration.address.country.countryName}"></option>
+                                                            th:text="${client.passport.registration.address.country
+                                                            .countryName}">
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -790,9 +824,10 @@
                                     <table class="table table-borderless table-hover">
                                         <thead>
                                             <tr>
+                                                <!--Create account-->
                                                 <th scope="col">
-                                                    <span class="action-icon" data-toggle="modal"
-                                                          data-target="#createAccountModal">
+                                                    <span class="hover-success action-icon" data-toggle="modal"
+                                                          data-target="#create-account-modal">
                                                          <i class="fas fa-plus"></i>
                                                     </span>
                                                 </th>
@@ -808,21 +843,21 @@
                                             <th:block th:each="account : ${accounts}">
                                                 <tr>
                                                     <td>
-                                                        <span class="action-icon" data-toggle="modal"
-                                                              data-target="#deleteAccountModal">
+                                                        <span class="hover-danger action-icon" data-toggle="modal"
+                                                              data-target="#delete-account-modal">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </span>
                                                     </td>
                                                     <td th:text="${account.id}"></td>
                                                     <td th:text="${account.currency.name}"></td>
                                                     <td th:text="${account.value}"></td>
-                                                    <td th:text="${#dates.format(account.dateOfIssue,'dd.MM.yyyy')}"></td>
-                                                    <td th:text="${#dates.format(account.dateOfExpire,'dd.MM.yyyy')}"></td>
+                                                    <td th:text="${#dates.format(account.dateOfIssue,'dd.MM.yyyy HH:mm')}"></td>
+                                                    <td th:text="${#dates.format(account.dateOfExpire,'dd.MM.yyyy HH:mm')}"></td>
                                                     <td th:text="${account.worker.id}"></td>
                                                 </tr>
 
                                                 <!-- Modal delete account-->
-                                                <div class="modal fade" id="deleteAccountModal" tabindex="-1"
+                                                <div class="modal fade" id="delete-account-modal" tabindex="-1"
                                                      role="dialog"
                                                      aria-labelledby="deleteClientModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">

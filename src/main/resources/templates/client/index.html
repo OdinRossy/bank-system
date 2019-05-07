@@ -112,8 +112,11 @@
                                                 'dd.MM.yyyy')}"></td>
                                                 <td th:text="${client.passport.citizenship.countryName}"></td>
                                                 <td th:text="${client.passport.id}"></td>
-                                                <td><a th:href="@{'/client/' + ${client.id}}">
-                                                    <i class="fas fa-chevron-right"></i></a></td>
+                                                <td class="action-icon">
+                                                    <a th:href="@{'/client/' + ${client.id}}">
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </th:block>
                                     </tbody>
