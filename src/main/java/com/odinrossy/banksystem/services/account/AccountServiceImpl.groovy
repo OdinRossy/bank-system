@@ -1,5 +1,6 @@
 package com.odinrossy.banksystem.services.account
 
+import com.odinrossy.banksystem.config.BankConfig
 import com.odinrossy.banksystem.exceptions.ResourceAlreadyExistsException
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
 import com.odinrossy.banksystem.exceptions.ResourceNotValidException
@@ -61,7 +62,7 @@ class AccountServiceImpl implements AccountService {
                 throw new ResourceNotValidException('Account is not valid')
 
             setDateOfIssue(account)
-            setDateOfExpire(account)
+            setDateOfExpire(account, BankConfig.ACCOUNT_DURANCE)
             account.worker = authorizationService.getWorkerFromSession()
 
             account = accountRepository.save(account)
@@ -98,10 +99,12 @@ class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    def setDateOfExpire(Account account) {
+    def setDateOfExpire(Account account, int years) {
         if (!account.dateOfIssue) {
             account.setDateOfIssue()
         }
-        account.dateOfExpire = new Date(account.dateOfIssue.year + 4, account.dateOfIssue.month, account.dateOfIssue.date)
+        Calendar calendar = Calendar.getInstance()
+        calendar.add(Calendar.YEAR, years)
+        account.dateOfExpire = calendar.getTime()
     }
 }

@@ -30,5 +30,5 @@ interface AccountService extends LoggerService {
 
     def setDateOfIssue(Account account)
 
-    def setDateOfExpire(Account account)
+    def setDateOfExpire(Account account, int years)
 }
