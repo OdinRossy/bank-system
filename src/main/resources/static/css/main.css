@@ -193,3 +193,11 @@ section {
 .action-icon :hover {
     color: #333333;
 }
+
+.hover-success :hover {
+    color: #28a745;
+}
+
+.hover-danger :hover {
+    color: #dc3545;
+}
