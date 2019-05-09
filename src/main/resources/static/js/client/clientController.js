@@ -294,7 +294,6 @@ function validatePassportNumber() {
 
 // validate info
 function validateGeneralInfo() {
-    let isGeneralInfoValid = false;
     const fields = [
         firstNameInput,
         lastNameInput,
@@ -305,14 +304,13 @@ function validateGeneralInfo() {
         incomeInput
     ];
 
-    isGeneralInfoValid = clientService.validate(fields);
+    let isGeneralInfoValid = clientService.validate(fields);
     console.log('Validating general info: ' + isGeneralInfoValid);
     return isGeneralInfoValid;
 
 }
 
 function validateContactInfo() {
-    let isContactInfoValid = false;
     const fields = [
         homePhoneNumberInput,
         livingPostCodeInput,
@@ -324,13 +322,12 @@ function validateContactInfo() {
     ];
     let isMobilePhoneNumberValid = validateMobilePhoneNumber();
     let isEmailValid = validateEmail();
-    isContactInfoValid = clientService.validate(fields) && isMobilePhoneNumberValid && isEmailValid;
+    let isContactInfoValid = clientService.validate(fields) && isMobilePhoneNumberValid && isEmailValid;
     console.log('Validating contact info: ' + isContactInfoValid);
     return isContactInfoValid;
 }
 
 function validatePersonalInfo() {
-    let isPersonalInfoValid = false;
     const fields = [
         passportAuthorityInput,
         passportDateOfIssueInput,
@@ -346,7 +343,7 @@ function validatePersonalInfo() {
         citizenshipInput
     ];
 
-    isPersonalInfoValid = validatePassport() && clientService.validate(fields);
+    let isPersonalInfoValid = validatePassport() && clientService.validate(fields);
     console.log('Validating personal info: ' + isPersonalInfoValid);
     return isPersonalInfoValid;
 }

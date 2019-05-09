@@ -35,7 +35,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="nav-item dropdown">
+
+            <!--Worker profile-->
+            <div class="nav-item dropdown text-secondary">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span th:text="${worker.passport.firstName + ' ' + worker.passport.lastName}"
@@ -70,26 +72,26 @@
 
                                     <!--General-info-->
                                     <li class="nav-item">
-                                        <button id="btn-general-info" class="btn nav-link active"
-                                                onclick="showGeneralInfo()">
+                                        <a id="btn-general-info" class="nav-link active" href="#"
+                                           onclick="showGeneralInfo()">
                                             <span th:text="#{client.general.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Contacts-->
                                     <li class="nav-item">
-                                        <button id="btn-contacts" class="btn nav-link"
-                                                onclick="showContactInfo()">
+                                        <a id="btn-contacts" class="nav-link" href="#"
+                                           onclick="showContactInfo()">
                                             <span th:text="#{client.contact.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Personal-info-->
                                     <li class="nav-item">
-                                        <button id="btn-personal-info" class="btn nav-link"
-                                                onclick="showPersonalInfo()">
+                                        <a id="btn-personal-info" class="nav-link" href="#"
+                                           onclick="showPersonalInfo()">
                                             <span th:text="#{client.private.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                 </ul>

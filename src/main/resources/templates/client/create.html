@@ -38,7 +38,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="nav-item dropdown">
+
+            <!--Worker profile-->
+            <div class="nav-item dropdown text-secondary">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span th:text="${worker.passport.firstName + ' ' + worker.passport.lastName}"
@@ -73,26 +75,26 @@
 
                                     <!--General-info-->
                                     <li class="nav-item">
-                                        <button id="btn-general-info" class="btn nav-link active"
-                                                onclick="showGeneralInfo()">
+                                        <a id="btn-general-info" class="nav-link active" href="#"
+                                           onclick="showGeneralInfo()">
                                             <span th:text="#{client.general.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Contacts-->
                                     <li class="nav-item">
-                                        <button id="btn-contacts" class="btn nav-link"
-                                                onclick="showContactInfo()">
+                                        <a id="btn-contacts" class="nav-link" href="#"
+                                           onclick="showContactInfo()">
                                             <span th:text="#{client.contact.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Personal-info-->
                                     <li class="nav-item">
-                                        <button id="btn-personal-info" class="btn nav-link"
-                                                onclick="showPersonalInfo()">
+                                        <a id="btn-personal-info" class="nav-link" href="#"
+                                           onclick="showPersonalInfo()">
                                             <span th:text="#{client.private.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                 </ul>
@@ -255,15 +257,16 @@
                                         </div>
                                     </section>
 
-                                    <!--Next-->
+                                    <!--Buttons-->
                                     <div class="form-row">
                                         <div class="form-group col-md-8"></div>
                                         <div class="form-group col-md-4">
-                                            <button class="btn btn-primary btn-custom float-right scroll-top"
-                                                    onclick="saveGeneralInfo()">
+                                            <a class="btn btn-primary btn-custom float-right"
+                                               href="#"
+                                               onclick="saveGeneralInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -400,15 +403,23 @@
                                         </div>
                                     </section>
 
-                                    <!--Next-->
+                                    <!--Buttons-->
                                     <div class="form-row">
-                                        <div class="form-group col-md-8"></div>
-                                        <div class="form-group col-md-4">
-                                            <button class="btn btn-primary btn-custom float-right scroll-top"
-                                                    onclick="saveContactInfo()">
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-secondary btn-custom float-left"
+                                               href="#"
+                                               onclick="showGeneralInfo()">
+                                                <i class="fas fa-arrow-left"></i>
+                                                <span th:text="#{btn.back}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-primary btn-custom float-right"
+                                               href="#"
+                                               onclick="saveContactInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -627,15 +638,23 @@
                                         </div>
                                     </section>
 
-                                    <!--Next-->
+                                    <!--Buttons-->
                                     <div class="form-row">
-                                        <div class="form-group col-md-8"></div>
-                                        <div class="form-group col-md-4">
-                                            <button class="btn btn-lg btn-success float-right scroll-top"
-                                                    onclick="savePersonalInfo(); saveClient()">
-                                                <i class="fas fa-save"></i>
-                                                <span th:text="#{btn.save}"></span>
-                                            </button>
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-secondary btn-custom float-left"
+                                               href="#"
+                                               onclick="showContactInfo()">
+                                                <i class="fas fa-arrow-left"></i>
+                                                <span th:text="#{btn.back}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-primary btn-custom float-right"
+                                               href="#"
+                                               onclick="savePersonalInfo(); saveClient()">
+                                                <span th:text="#{btn.next}"></span>
+                                                <i class="fas fa-arrow-right"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

@@ -57,7 +57,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="nav-item dropdown">
+
+            <!--Worker profile-->
+            <div class="nav-item dropdown text-secondary">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span th:text="${worker.passport.firstName + ' ' + worker.passport.lastName}"></span>
@@ -96,40 +98,48 @@
 
                                     <!--General-info-->
                                     <li class="nav-item">
-                                        <button id="btn-general-info" class="btn nav-link active scroll-top"
-                                                onclick="showGeneralInfo()">
+                                        <a id="btn-general-info" class="nav-link active" href="#"
+                                           onclick="showGeneralInfo()">
                                             <span th:text="#{client.general.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Contacts-->
                                     <li class="nav-item">
-                                        <button id="btn-contacts" class="btn nav-link scroll-top"
-                                                onclick="showContactInfo()">
+                                        <a id="btn-contacts" class="nav-link" href="#"
+                                           onclick="showContactInfo()">
                                             <span th:text="#{client.contact.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Personal-info-->
                                     <li class="nav-item">
-                                        <button id="btn-personal-info" class="btn nav-link scroll-top"
-                                                onclick="showPersonalInfo()">
+                                        <a id="btn-personal-info" class="nav-link" href="#"
+                                           onclick="showPersonalInfo()">
                                             <span th:text="#{client.private.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Client accounts-->
                                     <li class="nav-item">
-                                        <button id="btn-client-accounts" class="btn nav-link scroll-top"
-                                                onclick="showClientAccounts()">
+                                        <a id="btn-client-accounts" class="nav-link" href="#"
+                                           onclick="showClientAccounts()">
                                             <span th:text="#{client.accounts}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Edit-->
                                     <li class="nav-item">
-                                        <a class="btn nav-link" th:href="@{'/client/edit/' + ${client.id}}">
+                                        <a class="nav-link text-secondary" th:href="@{'/client/edit/' + ${client.id}}">
                                             <span th:text="#{client.profile.edit}"></span>
+                                        </a>
+                                    </li>
+
+                                    <!--Delete-->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            <span th:text="#{btn.delete}" class="text-danger"
+                                                  data-toggle="modal" data-target="#delete-client-modal"></span>
                                         </a>
                                     </li>
 
@@ -400,15 +410,16 @@
                                         </div>
                                     </section>
 
-                                    <!--Next-->
+                                    <!--Buttons-->
                                     <div class="form-row">
                                         <div class="form-group col-md-8"></div>
                                         <div class="form-group col-md-4">
-                                            <button class="btn btn-primary btn-custom float-right scroll-top"
-                                                    onclick="showContactInfo()">
+                                            <a class="btn btn-primary btn-custom float-right"
+                                               href="#"
+                                               onclick="showContactInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -431,7 +442,7 @@
 
                                             <!--Country-->
                                             <div class="form-group col-md-6">
-                                                <label for="select-currency"
+                                                <label for="select-living-address-country"
                                                        th:text="#{placeholder.input.country} + ':'"></label>
                                                 <select id="select-living-address-country" class="form-control"
                                                         disabled>
@@ -562,15 +573,23 @@
                                         </div>
                                     </section>
 
-                                    <!--Next-->
+                                    <!--Buttons-->
                                     <div class="form-row">
-                                        <div class="form-group col-md-8"></div>
-                                        <div class="form-group col-md-4">
-                                            <button class="btn btn-primary btn-custom float-right scroll-top"
-                                                    onclick="showPersonalInfo()">
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-secondary btn-custom float-left"
+                                               href="#"
+                                               onclick="showGeneralInfo()">
+                                                <i class="fas fa-arrow-left"></i>
+                                                <span th:text="#{btn.back}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-primary btn-custom float-right"
+                                               href="#"
+                                               onclick="showPersonalInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -820,6 +839,25 @@
                                                    th:text="#{client.is.disabled}"></label>
                                         </div>
                                     </section>
+
+                                    <!--Buttons-->
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-secondary btn-custom float-left"
+                                               href="#"
+                                               onclick="showContactInfo()">
+                                                <i class="fas fa-arrow-left"></i>
+                                                <span th:text="#{btn.back}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-primary btn-custom float-right" href="#"
+                                               onclick="showClientAccounts()">
+                                                <span th:text="#{btn.next}"></span>
+                                                <i class="fas fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -902,6 +940,7 @@
 
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

@@ -47,15 +47,17 @@
                 </ul>
             </div>
             <!--Search-->
-<!--            <div>-->
-<!--                <div class="form-inline my-2 my-lg-0">-->
-<!--                    <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"-->
-<!--                           th:placeholder="#{placeholder.input.id} + ':'"-->
-<!--                           aria-label="Search" oninput="findClientById()">-->
-<!--                    -->
-<!--                </div>-->
-<!--            </div>-->
-            <div class="nav-item dropdown">
+            <!--            <div>-->
+            <!--                <div class="form-inline my-2 my-lg-0">-->
+            <!--                    <input id="idPassport" name="idPassport" class="form-control mr-sm-2" type="search"-->
+            <!--                           th:placeholder="#{placeholder.input.id} + ':'"-->
+            <!--                           aria-label="Search" oninput="findClientById()">-->
+            <!--                    -->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <!--Worker profile-->
+            <div class="nav-item dropdown text-secondary">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span th:text="${worker.passport.firstName + ' ' + worker.passport.lastName}"></span>
@@ -94,6 +96,7 @@
                                 <table class="table table-borderless table-hover">
                                     <thead>
                                         <tr>
+
                                             <th scope="col">#</th>
                                             <th scope="col" th:text="#{passport.last.name}"></th>
                                             <th scope="col" th:text="#{passport.first.name}"></th>
@@ -102,7 +105,12 @@
                                             <th scope="col" th:text="#{passport.birth.date}"></th>
                                             <th scope="col" th:text="#{passport.country.name}"></th>
                                             <th scope="col" th:text="#{passport.id}"></th>
-                                            <th scope="col"></th>
+                                            <th scope="col">
+                                                <a class="hover-success action-icon"
+                                                   th:href="@{/client/create}">
+                                                    <i class="fas fa-plus"></i>
+                                                </a>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
