@@ -26,4 +26,6 @@ interface ClientService extends LoggerService {
 
     def isMobilePhoneNumberInUse(String mobilePhoneNumber)
 
+    def getInitials(Client client)
+
 }

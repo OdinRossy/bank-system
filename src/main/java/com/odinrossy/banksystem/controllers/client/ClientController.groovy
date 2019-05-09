@@ -61,10 +61,12 @@ class ClientController {
             def accounts = accountService.findAllByClient(client)
             def currencies = currencyService.findAll()
             def worker = authorizationService.workerFromSession
+            def initials = clientService.getInitials(client)
             model.addAttribute('worker', worker)
             model.addAttribute('client', client)
             model.addAttribute('accounts', accounts)
             model.addAttribute('currencies', currencies)
+            model.addAttribute('initials', initials)
 
         } catch (WorkerNotAuthorizedException e) {
             e.printStackTrace()

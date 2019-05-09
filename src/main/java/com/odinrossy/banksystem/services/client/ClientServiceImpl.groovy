@@ -85,4 +85,12 @@ class ClientServiceImpl implements ClientService {
     def isMobilePhoneNumberInUse(String mobilePhoneNumber) {
         return clientRepository.findByMobilePhoneNumber(mobilePhoneNumber) ? true : false
     }
+
+    @Override
+
+    def getInitials(Client client) {
+        return client.passport.lastName + ' ' +
+                client.passport.firstName.charAt(0) + '.' + ' ' +
+                client.passport.middleName.charAt(0)+ '.'
+    }
 }
