@@ -1,31 +1,23 @@
-function showGeneralInfo() {
-    showCard('#btn-general-info', ['#general-info']);
+function showGeneralTab() {
+    main.showTab('#btn-general-tab', ['#general-tab']);
 }
 
-function showContactInfo() {
-    showCard('#btn-contacts', ['#contact-info']);
+function showPersonalTab() {
+    main.showTab('#btn-personal-tab', ['#personal-tab']);
 }
 
-function showPersonalInfo() {
-    showCard('#btn-personal-info', ['#personal-info']);
-}
-
-function showClientAccounts() {
-    showCard('#btn-client-accounts', ['#client-accounts']);
-}
-
-function showCard(activeButton, idElementsToShow) {
-
-    let cards = $('.card-info');
-
-    cards.each(function () {
-        $(this).css('display', 'none');
-    });
-
-    idElementsToShow.forEach(function (item) {
-        $(item).css('display', 'block');
-    });
-
-    $('.active').removeClass('active');
-    $(activeButton).addClass("active");
-}
+// function showCard(activeButton, idElementsToShow) {
+//
+//     let cards = $('.card-info');
+//
+//     cards.each(function () {
+//         $(this).css('display', 'none');
+//     });
+//
+//     idElementsToShow.forEach(function (item) {
+//         $(item).css('display', 'block');
+//     });
+//
+//     $('.active').removeClass('active');
+//     $(activeButton).addClass("active");
+// }

@@ -3,7 +3,7 @@ $('.scroll-top').click(function () {
 });
 
 const main = {
-    showErrorModal: function(title, body) {
+    showErrorModal: function (title, body) {
         if (title) {
             $('#error-modal-title').text(title);
         }
@@ -11,14 +11,30 @@ const main = {
         $('#error-modal').modal('show');
     },
 
-    removeSymbolRecursively: function(string, symbol){
+    removeSymbolRecursively: function (string, symbol) {
         if (string.includes(symbol)) {
             string = string.replace(symbol, '');
             return main.removeSymbolRecursively(string, symbol);
         }
         return string;
     },
-    scrollTop: function() {
+    scrollTop: function () {
         $('html, body').animate({scrollTop: $('html, body').offset().top}, 500);
+    },
+
+    showTab: function (activeButton, idElementsToShow) {
+
+        let cards = $('.card-info');
+
+        cards.each(function () {
+            $(this).css('display', 'none');
+        });
+
+        idElementsToShow.forEach(function (item) {
+            $(item).css('display', 'block');
+        });
+
+        $('.active').removeClass('active');
+        $(activeButton).addClass("active");
     },
 };

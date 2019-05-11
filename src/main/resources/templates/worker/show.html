@@ -79,23 +79,24 @@
 
                                     <!--General info-->
                                     <li class="nav-item">
-                                        <a id="btn-general-info" class="nav-link active" href="#"
-                                                onclick="showGeneralInfo()">
+                                        <a id="btn-general-tab" class="nav-link active" href="#"
+                                                onclick="showGeneralTab()">
                                             <span th:text="#{worker.public.information}"></span>
                                         </a>
                                     </li>
 
                                     <!--Personal info-->
                                     <li class="nav-item">
-                                        <a id="btn-personal-info" class="nav-link" href="#"
-                                                onclick="showPersonalInfo()">
+                                        <a id="btn-personal-tab" class="nav-link" href="#"
+                                                onclick="showPersonalTab()">
                                             <span th:text="#{worker.private.information}"></span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div id="general-info" class="card-body card-info">
+                            <!--General-info-->
+                            <div id="general-tab" class="card-body card-info">
                                 <div class="user-info">
 
                                     <!--FIO-->
@@ -218,47 +219,8 @@
                                 </div>
                             </div>
 
-                            <div id="personal" class="card-body" style="display: none">
-                                <div class="user-info">
-                                    <h5>
-                                        <span th:text="#{passport.birth.date}"></span>:
-                                        <span th:text="${#dates.format(worker.passport.birthDate,'dd.MM.yyyy')}"></span>
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.gender.label}"></span>:
-                                        <span th:text="(${worker.passport.isMale} ?
-                                            #{passport.gender.male} : #{passport.gender.female})">
-                                        </span>
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.id}"></span>:
-                                        <span th:text="${worker.passport.id}"></span>
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.series}"></span>:
-                                        <span th:text="${worker.passport.series}"></span>
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.number}"></span>:
-                                        <span th:text="${worker.passport.number}"></span>
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.country.name}"></span>:
-                                        <span th:text="${worker.passport.citizenship.countryName}"></span>
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.date.of.issue}"></span>:
-                                        <span th:text="${#dates.format(worker.passport.dateOfIssue,'dd.MM.yyyy')}"></span>
-                                    </h5>
-                                    <h5>
-                                        <span th:text="#{passport.date.of.expire}"></span>:
-                                        <span th:text="${#dates.format(worker.passport.dateOfExpire,'dd.MM.yyyy')}"></span>
-                                    </h5>
-                                </div>
-                            </div>
-
                             <!--Personal-info-->
-                            <div id="personal-info" class="card-body card-info" style="display: none">
+                            <div id="personal-tab" class="card-body card-info" style="display: none">
                                 <div class="user-info">
 
                                     <!--Passport-->

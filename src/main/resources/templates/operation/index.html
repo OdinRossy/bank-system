@@ -68,9 +68,50 @@
                             <i class="fas fa-money-check-alt avatar"></i>
                             <h2 th:text="#{title.operation}"></h2>
                         </div>
-                        <div class="rounded-container smooth-shadow">
-                            <div class="user-info">
+                        <div class="card smooth-shadow">
+                            <div class="card-header">
+                                <ul class="nav nav-pills card-header-pills">
 
+                                    <!--General info-->
+                                    <li class="nav-item">
+                                        <a id="btn-credit-tab" class="nav-link active" href="#"
+                                           onclick="showCreditTab()">
+                                            <span th:text="#{operation.credit}"></span>
+                                        </a>
+                                    </li>
+
+                                    <!--Personal info-->
+                                    <li class="nav-item">
+                                        <a id="btn-deposit-tab" class="nav-link" href="#"
+                                           onclick="showDepositTab()">
+                                            <span th:text="#{operation.deposit}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!--General-info-->
+                            <div id="credit-tab" class="card-body card-info">
+                                <div class="user-info">
+                                    <section>
+                                        <h3>
+                                            <i class="fas fa-piggy-bank"></i>
+                                            <span th:text="#{operation.credit}"></span>
+                                        </h3>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <!--Personal-info-->
+                            <div id="deposit-tab" class="card-body card-info" style="display: none">
+                                <div class="user-info">
+                                    <section>
+                                        <h3>
+                                            <i class="fas fa-piggy-bank"></i>
+                                            <span th:text="#{operation.deposit}"></span>
+                                        </h3>
+                                    </section>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,5 +126,6 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/operation/operationController.js}"></script>
     </body>
 </html>
