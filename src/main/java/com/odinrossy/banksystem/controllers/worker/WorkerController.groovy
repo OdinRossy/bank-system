@@ -34,7 +34,7 @@ class WorkerController {
 
             if (authorizedWorker.id == requestedWorker.id || authorizedWorker.accessLevel.id == 1 as long) {
                 model.addAttribute('worker', authorizedWorker)
-                return 'worker/profile'
+                return 'worker/show'
             } else {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN)
             }

@@ -21,14 +21,20 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+
+                    <!--Home-->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}"><span th:text="#{nav.home}"></span></a>
                     </li>
+
+                    <!--Client-->
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/client}"><span th:text="#{nav.clients}"></span></a>
                     </li>
+
+                    <!--Operation-->
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/operation}"><span th:text="#{nav.actions}"></span></a>
+                        <a class="nav-link" th:href="@{/operation}"><span th:text="#{nav.operation}"></span></a>
                     </li>
                 </ul>
             </div>
@@ -73,18 +79,18 @@
 
                                     <!--General info-->
                                     <li class="nav-item">
-                                        <button id="btn-general-info" class="btn nav-link active scroll-top"
+                                        <a id="btn-general-info" class="nav-link active" href="#"
                                                 onclick="showGeneralInfo()">
                                             <span th:text="#{worker.public.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
 
                                     <!--Personal info-->
                                     <li class="nav-item">
-                                        <button id="btn-personal-info" class="btn nav-link scroll-top"
+                                        <a id="btn-personal-info" class="nav-link" href="#"
                                                 onclick="showPersonalInfo()">
                                             <span th:text="#{worker.private.information}"></span>
-                                        </button>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
