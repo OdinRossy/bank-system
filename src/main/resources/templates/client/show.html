@@ -131,14 +131,16 @@
                                     <!--Edit-->
                                     <li class="nav-item">
                                         <a class="nav-link text-secondary" th:href="@{'/client/edit/' + ${client.id}}">
+                                            <i class="fas fa-pen"></i>
                                             <span th:text="#{client.profile.edit}"></span>
                                         </a>
                                     </li>
 
                                     <!--Delete-->
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            <span th:text="#{btn.delete}" class="text-danger"
+                                        <a class="nav-link text-danger" href="#">
+                                            <i class="fas fa-trash-alt"></i>
+                                            <span th:text="#{btn.delete}"
                                                   data-toggle="modal" data-target="#delete-client-modal"></span>
                                         </a>
                                     </li>
@@ -898,7 +900,10 @@
                                                     <td th:text="${account.value}"></td>
                                                     <td th:text="${#dates.format(account.dateOfIssue,'dd.MM.yyyy HH:mm')}"></td>
                                                     <td th:text="${#dates.format(account.dateOfExpire,'dd.MM.yyyy HH:mm')}"></td>
-                                                    <td th:text="${account.worker.id}"></td>
+                                                    <td>
+                                                        <a th:href="@{'/worker/' + ${account.worker.id}}"
+                                                           th:text="${account.worker.id}"></a>
+                                                    </td>
                                                 </tr>
 
                                                 <!-- Modal delete account-->

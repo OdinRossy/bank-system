@@ -1,9 +1,10 @@
-package com.odinrossy.banksystem.controllers.account
+package com.odinrossy.banksystem.controllers.operation
 
-import com.odinrossy.banksystem.models.account.Account
+import com.odinrossy.banksystem.models.operation.Operation
 import com.odinrossy.banksystem.services.account.AccountService
-import com.odinrossy.banksystem.services.account.CurrencyService
 import com.odinrossy.banksystem.services.client.ClientService
+import com.odinrossy.banksystem.services.operation.OperationService
+import com.odinrossy.banksystem.services.operation.OperationTypeService
 import com.odinrossy.banksystem.services.worker.WorkerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -11,9 +12,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
-@RestController(value = 'AccountRestController')
-@RequestMapping(value = '/api/account')
-class AccountRestController {
+@RestController
+@RequestMapping(value = '/api/operation')
+class OperationRestController {
+
+    @Autowired
+    OperationService operationService
 
     @Autowired
     AccountService accountService
@@ -25,23 +29,12 @@ class AccountRestController {
     WorkerService workerService
 
     @Autowired
-    CurrencyService currencyService
-
-    @GetMapping
-    def findAll() {
-        try {
-            return accountService.findAll()
-
-        } catch (RuntimeException e) {
-            e.printStackTrace()
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
-        }
-    }
+    OperationTypeService operationTypeService
 
     @GetMapping(value = '/{id}')
     def findById(@PathVariable long id) {
         try {
-            return accountService.findById(id)
+            return operationService.findById(id)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -49,10 +42,21 @@ class AccountRestController {
         }
     }
 
-    @GetMapping(value = '/byClient/{id}')
+    @GetMapping
+    def findAll() {
+        try {
+            return operationService.findAll()
+
+        } catch (RuntimeException e) {
+            e.printStackTrace()
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
+        }
+    }
+
+    @GetMapping(value = '/byAccount/{id}')
     def findAllByClient(@PathVariable long id) {
         try {
-            return accountService.findAllByClient(clientService.findById(id))
+            return operationService.findAllByAccount(accountService.findById(id))
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -63,7 +67,7 @@ class AccountRestController {
     @GetMapping(value = '/byWorker/{id}')
     def findAllByWorker(@PathVariable long id) {
         try {
-            return accountService.findAllByWorker(workerService.findById(id))
+            return operationService.findAllByWorker(workerService.findById(id))
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -71,10 +75,10 @@ class AccountRestController {
         }
     }
 
-    @GetMapping(value = '/byCurrency/{id}')
+    @GetMapping(value = '/byOperationType/{id}')
     def findAllByCurrency(@PathVariable long id) {
         try {
-            return accountService.findAllByCurrency(currencyService.findById(id))
+            return operationService.findAllByOperationType(operationTypeService.findById(id))
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -83,9 +87,9 @@ class AccountRestController {
     }
 
     @PostMapping
-    def create(@RequestBody Account account) {
+    def create(@RequestBody Operation operation) {
         try {
-            return accountService.save(account)
+            return operationService.save(operation)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -94,9 +98,9 @@ class AccountRestController {
     }
 
     @PutMapping(value = '/{id}')
-    def update(@PathVariable long id, @RequestBody Account account) {
+    def update(@PathVariable long id, @RequestBody Operation operation) {
         try {
-            return accountService.update(id, account)
+            return operationService.update(id, operation)
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -107,7 +111,7 @@ class AccountRestController {
     @DeleteMapping(value = '/{id}')
     def delete(@PathVariable long id) {
         try {
-            accountService.delete(id)
+            operationService.delete(id)
             return ResponseEntity.ok().build()
 
         } catch (RuntimeException e) {
@@ -115,4 +119,5 @@ class AccountRestController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
         }
     }
+
 }

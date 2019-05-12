@@ -29,7 +29,7 @@ class WorkerController {
     def show(@PathVariable long id, Model model) {
         try {
             workerService.checkAuthorization()
-            Worker authorizedWorker = authorizationService.getWorkerFromSession()
+            Worker authorizedWorker = authorizationService.workerFromSession
             Worker requestedWorker = workerService.findById(id)
 
             if (authorizedWorker.id == requestedWorker.id || authorizedWorker.accessLevel.id == 1 as long) {
@@ -63,12 +63,15 @@ class WorkerController {
 
     @RequestMapping(value = '/logIn')
     def logIn() {
-        return 'worker/logIn'
-    }
-
-    @RequestMapping(value = '/logUp')
-    def logUp() {
-        return 'worker/logUp'
+        try {
+            workerService.checkAuthorization()
+            def worker = authorizationService.workerFromSession
+            return 'redirect:/worker/' + worker.id
+        } catch (WorkerNotAuthorizedException ignored) {
+            return 'worker/logIn'
+        } catch (RuntimeException ignored) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.localizedMessage)
+        }
     }
 
     @RequestMapping(value = '/logOut')

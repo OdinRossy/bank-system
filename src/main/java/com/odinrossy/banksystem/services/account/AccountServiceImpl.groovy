@@ -85,8 +85,8 @@ class AccountServiceImpl implements AccountService {
     @Override
     def delete(long id) throws ResourceNotFoundException {
         try {
-            def accountFromDB = findById(id)
-            accountRepository.delete(accountFromDB)
+            def account = findById(id)
+            accountRepository.delete(account)
 
         } catch (ResourceNotFoundException e) {
             e.printStackTrace()

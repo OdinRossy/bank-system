@@ -91,7 +91,6 @@ section {
 .user-info {
     padding: 40px;
     border-radius: .5rem;
-    /*border: rgba(0,0,0,.125) 1px solid;*/
     background: #f8f9fa;
 }
 
@@ -132,16 +131,6 @@ section {
 .black {
     background: #333333;
     color: #ffffff;
-}
-
-.info-value {
-    color: #686868;
-}
-
-.logout {
-    !important;
-    position: fixed;
-    right: 2%
 }
 
 .input {

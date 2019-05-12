@@ -285,15 +285,16 @@
                                         </div>
                                     </section>
 
-                                    <!--Next-->
+                                    <!--Buttons-->
                                     <div class="form-row">
                                         <div class="form-group col-md-8"></div>
                                         <div class="form-group col-md-4">
-                                            <button class="btn btn-primary btn-custom float-right scroll-top"
-                                                    onclick="validateGeneralInfo(); saveGeneralInfo()">
+                                            <a class="btn btn-primary btn-custom float-right"
+                                               href="#"
+                                               onclick="saveGeneralInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -438,15 +439,23 @@
                                         </div>
                                     </section>
 
-                                    <!--Next-->
+                                    <!--Buttons-->
                                     <div class="form-row">
-                                        <div class="form-group col-md-8"></div>
-                                        <div class="form-group col-md-4">
-                                            <button class="btn btn-primary btn-custom float-right scroll-top"
-                                                    onclick="validateContactInfo(); saveContactInfo()">
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-secondary btn-custom float-left"
+                                               href="#"
+                                               onclick="showGeneralInfo()">
+                                                <i class="fas fa-arrow-left"></i>
+                                                <span th:text="#{btn.back}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-primary btn-custom float-right"
+                                               href="#"
+                                               onclick="saveContactInfo()">
                                                 <span th:text="#{btn.next}"></span>
                                                 <i class="fas fa-arrow-right"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -564,7 +573,8 @@
                                                        th:text="#{label.input.country} + ':'"></label>
                                                 <select id="registration-country" class="form-control">
                                                     <option th:value="${client.passport.registration.address.country.iso3code}"
-                                                            th:text="${client.passport.registration.address.country.countryName}"></option>
+                                                            th:text="${client.passport.registration.address.country
+                                                            .countryName}"></option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -680,15 +690,23 @@
                                         </div>
                                     </section>
 
-                                    <!--Next-->
+                                    <!--Buttons-->
                                     <div class="form-row">
-                                        <div class="form-group col-md-8"></div>
-                                        <div class="form-group col-md-4">
-                                            <button class="btn btn-lg btn-success float-right"
-                                                    onclick="validatePersonalInfo(); savePersonalInfo(); updateClient()">
-                                                <i class="fas fa-save"></i>
-                                                <span th:text="#{btn.save}"></span>
-                                            </button>
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-secondary btn-custom float-left"
+                                               href="#"
+                                               onclick="showContactInfo()">
+                                                <i class="fas fa-arrow-left"></i>
+                                                <span th:text="#{btn.back}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <a class="btn btn-primary btn-custom float-right"
+                                               href="#"
+                                               onclick="savePersonalInfo(); updateClient()">
+                                                <span th:text="#{btn.next}"></span>
+                                                <i class="fas fa-arrow-right"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
