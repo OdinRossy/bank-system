@@ -2,6 +2,10 @@ package com.odinrossy.banksystem.controllers.account
 
 import com.odinrossy.banksystem.config.BankConfig
 import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
+import com.odinrossy.banksystem.services.account.abstraction.AccountService
+import com.odinrossy.banksystem.services.account.abstraction.ContractService
+import com.odinrossy.banksystem.services.account.abstraction.CurrencyService
+import com.odinrossy.banksystem.services.client.ClientService
 import com.odinrossy.banksystem.services.security.AuthorizationService
 import com.odinrossy.banksystem.services.worker.WorkerService
 import org.springframework.beans.factory.annotation.Autowired
