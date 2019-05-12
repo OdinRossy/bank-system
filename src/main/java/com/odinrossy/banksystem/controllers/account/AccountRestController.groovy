@@ -1,10 +1,11 @@
 package com.odinrossy.banksystem.controllers.account
 
 import com.odinrossy.banksystem.models.account.Account
-import com.odinrossy.banksystem.services.account.AccountService
-import com.odinrossy.banksystem.services.account.CurrencyService
-import com.odinrossy.banksystem.services.client.ClientService
-import com.odinrossy.banksystem.services.worker.WorkerService
+import com.odinrossy.banksystem.models.account.AccountType
+import com.odinrossy.banksystem.models.account.Currency
+import com.odinrossy.banksystem.services.account.abstraction.AccountService
+import com.odinrossy.banksystem.services.account.abstraction.AccountTypeService
+import com.odinrossy.banksystem.services.account.abstraction.CurrencyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -19,24 +20,10 @@ class AccountRestController {
     AccountService accountService
 
     @Autowired
-    ClientService clientService
-
-    @Autowired
-    WorkerService workerService
+    AccountTypeService accountTypeService
 
     @Autowired
     CurrencyService currencyService
-
-    @GetMapping
-    def findAll() {
-        try {
-            return accountService.findAll()
-
-        } catch (RuntimeException e) {
-            e.printStackTrace()
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage())
-        }
-    }
 
     @GetMapping(value = '/{id}')
     def findById(@PathVariable long id) {
@@ -49,10 +36,10 @@ class AccountRestController {
         }
     }
 
-    @GetMapping(value = '/byClient/{id}')
-    def findAllByClient(@PathVariable long id) {
+    @GetMapping
+    def findAll() {
         try {
-            return accountService.findAllByClient(clientService.findById(id))
+            return accountService.findAll()
 
         } catch (RuntimeException e) {
             e.printStackTrace()
@@ -60,10 +47,10 @@ class AccountRestController {
         }
     }
 
-    @GetMapping(value = '/byWorker/{id}')
-    def findAllByWorker(@PathVariable long id) {
+    @GetMapping(value = '/byAccountType/{id}')
+    def findAllByClient(@PathVariable long id) {
         try {
-            return accountService.findAllByWorker(workerService.findById(id))
+            return accountService.findAllByAccountType(accountTypeService.findById(id))
 
         } catch (RuntimeException e) {
             e.printStackTrace()

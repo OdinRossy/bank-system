@@ -1,8 +1,10 @@
 package com.odinrossy.banksystem.controllers.client
 
+import com.odinrossy.banksystem.config.BankConfig
 import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
-import com.odinrossy.banksystem.services.account.AccountService
-import com.odinrossy.banksystem.services.account.CurrencyService
+import com.odinrossy.banksystem.services.account.abstraction.AccountService
+import com.odinrossy.banksystem.services.account.abstraction.ContractService
+import com.odinrossy.banksystem.services.account.abstraction.CurrencyService
 import com.odinrossy.banksystem.services.client.ClientService
 import com.odinrossy.banksystem.services.country.CountryService
 import com.odinrossy.banksystem.services.security.AuthorizationService
@@ -32,6 +34,9 @@ class ClientController {
     AccountService accountService
 
     @Autowired
+    ContractService contractService
+
+    @Autowired
     CurrencyService currencyService
 
     @Autowired
@@ -58,7 +63,43 @@ class ClientController {
         try {
             workerService.checkAuthorization()
             def client = clientService.findById(id)
-            def accounts = accountService.findAllByClient(client)
+            def accounts = []
+            def contracts = contractService.findAllByClient(client)
+            for (contract in contracts) {
+                def currentAccount = [:]
+                currentAccount.id = contract.current_account.id
+                currentAccount.name = contract.current_account.name
+                currentAccount.currency = contract.current_account.currency
+                currentAccount.accountType = contract.current_account.accountType
+                currentAccount.number = contract.current_account.number
+                currentAccount.type = contract.current_account.accountType.id == BankConfig.ACCOUNT_TYPE_ACTIVE_ID ?
+                        'Активный' : 'Пассивный'
+                currentAccount.dateOfIssue = contract.dateOfIssue
+                currentAccount.value = contract.current_account.value
+                currentAccount.percentage = contract.percentage
+                def worker = [:]
+                worker.id = contract.worker.id
+                worker.name = workerService.getInitials(contract.worker)
+                currentAccount.worker = worker
+
+                def percentAccount = [:]
+                percentAccount.id = contract.percent_account.id
+                percentAccount.name = contract.percent_account.name
+                percentAccount.currency = contract.percent_account.currency
+                percentAccount.accountType = contract.percent_account.accountType
+                percentAccount.number = contract.percent_account.number
+                percentAccount.type = contract.percent_account.accountType.id == BankConfig.ACCOUNT_TYPE_ACTIVE_ID ?
+                        'Активный' : 'Пассивный'
+                percentAccount.dateOfIssue = contract.dateOfIssue
+                percentAccount.value = contract.percent_account.value
+                percentAccount.percentage = contract.percentage
+                percentAccount.worker = worker
+
+                accounts.add(currentAccount)
+                accounts.add(percentAccount)
+            }
+
+
             def currencies = currencyService.findAll()
             def worker = authorizationService.workerFromSession
             def initials = clientService.getInitials(client)

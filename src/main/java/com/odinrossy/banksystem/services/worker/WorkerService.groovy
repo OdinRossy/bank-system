@@ -27,4 +27,6 @@ interface WorkerService extends LoggerService{
 
     void checkAuthorization() throws WorkerNotAuthorizedException
 
+    def getInitials(def worker)
+
 }

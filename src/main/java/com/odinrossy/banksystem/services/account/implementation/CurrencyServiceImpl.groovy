@@ -1,10 +1,11 @@
-package com.odinrossy.banksystem.services.account
+package com.odinrossy.banksystem.services.account.implementation
 
 import com.odinrossy.banksystem.exceptions.ResourceAlreadyExistsException
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
 import com.odinrossy.banksystem.exceptions.ResourceNotValidException
 import com.odinrossy.banksystem.models.account.Currency
 import com.odinrossy.banksystem.repositories.account.CurrencyRepository
+import com.odinrossy.banksystem.services.account.abstraction.CurrencyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

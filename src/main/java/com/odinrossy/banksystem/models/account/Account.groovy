@@ -1,7 +1,5 @@
 package com.odinrossy.banksystem.models.account
 
-import com.odinrossy.banksystem.models.client.Client
-import com.odinrossy.banksystem.models.worker.Worker
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
 
@@ -17,16 +15,7 @@ class Account {
     long id
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = 'client_id')
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    Client client
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = 'worker_id')
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    Worker worker
+    String name
 
     @NotNull
     @ManyToOne
@@ -35,12 +24,18 @@ class Account {
     Currency currency
 
     @NotNull
-    Date dateOfIssue
+    @ManyToOne
+    @JoinColumn(name = 'account_type_id')
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    AccountType accountType
 
     @NotNull
-    Date dateOfExpire
+    long number
 
     @NotNull
-    double value
+    BigDecimal value
+
+    @NotNull
+    boolean isCurrent
 
 }

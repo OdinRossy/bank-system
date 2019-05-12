@@ -132,5 +132,12 @@ class WorkerServiceImpl implements WorkerService {
         if (!authorizationService.getWorkerFromSession())
             throw new WorkerNotAuthorizedException("Worker is not authorized.")
     }
+
+    @Override
+    def getInitials(def worker) {
+        return worker.passport.lastName + ' ' +
+                worker.passport.firstName.charAt(0) + '.' + ' ' +
+                worker.passport.middleName.charAt(0)+ '.'
+    }
 }
 

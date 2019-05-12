@@ -64,9 +64,8 @@ class Client {
 
     String position
 
-//    TODO: replace with BigDecimal
     @NonNull
-    double incomePerMonth
+    BigDecimal incomePerMonth
 
     @Override
     String toString() {

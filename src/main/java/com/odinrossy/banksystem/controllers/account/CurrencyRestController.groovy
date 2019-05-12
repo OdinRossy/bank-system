@@ -1,7 +1,7 @@
 package com.odinrossy.banksystem.controllers.account
 
 import com.odinrossy.banksystem.models.account.Currency
-import com.odinrossy.banksystem.services.account.CurrencyService
+import com.odinrossy.banksystem.services.account.abstraction.CurrencyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
