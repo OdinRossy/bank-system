@@ -178,51 +178,6 @@
                                 </div>
                             </div>
 
-                            <!-- Modal create account-->
-                            <div class="modal fade" id="create-account-modal" tabindex="-1"
-                                 role="dialog"
-                                 aria-labelledby="deleteClientModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title text-success"
-                                                id="createAccountModalLabel">
-                                                <i class="fas fa-money-check-alt"></i>
-                                                <span th:text="#{title.account.create}"></span>
-                                            </h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label for="select-currency"
-                                                           th:text="#{label.select.currency} + ':'"></label>
-                                                    <select id="select-currency" class="form-control">
-                                                        <th:block th:each="currency : ${currencies}">
-                                                            <option th:value="${currency.id}"
-                                                                    th:text="${currency.name}"></option>
-                                                        </th:block>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary"
-                                                    data-dismiss="modal">
-                                                <span th:text="#{btn.cancel}"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-success"
-                                                    th:onclick="'saveAccount(' + ${client.id} + ')'">
-                                                <span th:text="#{btn.save}"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!--Error Modal -->
                             <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
                                  aria-labelledby="error-modal-label" aria-hidden="true">
@@ -871,74 +826,31 @@
                                     <table class="table table-borderless table-hover">
                                         <thead>
                                             <tr>
-                                                <!--Create account-->
-                                                <th scope="col">
-                                                    <span class="hover-success action-icon" data-toggle="modal"
-                                                          data-target="#create-account-modal">
-                                                         <i class="fas fa-plus"></i>
-                                                    </span>
-                                                </th>
                                                 <th scope="col">#</th>
-                                                <th scope="col" th:text="#{account.date.of.currency}"></th>
-                                                <th scope="col" th:text="#{account.date.of.value}"></th>
+                                                <th scope="col" th:text="#{account.name}"></th>
+                                                <th scope="col" th:text="#{account.worker.name}"></th>
+                                                <th scope="col" th:text="#{account.type}"></th>
                                                 <th scope="col" th:text="#{account.date.of.issue}"></th>
-                                                <th scope="col" th:text="#{account.date.of.expire}"></th>
-                                                <th scope="col" th:text="#{account.worker.id}"></th>
+                                                <th scope="col" th:text="#{account.currency}"></th>
+                                                <th scope="col" th:text="#{account.value}"></th>
+                                                <th scope="col" th:text="#{account.percentage}"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <th:block th:each="account : ${accounts}">
                                                 <tr>
+                                                    <td th:text="${account['id']}"></td>
+                                                    <td th:text="${account['name']}"></td>
                                                     <td>
-                                                        <span class="hover-danger action-icon" data-toggle="modal"
-                                                              data-target="#delete-account-modal">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </span>
+                                                        <a th:href="@{'/worker/' + ${account['worker'].id}}"
+                                                           th:text="${account['worker'].name}"></a>
                                                     </td>
-                                                    <td th:text="${account.id}"></td>
-                                                    <td th:text="${account.currency.name}"></td>
-                                                    <td th:text="${account.value}"></td>
-                                                    <td th:text="${#dates.format(account.dateOfIssue,'dd.MM.yyyy HH:mm')}"></td>
-                                                    <td th:text="${#dates.format(account.dateOfExpire,'dd.MM.yyyy HH:mm')}"></td>
-                                                    <td>
-                                                        <a th:href="@{'/worker/' + ${account.worker.id}}"
-                                                           th:text="${account.worker.id}"></a>
-                                                    </td>
+                                                    <td th:text="${account['type']}"></td>
+                                                    <td th:text="${#dates.format(account['dateOfIssue'],'dd.MM.yyyy')}"></td>
+                                                    <td th:text="${account['currency'].name}"></td>
+                                                    <td th:text="${account['value']}"></td>
+                                                    <td th:text="${account['percentage']}"></td>
                                                 </tr>
-
-                                                <!-- Modal delete account-->
-                                                <div class="modal fade" id="delete-account-modal" tabindex="-1"
-                                                     role="dialog"
-                                                     aria-labelledby="deleteClientModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title text-danger"
-                                                                    id="deleteAccountModalLabel">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                    <span th:text="#{title.account.delete}"></span>
-                                                                </h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <span th:text="#{txt.warning.delete.account}"></span>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary"
-                                                                        data-dismiss="modal">
-                                                                    <span th:text="#{btn.cancel}"></span>
-                                                                </button>
-                                                                <button type="button" class="btn btn-outline-danger"
-                                                                        th:onclick="'deleteAccount(' + ${account.id} + ')'">
-                                                                    <span th:text="#{btn.delete}"></span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </th:block>
                                         </tbody>
                                     </table>
