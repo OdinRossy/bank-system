@@ -5,7 +5,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title th:text="#{title.operation.credit}"></title>
+        <title th:text="#{operation.credits}"></title>
         <link rel="icon" th:href="@{/assets/bank-icon.png}">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -67,9 +67,14 @@
             <div class="row row-center">
                 <div class="col-12">
                     <div class="rounded-container smooth-shadow">
+
+                        <!--Title-->
                         <div class="title-container">
                             <i class="fas fa-hand-holding-usd avatar"></i>
-                            <h2 th:text="#{operation.credit}"></h2>
+                            <h2>
+                                <span th:text="#{operation.credits.in} + ' '"></span>
+                                <span class="badge badge-success" th:text="#{app.name}"></span>
+                            </h2>
                         </div>
                         <div class="card smooth-shadow">
                             <div class="card-header">
@@ -79,7 +84,7 @@
                                     <li class="nav-item">
                                         <a id="btn-all-credit-tab" class="nav-link active" href="#"
                                            onclick="showAllCreditTab()">
-                                            <span th:text="#{operation.credit}"></span>
+                                            <span th:text="#{operation.credit.all}"></span>
                                         </a>
                                     </li>
 
@@ -87,7 +92,7 @@
                                     <li class="nav-item">
                                         <a id="btn-create-credit-tab" class="nav-link" href="#"
                                            onclick="showCreateCreditTab()">
-                                            <span th:text="#{operation.deposit}"></span>
+                                            <span th:text="#{operation.credit.create}"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -115,32 +120,32 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <th:block th:each="activeAccount : ${activeAccounts}">
+                                                <th:block th:each="activeAccounts : ${activeAccounts}">
                                                     <tr>
-                                                        <td th:text="${activeAccount['id']}"></td>
-                                                        <td th:text="${activeAccount['name']}"></td>
+                                                        <td th:text="${activeAccounts['id']}"></td>
+                                                        <td th:text="${activeAccounts['name']}"></td>
                                                         <td>
-                                                            <a th:href="@{'/worker/' + ${activeAccount['worker'].id}}"
-                                                               th:text="${activeAccount['worker'].name}"></a>
+                                                            <a th:href="@{'/worker/' + ${activeAccounts['worker'].id}}"
+                                                               th:text="${activeAccounts['worker'].name}"></a>
                                                         </td>
                                                         <td>
-                                                            <a th:href="@{'/client/' + ${activeAccount['client'].id}}"
-                                                               th:text="${activeAccount['client'].name}"></a>
+                                                            <a th:href="@{'/client/' + ${activeAccounts['client'].id}}"
+                                                               th:text="${activeAccounts['client'].name}"></a>
                                                         </td>
-                                                        <td th:text="${activeAccount['type']}" class="text-center"></td>
+                                                        <td th:text="${activeAccounts['type']}" class="text-center"></td>
 
-                                                        <td th:text="${#dates.format(activeAccount['dateOfIssue'],
+                                                        <td th:text="${#dates.format(activeAccounts['dateOfIssue'],
                                                         'dd.MM.yyyy')}" class="text-center"></td>
 
-                                                        <td th:text="${activeAccount['value']}" class="text-right"></td>
+                                                        <td th:text="${activeAccounts['value']}" class="text-right"></td>
 
-                                                        <td th:text="${activeAccount['currency'].name}"
+                                                        <td th:text="${activeAccounts['currency'].name}"
                                                             class="text-left"></td>
 
-                                                        <td th:text="${activeAccount['percentage']}"></td>
+                                                        <td th:text="${activeAccounts['percentage']}"></td>
                                                         <td class="text-right">
-                                                            <a th:href="@{'/contract/' + ${activeAccount['contract'].id}}"
-                                                               th:text="${activeAccount['contract'].id}"></a>
+                                                            <a th:href="@{'/contract/' + ${activeAccounts['contract'].id}}"
+                                                               th:text="${activeAccounts['contract'].id}"></a>
                                                         </td>
                                                     </tr>
                                                 </th:block>
@@ -154,14 +159,135 @@
                             <!--Deposit-tab-->
                             <div id="create-credit-tab" class="card-body card-info" style="display: none">
                                 <div class="user-info">
+                                    <!--Currency-->
                                     <section>
+                                        <h4>
+                                            <i class="fas fa-dollar-sign"></i>
+                                            <span th:text="#{account.currency} + ':'"></span>
+                                        </h4>
 
+                                        <br>
 
-
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="select-currency"
+                                                       th:text="#{label.select.currency} + ':'"></label>
+                                                <select id="select-currency" class="form-control">
+                                                    <th:block th:each="currency : ${currencies}">
+                                                        <option th:value="${currency.id}"
+                                                                th:text="${currency.name}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </section>
+
+                                    <!--Client-->
+                                    <section>
+                                        <h4>
+                                            <i class="fas fa-user"></i>
+                                            <span th:text="#{account.client.name} + ':'"></span>
+                                        </h4>
+
+                                        <br>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="select-client"
+                                                       th:text="#{label.select.client} + ':'"></label>
+                                                <select id="select-client" class="form-control">
+                                                    <th:block th:each="client : ${clients}">
+                                                        <option th:value="${client.id}"
+                                                                th:text="${client.id + '. ' +
+                                                                client.passport.lastName + ' ' +
+                                                                client.passport.firstName + ' ' +
+                                                                client.passport.middleName}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <hr>
+
+                                    <!--Value-->
+                                    <section>
+                                        <h4>
+                                            <i class="fas fa-calculator"></i>
+                                            <span th:text="#{account.credit.value} + ':'"></span>
+                                        </h4>
+
+                                        <br>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="number-deposit-value"
+                                                       th:text="#{label.deposit.value} + ':'"></label>
+                                                <input type="number" class="form-control numbers-to-validate"
+                                                       id="number-deposit-value"
+                                                       th:placeholder="#{placeholder.deposit.value}"/>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <!--Percentage-->
+                                    <section>
+                                        <h4>
+                                            <i class="fas fa-calculator"></i>
+                                            <span th:text="#{account.deposit.percent} + ':'"></span>
+                                        </h4>
+
+                                        <br>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="number-deposit-percent"
+                                                       th:text="#{label.deposit.percent} + ':'"></label>
+                                                <input type="number" class="form-control numbers-to-validate"
+                                                       id="number-deposit-percent"
+                                                       th:placeholder="#{placeholder.deposit.percent}"/>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <!--Buttons-->
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8"></div>
+                                        <div class="form-group col-md-4">
+                                            <button class="btn btn-primary btn-custom float-right"
+                                                    th:onclick="'saveAccount(' + ${accountType.id} + ')'">
+                                                <span th:text="#{btn.save}"></span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Error Modal -->
+        <div class="modal fade" id="error-modal" tabindex="-1" role="dialog"
+             aria-labelledby="error-modal-label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-danger" id="error-modal-label">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span id="error-modal-title" th:text="#{title.error.oops}"></span>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <span id="error-modal-body"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            <span th:text="#{btn.close}"></span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -174,6 +300,7 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/operation/operationService.js}"></script>
         <script th:src="@{/js/operation/operationController.js}"></script>
     </body>
 </html>

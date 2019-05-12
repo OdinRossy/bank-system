@@ -1,8 +1,6 @@
 package com.odinrossy.banksystem.controllers.account
 
 import com.odinrossy.banksystem.models.account.Account
-import com.odinrossy.banksystem.models.account.AccountType
-import com.odinrossy.banksystem.models.account.Currency
 import com.odinrossy.banksystem.services.account.abstraction.AccountService
 import com.odinrossy.banksystem.services.account.abstraction.AccountTypeService
 import com.odinrossy.banksystem.services.account.abstraction.CurrencyService

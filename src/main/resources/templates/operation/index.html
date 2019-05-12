@@ -42,13 +42,13 @@
 
                             <!--Show all deposits-->
                             <a class="dropdown-item" th:href="@{/operation/deposit}">
-                                <span th:text="#{operation.deposit}"></span>
+                                <span th:text="#{title.operation.deposit}"></span>
                             </a>
                             <div class="dropdown-divider"></div>
 
                             <!--Edit client-->
                             <a class="dropdown-item" th:href="@{/operation/credit}">
-                                <span th:text="#{operation.credit}"></span>
+                                <span th:text="#{title.operation.credit}"></span>
                             </a>
                         </div>
                     </li>
@@ -83,43 +83,61 @@
                     <div class="rounded-container smooth-shadow">
                         <div class="title-container">
                             <i class="fas fa-money-check-alt avatar"></i>
-                            <h2 th:text="#{title.operation}"></h2>
+                            <h2>
+                                <span th:text="#{title.operation.in} + ' '"></span>
+                                <span class="badge badge-success" th:text="#{app.name}"></span>
+                            </h2>
                         </div>
                         <div class="user-info">
                             <div class="form-row">
-                                <div class="col-md-6" style="padding: 0 2.5vw">
-                                    <div class="card smooth-shadow float-right" style="max-width: 25vw;">
+                                <div class="col-md-4" style="padding: 0 2.5vw">
+                                    <div class="card smooth-shadow" style="max-width: 25vw;">
                                         <img src="https://images.unsplash.com/photo-1500058616600-a743332abf53?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
                                              class="card-img-top" alt="">
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                <span th:text="#{title.operation.deposit}"></span>
+                                                <span th:text="#{operation.deposits}"></span>
                                             </h5>
-                                            <p class="card-text small" style="min-height: 7vw">— сумма денег, переданная
-                                                лицом кредитному учреждению с
-                                                целью получить доход в виде процентов, образующихся в ходе финансовых
-                                                операций с вкладом.</p>
-                                            <a th:href="@{/operation/deposit}" class="btn btn-primary">
+                                            <p class="card-text small" style="min-height: 7vw"
+                                               th:text="#{txt.card.deposit.body}"></p>
+                                            <a th:href="@{/operation/deposit}" class="btn btn-primary w-100"
+                                               style="border-radius: 50px">
                                                 <span th:text="#{btn.go}"></span>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6" style="padding: 0 2.5vw">
+                                <div class="col-md-4" style="padding: 0 2.5vw">
                                     <div class="card smooth-shadow" style="max-width: 25vw;">
                                         <img src="https://images.unsplash.com/photo-1462045504115-6c1d931f07d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80"
                                              class="card-img-top" alt="">
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                <span th:text="#{title.operation.credit}"></span>
+                                                <span th:text="#{operation.credits}"></span>
                                             </h5>
-                                            <p class="card-text small" style="min-height: 7vw"> — экономические
-                                                отношения, при которых одна из сторон
-                                                не возмещает немедленно полученные от другой стороны деньги или другие
-                                                ресурсы, но обещает предоставить возмещение (оплату) или вернуть ресурсы
-                                                в будущем.</p>
-                                            <a th:href="@{/operation/credit}" class="btn btn-primary">
+                                            <p class="card-text small" style="min-height: 7vw"
+                                               th:text="#{txt.card.credit.body}"></p>
+                                            <a th:href="@{/operation/credit}" class="btn btn-primary w-100"
+                                               style="border-radius: 50px">
                                                 <span th:text="#{btn.go}"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="padding: 0 2.5vw">
+                                    <div class="card smooth-shadow" style="max-width: 25vw;">
+                                        <img src="https://images.unsplash.com/photo-1446714276218-bd84d334af98?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                                             class="card-img-top" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span th:text="#{operation.close.bank.day}"></span>
+                                            </h5>
+                                            <p class="card-text small" style="min-height: 7vw"
+                                               th:text="#{txt.card.credit.body}"></p>
+                                            <a th:href="@{/operation/closeBankDay}" class="btn btn-success w-100"
+                                               style="border-radius: 50px">
+                                                <i class="fas fa-lock"></i>
+                                                <span th:text="#{btn.submit}"></span>
                                             </a>
                                         </div>
                                     </div>
@@ -138,6 +156,7 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/operation/operationService.js}"></script>
         <script th:src="@{/js/operation/operationController.js}"></script>
     </body>
 </html>

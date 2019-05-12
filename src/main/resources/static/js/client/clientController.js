@@ -559,35 +559,3 @@ function saveRegistrationIfNotExists(registration) {
         });
     return registration;
 }
-
-function saveAccount(clientId) {
-    let currencyId = $('#select-currency').val();
-    let data = {
-        client:{
-            id:clientId
-        },
-        currency:{
-            id: currencyId
-        },
-        value: 0
-    };
-    clientService.saveAccount(data,
-        function (response) {
-            location = location;
-        },
-        function (response) {
-            console.error(response);
-            main.showErrorModal(null, response.responseJSON.message);
-        });
-}
-
-function deleteAccount(accountId) {
-    clientService.deleteAccount(accountId,
-        function (response) {
-            location = location;
-        },
-        function (response) {
-            console.error(response);
-            main.showErrorModal(null, response.responseJSON.message);
-        });
-}

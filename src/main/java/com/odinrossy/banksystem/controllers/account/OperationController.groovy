@@ -3,6 +3,7 @@ package com.odinrossy.banksystem.controllers.account
 import com.odinrossy.banksystem.config.BankConfig
 import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
 import com.odinrossy.banksystem.services.account.abstraction.AccountService
+import com.odinrossy.banksystem.services.account.abstraction.AccountTypeService
 import com.odinrossy.banksystem.services.account.abstraction.ContractService
 import com.odinrossy.banksystem.services.account.abstraction.CurrencyService
 import com.odinrossy.banksystem.services.client.ClientService
@@ -35,6 +36,9 @@ class OperationController {
     @Autowired
     AccountService accountService
 
+    @Autowired
+    AccountTypeService accountTypeService
+
     @RequestMapping
     def index(Model model) {
         try {
@@ -55,7 +59,7 @@ class OperationController {
             workerService.checkAuthorization()
 
             def contracts = contractService.findAll()
-            def activeAccounts = []
+            def activeAccounts = [] as Set
             for (contract in contracts) {
 
                 if (contract.current_account.accountType.id == BankConfig.ACCOUNT_TYPE_ACTIVE_ID ||
@@ -102,14 +106,16 @@ class OperationController {
                 }
             }
 
-
             def currencies = currencyService.findAll()
-
+            def clients = clientService.findAll()
 
             def worker = authorizationService.workerFromSession
+            def accountType = accountTypeService.findById(BankConfig.ACCOUNT_TYPE_ACTIVE_ID)
             model.addAttribute('worker', worker)
             model.addAttribute('currencies', currencies)
+            model.addAttribute('clients', clients)
             model.addAttribute('activeAccounts', activeAccounts)
+            model.addAttribute('accountType', accountType)
         } catch (WorkerNotAuthorizedException e) {
             e.printStackTrace()
             return 'redirect:/worker/logIn'
@@ -117,13 +123,13 @@ class OperationController {
         return 'operation/credit'
     }
 
-   @RequestMapping(value = '/deposit')
+    @RequestMapping(value = '/deposit')
     def deposit(Model model) {
         try {
             workerService.checkAuthorization()
 
             def contracts = contractService.findAll()
-            def passiveAccounts = []
+            def passiveAccounts = [] as Set
             for (contract in contracts) {
 
                 if (contract.current_account.accountType.id == BankConfig.ACCOUNT_TYPE_PASSIVE_ID ||
@@ -171,11 +177,15 @@ class OperationController {
             }
 
             def currencies = currencyService.findAll()
+            def clients = clientService.findAll()
 
             def worker = authorizationService.workerFromSession
+            def accountType = accountTypeService.findById(BankConfig.ACCOUNT_TYPE_PASSIVE_ID)
             model.addAttribute('worker', worker)
             model.addAttribute('currencies', currencies)
+            model.addAttribute('clients', clients)
             model.addAttribute('passiveAccounts', passiveAccounts)
+            model.addAttribute('accountType', accountType)
         } catch (WorkerNotAuthorizedException e) {
             e.printStackTrace()
             return 'redirect:/worker/logIn'
