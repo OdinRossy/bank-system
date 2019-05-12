@@ -36,43 +36,32 @@ CREATE TABLE `access_levels` (
 
 LOCK TABLES `access_levels` WRITE;
 /*!40000 ALTER TABLE `access_levels` DISABLE KEYS */;
-INSERT INTO `access_levels` VALUES (1,'Admin'),(2,'Manager'),(3,'Plain worker');
+INSERT INTO `access_levels` VALUES (1,'Admin'),(2,'Manager'),(3,'PlainWorker');
 /*!40000 ALTER TABLE `access_levels` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `accounts`
+-- Table structure for table `account_types`
 --
 
-DROP TABLE IF EXISTS `accounts`;
+DROP TABLE IF EXISTS `account_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `accounts` (
+CREATE TABLE `account_types` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `date_of_expire` datetime NOT NULL,
-  `date_of_issue` datetime NOT NULL,
-  `value` double NOT NULL,
-  `client_id` bigint(20) NOT NULL,
-  `currency_id` bigint(20) NOT NULL,
-  `worker_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKgymog7firrf8bnoiig61666ob` (`client_id`),
-  KEY `FKs08d0ccyak63pou9tfk093dbk` (`currency_id`),
-  KEY `FKfbnynipca7qqfa4v8n1pauqv7` (`worker_id`),
-  CONSTRAINT `FKfbnynipca7qqfa4v8n1pauqv7` FOREIGN KEY (`worker_id`) REFERENCES `workers` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FKgymog7firrf8bnoiig61666ob` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FKs08d0ccyak63pou9tfk093dbk` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `accounts`
+-- Dumping data for table `account_types`
 --
 
-LOCK TABLES `accounts` WRITE;
-/*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (2,'2023-05-07 09:16:29','2019-05-07 09:16:29',0,1,4,1),(3,'2023-05-07 09:16:37','2019-05-07 09:16:37',0,1,2,1),(4,'2023-05-07 09:16:44','2019-05-07 09:16:44',0,1,3,1),(6,'2023-05-07 09:35:34','2019-05-07 09:35:34',0,2,4,1),(7,'2023-05-07 09:35:41','2019-05-07 09:35:41',0,2,2,1),(8,'2023-05-07 09:35:48','2019-05-07 09:35:48',0,2,3,1),(9,'2023-05-07 09:42:56','2019-05-07 09:42:56',0,3,1,1),(10,'2023-05-07 09:43:03','2019-05-07 09:43:03',0,3,4,1),(11,'2023-05-07 09:43:08','2019-05-07 09:43:08',0,3,2,1),(12,'2023-05-07 09:43:14','2019-05-07 09:43:14',0,3,3,1);
-/*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
+LOCK TABLES `account_types` WRITE;
+/*!40000 ALTER TABLE `account_types` DISABLE KEYS */;
+INSERT INTO `account_types` VALUES (1,'Active'),(2,'Passive');
+/*!40000 ALTER TABLE `account_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -94,7 +83,7 @@ CREATE TABLE `addresses` (
   PRIMARY KEY (`id`),
   KEY `FKgxseknlvm1hbc7dvrgjav8rii` (`country_iso3code`),
   CONSTRAINT `FKgxseknlvm1hbc7dvrgjav8rii` FOREIGN KEY (`country_iso3code`) REFERENCES `countries` (`iso3code`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +92,7 @@ CREATE TABLE `addresses` (
 
 LOCK TABLES `addresses` WRITE;
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
-INSERT INTO `addresses` VALUES (1,222,69,'Минск',_binary '',220019,'Горецкого','BLR'),(2,222,69,'Минск',_binary '',220019,'Горецкого','BLR'),(3,222,69,'Минск',_binary '',220019,'Горецкого','BLR'),(4,78,3,'Минск',_binary '',220023,'Олешева','BLR'),(5,78,3,'Минск',_binary '',220023,'Олешева','BLR'),(6,2,17,'Фаниполь',_binary '',223713,'Обойная','BLR'),(7,2,17,'Фаниполь',_binary '',223713,'Обойная','BLR'),(8,22,12,'Минск',_binary '',220032,'Ольшевского','BLR'),(9,22,12,'Минск',_binary '',220032,'Ольшевского','BLR'),(10,22,12,'Минск',_binary '',220032,'Ольшевского','BLR');
+INSERT INTO `addresses` VALUES (1,222,69,'Минск',_binary '',220019,'Горецкого','BLR'),(2,12,172,'Минск',_binary '',220017,'Притыцкого','BLR'),(3,12,172,'Минск',_binary '',220017,'Притыцкого','BLR');
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +108,7 @@ CREATE TABLE `clients` (
   `company_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `home_phone_number` varchar(255) NOT NULL,
-  `income_per_month` double NOT NULL,
+  `income_per_month` decimal(19,2) DEFAULT NULL,
   `is_bound_to_military_service` bit(1) NOT NULL,
   `is_disabled` bit(1) NOT NULL,
   `is_employed` bit(1) NOT NULL,
@@ -138,7 +127,7 @@ CREATE TABLE `clients` (
   CONSTRAINT `FK21gyuophuha3vq8t1os4x2jtl` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK8d6bbl3yup7ngtvfb47eh02tm` FOREIGN KEY (`country_iso3code`) REFERENCES `countries` (`iso3code`) ON DELETE CASCADE,
   CONSTRAINT `FKt1bl0t3m5aw25yqxwusroqtot` FOREIGN KEY (`passport_id`) REFERENCES `passports` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,7 +136,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (1,'ОАО Автохауз Атлант-М Сухарево','irina.remneva@gmail.com','375173158334',1100,_binary '\0',_binary '\0',_binary '',_binary '\0','375296958334','Специалист по работе с клиентами',2,'BLR','4330572C021PB3'),(2,'ЧП \"Алмаз\"','karen71@gmail.com','375173340032',2000,_binary '\0',_binary '\0',_binary '',_binary '\0','375291550055','Директор',4,'BLR','5129813BB36CO1'),(3,'ООО \"Электроприборы\"','leon.slavik@tut.by','375175073608',1200,_binary '\0',_binary '\0',_binary '',_binary '\0','375259245060','Инженер-конструктор',6,'BLR','4890922EM50PP1');
+INSERT INTO `clients` VALUES (1,'ОАО \"БелШинМаш\"','hvaronchic.olga@bvs.net','375177345607',2000.00,_binary '\0',_binary '\0',_binary '',_binary '\0','375297345607','Директор',2,'BLR','5900361CO21PB4');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,7 +161,7 @@ CREATE TABLE `countries` (
 
 LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
-INSERT INTO `countries` VALUES ('BLR','Республика Беларусь'),('RUS','Российская Федерация'),('UKR','Украина');
+INSERT INTO `countries` VALUES ('BLR','Республика Беларусь'),('RUS','Российская Федерация');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,64 +188,6 @@ LOCK TABLES `currencies` WRITE;
 /*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
 INSERT INTO `currencies` VALUES (1,'BYN'),(4,'EUR'),(2,'RUS'),(3,'USD');
 /*!40000 ALTER TABLE `currencies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `operation_types`
---
-
-DROP TABLE IF EXISTS `operation_types`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `operation_types` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_i6r7urfxyktqu788sm16pvwoq` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `operation_types`
---
-
-LOCK TABLES `operation_types` WRITE;
-/*!40000 ALTER TABLE `operation_types` DISABLE KEYS */;
-/*!40000 ALTER TABLE `operation_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `operations`
---
-
-DROP TABLE IF EXISTS `operations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `operations` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `date_of_expire` datetime NOT NULL,
-  `date_of_issue` datetime NOT NULL,
-  `percentage` tinyint(4) NOT NULL,
-  `account_id` bigint(20) NOT NULL,
-  `operation_id` bigint(20) NOT NULL,
-  `worker_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK3lft1gkkuyvhih1cst48xvm7q` (`account_id`),
-  KEY `FK3xuig2bpelsbyu8920nqtjxnq` (`operation_id`),
-  KEY `FKf4osg9n82iidex8di2du74jy9` (`worker_id`),
-  CONSTRAINT `FK3lft1gkkuyvhih1cst48xvm7q` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK3xuig2bpelsbyu8920nqtjxnq` FOREIGN KEY (`operation_id`) REFERENCES `operation_types` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FKf4osg9n82iidex8di2du74jy9` FOREIGN KEY (`worker_id`) REFERENCES `workers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `operations`
---
-
-LOCK TABLES `operations` WRITE;
-/*!40000 ALTER TABLE `operations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `operations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -296,7 +227,7 @@ CREATE TABLE `passports` (
 
 LOCK TABLES `passports` WRITE;
 /*!40000 ALTER TABLE `passports` DISABLE KEYS */;
-INSERT INTO `passports` VALUES ('12345678912345','1997-07-18 00:00:00','2027-06-14 00:00:00','2017-06-14 00:00:00','Владислав',_binary '',_binary '','Серпинский','Анатольевич',1234567,'Фрунзенское РУВД г.Минска','MP','BLR',5),('3150988B112PB4','1999-08-14 00:00:00','2025-07-31 00:00:00','2015-07-31 00:00:00','Глеб',_binary '',_binary '\0','Ремнёв','Александрович',3707505,'Фрунзенское РУВД г. Минска','MP','BLR',1),('4330572C021PB3','1972-04-29 00:00:00','2027-05-11 00:00:00','2017-05-11 00:00:00','Ирина',_binary '\0',_binary '\0','Ремнева','Геннадьевна',3655921,'Фрунзенское РУВД г.Минска','MP','BLR',2),('4890922EM50PP1','1961-08-27 00:00:00','2028-01-17 00:00:00','2008-01-17 00:00:00','Вячеслав',_binary '',_binary '','Леонеко','Иванович',3210658,'Фанипольский ОВД','MP','BLR',4),('5129813BB36CO1','1971-03-09 00:00:00','2026-03-11 00:00:00','2016-03-11 00:00:00','Карен',_binary '',_binary '','Оганесян','Мирзоевич',1905360,'Первомайское РУВД г.Минска','MP','BLR',3);
+INSERT INTO `passports` VALUES ('3150988B112PB4','1999-08-14 00:00:00','2025-07-31 00:00:00','2015-07-31 00:00:00','Глеб',_binary '',_binary '\0','Ремнёв','Александрович',3707505,'Фрунзенское РУВД г.Минска','MP','BLR',1),('5900361CO21PB4','1984-08-25 00:00:00','2027-09-12 00:00:00','2017-09-12 00:00:00','Ольга',_binary '\0',_binary '','Хварончик','Андреевна',3209814,'Фрунзенское РУВД г.Минска','MP','BLR',2);
 /*!40000 ALTER TABLE `passports` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -315,7 +246,7 @@ CREATE TABLE `registrations` (
   PRIMARY KEY (`id`),
   KEY `FKmjk0lhygnwfvsgw4ycl1o70oa` (`address_id`),
   CONSTRAINT `FKmjk0lhygnwfvsgw4ycl1o70oa` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +255,7 @@ CREATE TABLE `registrations` (
 
 LOCK TABLES `registrations` WRITE;
 /*!40000 ALTER TABLE `registrations` DISABLE KEYS */;
-INSERT INTO `registrations` VALUES (1,'2007-08-14 00:00:00','Администрация Фрунзенского УВД г. Минска',1),(2,'2001-02-02 00:00:00','Администрация Фрунзенского УВД г. Минска',3),(3,'2010-01-03 00:00:00','Администарция Первомайского УВД г.Минска',5),(4,'1997-08-23 00:00:00','Фанипольский ОВД',7),(5,'2003-06-18 00:00:00','Фрунзенское РУВД г.Минска',10);
+INSERT INTO `registrations` VALUES (1,'2007-08-14 00:00:00','Администрация Фрунзенского УВД г. Минска',1),(2,'2013-08-06 00:00:00','Фрунзенское РУВД г.Минска',3);
 /*!40000 ALTER TABLE `registrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,4 +300,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-12 11:57:19
+-- Dump completed on 2019-05-12 23:09:24
