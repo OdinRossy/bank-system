@@ -111,7 +111,7 @@
                                                     <th scope="col" th:text="#{account.name}"></th>
                                                     <th scope="col" th:text="#{account.worker.name}"></th>
                                                     <th scope="col" th:text="#{account.client.name}"></th>
-                                                    <th scope="col" th:text="#{account.type}"></th>
+<!--                                                    <th scope="col" th:text="#{account.type}"></th>-->
                                                     <th scope="col" th:text="#{account.date.of.issue}"></th>
                                                     <th scope="col" th:text="#{account.value}"></th>
                                                     <th scope="col" th:text="#{account.currency}"></th>
@@ -132,7 +132,7 @@
                                                             <a th:href="@{'/client/' + ${activeAccounts['client'].id}}"
                                                                th:text="${activeAccounts['client'].name}"></a>
                                                         </td>
-                                                        <td th:text="${activeAccounts['type']}" class="text-center"></td>
+<!--                                                        <td th:text="${activeAccounts['type']}" class="text-center"></td>-->
 
                                                         <td th:text="${#dates.format(activeAccounts['dateOfIssue'],
                                                         'dd.MM.yyyy')}" class="text-center"></td>
@@ -234,7 +234,7 @@
                                     <section>
                                         <h4>
                                             <i class="fas fa-calculator"></i>
-                                            <span th:text="#{account.deposit.percent} + ':'"></span>
+                                            <span th:text="#{account.credit.percent} + ':'"></span>
                                         </h4>
 
                                         <br>
@@ -242,7 +242,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="number-deposit-percent"
-                                                       th:text="#{label.deposit.percent} + ':'"></label>
+                                                       th:text="#{label.credit.percent} + ':'"></label>
                                                 <input type="number" class="form-control numbers-to-validate"
                                                        id="number-deposit-percent"
                                                        th:placeholder="#{placeholder.deposit.percent}"/>

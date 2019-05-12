@@ -47,6 +47,6 @@ class Contract {
     Worker worker
 
     @NotNull
-    byte percentage
+    double percentage
 
 }

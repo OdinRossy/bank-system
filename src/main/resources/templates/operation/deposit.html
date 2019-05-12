@@ -111,7 +111,7 @@
                                                     <th scope="col" th:text="#{account.name}"></th>
                                                     <th scope="col" th:text="#{account.worker.name}"></th>
                                                     <th scope="col" th:text="#{account.client.name}"></th>
-                                                    <th scope="col" th:text="#{account.type}"></th>
+<!--                                                    <th scope="col" th:text="#{account.type}"></th>-->
                                                     <th scope="col" th:text="#{account.date.of.issue}"></th>
                                                     <th scope="col" th:text="#{account.value}"></th>
                                                     <th scope="col" th:text="#{account.currency}"></th>
@@ -132,7 +132,7 @@
                                                             <a th:href="@{'/client/' + ${passiveAccount['client'].id}}"
                                                                th:text="${passiveAccount['client'].name}"></a>
                                                         </td>
-                                                        <td th:text="${passiveAccount['type']}" class="text-center"></td>
+<!--                                                        <td th:text="${passiveAccount['type']}" class="text-center"></td>-->
 
                                                         <td th:text="${#dates.format(passiveAccount['dateOfIssue'],
                                                         'dd.MM.yyyy')}" class="text-center"></td>

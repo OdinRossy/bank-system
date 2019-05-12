@@ -77,7 +77,7 @@ function saveAccount(accountTypeId) {
 
     operationService.saveContract(data,
         function () {
-            location = 'http://localhost:9090/bank-system/operation/deposit';
+             window.open('/bank-system/operation', '_self');
         },
         function (response) {
             console.error(response);
@@ -88,7 +88,7 @@ function saveAccount(accountTypeId) {
 function deleteAccount(accountId) {
     operationService.deleteAccount(accountId,
         function (response) {
-            location = location;
+            location = window.location;
         },
         function (response) {
             console.error(response);
