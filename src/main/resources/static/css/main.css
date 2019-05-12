@@ -25,6 +25,10 @@ tbody tr {
     cursor: pointer;
 }
 
+tbody td {
+    /*text-align: right;*/
+}
+
 blockquote {
     quotes: "\201C""\201D""\2018""\2019";
 }
@@ -143,6 +147,7 @@ section {
 
 .card {
     border: none;
+    border-radius: .5rem;
 }
 
 .form {

@@ -33,10 +33,24 @@
                             <span th:text="#{nav.clients}"></span>
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            <span th:text="#{nav.operation}"></span>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link active dropdown-toggle scroll-top" role="button"
+                           data-toggle="dropdown"><span th:text="#{nav.operation}"></span>
                         </a>
+                        <div class="dropdown-menu">
+
+                            <!--Show all deposits-->
+                            <a class="dropdown-item" th:href="@{/operation/deposit}">
+                                <span th:text="#{operation.deposit}"></span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+
+                            <!--Edit client-->
+                            <a class="dropdown-item" th:href="@{/operation/credit}">
+                                <span th:text="#{operation.credit}"></span>
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -71,130 +85,44 @@
                             <i class="fas fa-money-check-alt avatar"></i>
                             <h2 th:text="#{title.operation}"></h2>
                         </div>
-                        <div class="card smooth-shadow">
-                            <div class="card-header">
-                                <ul class="nav nav-pills card-header-pills">
-
-                                    <!--Credit-->
-                                    <li class="nav-item">
-                                        <a id="btn-credit-tab" class="nav-link active" href="#"
-                                           onclick="showCreditTab()">
-                                            <span th:text="#{operation.credit}"></span>
-                                        </a>
-                                    </li>
-
-                                    <!--Deposit-->
-                                    <li class="nav-item">
-                                        <a id="btn-deposit-tab" class="nav-link" href="#"
-                                           onclick="showDepositTab()">
-                                            <span th:text="#{operation.deposit}"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!--Credit-tab-->
-                            <div id="credit-tab" class="card-body card-info">
-                                <div class="user-info">
-                                    <section>
-                                        <h3>
-                                            <i class="fas fa-piggy-bank"></i>
-                                            <span th:text="#{operation.credit}"></span>
-                                        </h3>
-                                    </section>
+                        <div class="user-info">
+                            <div class="form-row">
+                                <div class="col-md-6" style="padding: 0 2.5vw">
+                                    <div class="card smooth-shadow float-right" style="max-width: 25vw;">
+                                        <img src="https://images.unsplash.com/photo-1500058616600-a743332abf53?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                                             class="card-img-top" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span th:text="#{title.operation.deposit}"></span>
+                                            </h5>
+                                            <p class="card-text small" style="min-height: 7vw">— сумма денег, переданная
+                                                лицом кредитному учреждению с
+                                                целью получить доход в виде процентов, образующихся в ходе финансовых
+                                                операций с вкладом.</p>
+                                            <a th:href="@{/operation/deposit}" class="btn btn-primary">
+                                                <span th:text="#{btn.go}"></span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!--Deposit-tab-->
-                            <div id="deposit-tab" class="card-body card-info" style="display: none">
-                                <div class="user-info">
-                                    <section>
-<!--                                        <h3>-->
-<!--                                            <i class="fas fa-piggy-bank"></i>-->
-<!--                                            <span th:text="#{operation.deposit}"></span>-->
-<!--                                        </h3>-->
-
-
-                                        <!-- Modal delete account-->
-<!--                                        <div class="modal fade" id="delete-account-modal" tabindex="-1"-->
-<!--                                             role="dialog"-->
-<!--                                             aria-labelledby="deleteClientModalLabel" aria-hidden="true">-->
-<!--                                            <div class="modal-dialog" role="document">-->
-<!--                                                <div class="modal-content">-->
-<!--                                                    <div class="modal-header">-->
-<!--                                                        <h5 class="modal-title text-danger"-->
-<!--                                                            id="deleteAccountModalLabel">-->
-<!--                                                            <i class="fas fa-trash-alt"></i>-->
-<!--                                                            <span th:text="#{title.account.delete}"></span>-->
-<!--                                                        </h5>-->
-<!--                                                        <button type="button" class="close" data-dismiss="modal"-->
-<!--                                                                aria-label="Close">-->
-<!--                                                            <span aria-hidden="true">&times;</span>-->
-<!--                                                        </button>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="modal-body">-->
-<!--                                                        <span th:text="#{txt.warning.delete.account}"></span>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="modal-footer">-->
-<!--                                                        <button type="button" class="btn btn-primary"-->
-<!--                                                                data-dismiss="modal">-->
-<!--                                                            <span th:text="#{btn.cancel}"></span>-->
-<!--                                                        </button>-->
-<!--                                                        <button type="button" class="btn btn-outline-danger"-->
-<!--                                                                th:onclick="'deleteAccount(' + ${account.id} + ')'">-->
-<!--                                                            <span th:text="#{btn.delete}"></span>-->
-<!--                                                        </button>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-
-
-                                        <!-- Modal create account-->
-<!--                                        <div class="modal fade" id="create-account-modal" tabindex="-1"-->
-<!--                                             role="dialog"-->
-<!--                                             aria-labelledby="deleteClientModalLabel" aria-hidden="true">-->
-<!--                                            <div class="modal-dialog" role="document">-->
-<!--                                                <div class="modal-content">-->
-<!--                                                    <div class="modal-header">-->
-<!--                                                        <h5 class="modal-title text-success"-->
-<!--                                                            id="createAccountModalLabel">-->
-<!--                                                            <i class="fas fa-money-check-alt"></i>-->
-<!--                                                            <span th:text="#{title.account.create}"></span>-->
-<!--                                                        </h5>-->
-<!--                                                        <button type="button" class="close" data-dismiss="modal"-->
-<!--                                                                aria-label="Close">-->
-<!--                                                            <span aria-hidden="true">&times;</span>-->
-<!--                                                        </button>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="modal-body">-->
-<!--                                                        <div class="form-row">-->
-<!--                                                            <div class="form-group col-md-12">-->
-<!--                                                                <label for="select-currency"-->
-<!--                                                                       th:text="#{label.select.currency} + ':'"></label>-->
-<!--                                                                <select id="select-currency" class="form-control">-->
-<!--                                                                    <th:block th:each="currency : ${currencies}">-->
-<!--                                                                        <option th:value="${currency.id}"-->
-<!--                                                                                th:text="${currency.name}"></option>-->
-<!--                                                                    </th:block>-->
-<!--                                                                </select>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="modal-footer">-->
-<!--                                                        <button type="button" class="btn btn-primary"-->
-<!--                                                                data-dismiss="modal">-->
-<!--                                                            <span th:text="#{btn.cancel}"></span>-->
-<!--                                                        </button>-->
-<!--                                                        <button type="button" class="btn btn-success"-->
-<!--                                                                th:onclick="'saveAccount(' + ${client.id} + ')'">-->
-<!--                                                            <span th:text="#{btn.save}"></span>-->
-<!--                                                        </button>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-                                    </section>
+                                <div class="col-md-6" style="padding: 0 2.5vw">
+                                    <div class="card smooth-shadow" style="max-width: 25vw;">
+                                        <img src="https://images.unsplash.com/photo-1462045504115-6c1d931f07d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80"
+                                             class="card-img-top" alt="">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <span th:text="#{title.operation.credit}"></span>
+                                            </h5>
+                                            <p class="card-text small" style="min-height: 7vw"> — экономические
+                                                отношения, при которых одна из сторон
+                                                не возмещает немедленно полученные от другой стороны деньги или другие
+                                                ресурсы, но обещает предоставить возмещение (оплату) или вернуть ресурсы
+                                                в будущем.</p>
+                                            <a th:href="@{/operation/credit}" class="btn btn-primary">
+                                                <span th:text="#{btn.go}"></span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title th:text="#{title.operation.credit}"></title>
+        <link rel="icon" th:href="@{/assets/bank-icon.png}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    </head>
+    <body class="bg-blue">
+
+        <!--Header-->
+        <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <a class="navbar-brand scroll-top">
+                <img th:src="@{/assets/bank-icon.png}"
+                     width="30" height="30" class="d-inline-block align-top" alt="Image"> <span
+                    th:text="#{app.name}"></span>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">
+                            <span th:text="#{nav.home}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/client}">
+                            <span th:text="#{nav.clients}"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/operation}">
+                            <span th:text="#{nav.operation}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!--Worker profile-->
+            <div class="nav-item dropdown text-secondary">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span th:text="${worker.passport.firstName + ' ' + worker.passport.lastName}"
+                          th:unless="${worker} == null"></span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" th:href="@{'/worker/' + ${worker.id}}">
+                        <i class="fas fa-user-circle"></i>
+                        <span th:text="#{nav.profile}"></span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" th:href="@{/worker/logOut}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span th:text="#{btn.logout}"></span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!--Container-->
+        <div class="container-fluid">
+            <div class="row row-center">
+                <div class="col-12">
+                    <div class="rounded-container smooth-shadow">
+                        <div class="title-container">
+                            <i class="fas fa-hand-holding-usd avatar"></i>
+                            <h2 th:text="#{operation.credit}"></h2>
+                        </div>
+                        <div class="card smooth-shadow">
+                            <div class="card-header">
+                                <ul class="nav nav-pills card-header-pills">
+
+                                    <!--Credit-->
+                                    <li class="nav-item">
+                                        <a id="btn-all-credit-tab" class="nav-link active" href="#"
+                                           onclick="showAllCreditTab()">
+                                            <span th:text="#{operation.credit}"></span>
+                                        </a>
+                                    </li>
+
+                                    <!--Deposit-->
+                                    <li class="nav-item">
+                                        <a id="btn-create-credit-tab" class="nav-link" href="#"
+                                           onclick="showCreateCreditTab()">
+                                            <span th:text="#{operation.deposit}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!--Credit-tab-->
+                            <div id="all-credit-tab" class="card-body card-info">
+                                <div class="user-info">
+                                    <section>
+
+                                        <!--Table-->
+                                        <table class="table table-borderless table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col" th:text="#{account.name}"></th>
+                                                    <th scope="col" th:text="#{account.worker.name}"></th>
+                                                    <th scope="col" th:text="#{account.client.name}"></th>
+                                                    <th scope="col" th:text="#{account.type}"></th>
+                                                    <th scope="col" th:text="#{account.date.of.issue}"></th>
+                                                    <th scope="col" th:text="#{account.value}"></th>
+                                                    <th scope="col" th:text="#{account.currency}"></th>
+                                                    <th scope="col" th:text="#{account.percentage}"></th>
+                                                    <th scope="col" th:text="#{account.contract}"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <th:block th:each="activeAccount : ${activeAccounts}">
+                                                    <tr>
+                                                        <td th:text="${activeAccount['id']}"></td>
+                                                        <td th:text="${activeAccount['name']}"></td>
+                                                        <td>
+                                                            <a th:href="@{'/worker/' + ${activeAccount['worker'].id}}"
+                                                               th:text="${activeAccount['worker'].name}"></a>
+                                                        </td>
+                                                        <td>
+                                                            <a th:href="@{'/client/' + ${activeAccount['client'].id}}"
+                                                               th:text="${activeAccount['client'].name}"></a>
+                                                        </td>
+                                                        <td th:text="${activeAccount['type']}" class="text-center"></td>
+
+                                                        <td th:text="${#dates.format(activeAccount['dateOfIssue'],
+                                                        'dd.MM.yyyy')}" class="text-center"></td>
+
+                                                        <td th:text="${activeAccount['value']}" class="text-right"></td>
+
+                                                        <td th:text="${activeAccount['currency'].name}"
+                                                            class="text-left"></td>
+
+                                                        <td th:text="${activeAccount['percentage']}"></td>
+                                                        <td class="text-right">
+                                                            <a th:href="@{'/contract/' + ${activeAccount['contract'].id}}"
+                                                               th:text="${activeAccount['contract'].id}"></a>
+                                                        </td>
+                                                    </tr>
+                                                </th:block>
+                                            </tbody>
+                                        </table>
+
+                                    </section>
+                                </div>
+                            </div>
+
+                            <!--Deposit-tab-->
+                            <div id="create-credit-tab" class="card-body card-info" style="display: none">
+                                <div class="user-info">
+                                    <section>
+
+
+
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/jquery-3.3.1.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/operation/operationController.js}"></script>
+    </body>
+</html>
