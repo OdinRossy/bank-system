@@ -4,15 +4,18 @@ import com.odinrossy.banksystem.config.BankConfig
 import com.odinrossy.banksystem.exceptions.worker.WorkerNotAuthorizedException
 import com.odinrossy.banksystem.services.account.abstraction.AccountService
 import com.odinrossy.banksystem.services.account.abstraction.AccountTypeService
+import com.odinrossy.banksystem.services.account.abstraction.CloseBankDayService
 import com.odinrossy.banksystem.services.account.abstraction.ContractService
 import com.odinrossy.banksystem.services.account.abstraction.CurrencyService
 import com.odinrossy.banksystem.services.client.ClientService
 import com.odinrossy.banksystem.services.security.AuthorizationService
 import com.odinrossy.banksystem.services.worker.WorkerService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.server.ResponseStatusException
 
 @Controller
 @RequestMapping(value = '/operation')
@@ -38,6 +41,9 @@ class OperationController {
 
     @Autowired
     AccountTypeService accountTypeService
+
+    @Autowired
+    CloseBankDayService closeBankDayService
 
     @RequestMapping
     def index(Model model) {
@@ -193,5 +199,27 @@ class OperationController {
         return 'operation/deposit'
     }
 
+    @RequestMapping(value = '/closeBankDay')
+    def closeBankDay() {
+        try {
+            workerService.checkAuthorization()
+            def worker = authorizationService.workerFromSession
+            if (workerService.isAdmin(worker)) {
 
+                def args = [:]
+                args.worker = worker
+
+                closeBankDayService.closeBankDay(args)
+
+                return 'redirect:/operation'
+            } else {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                        'Only workers with access level \'Admin\' can do this operation.')
+            }
+        }
+        catch (WorkerNotAuthorizedException e) {
+            e.printStackTrace()
+            return 'redirect:/worker/logIn'
+        }
+    }
 }

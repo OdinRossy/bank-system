@@ -29,4 +29,6 @@ interface WorkerService extends LoggerService{
 
     def getInitials(def worker)
 
+    boolean isAdmin(Worker worker)
+
 }

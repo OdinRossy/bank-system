@@ -10,7 +10,7 @@ class BankConfig {
 
     public final static int ACCOUNT_TYPE_PASSIVE_ID = 2
 
-    public final static int WORKER_ADMIN_ID = 1
+    public final static int ACCESS_LEVEL_ADMIN_ID = 1
 
     public final static int DEPOSIT_ACCOUNT_NUMBER = 3014
 

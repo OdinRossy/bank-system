@@ -1,5 +1,6 @@
 package com.odinrossy.banksystem.services.worker
 
+import com.odinrossy.banksystem.config.BankConfig
 import com.odinrossy.banksystem.exceptions.ResourceAlreadyExistsException
 import com.odinrossy.banksystem.exceptions.ResourceNotFoundException
 import com.odinrossy.banksystem.exceptions.ResourceNotValidException
@@ -138,6 +139,11 @@ class WorkerServiceImpl implements WorkerService {
         return worker.passport.lastName + ' ' +
                 worker.passport.firstName.charAt(0) + '.' + ' ' +
                 worker.passport.middleName.charAt(0)+ '.'
+    }
+
+    @Override
+    boolean isAdmin(Worker worker) {
+        return worker.accessLevel.id == BankConfig.ACCESS_LEVEL_ADMIN_ID
     }
 }
 

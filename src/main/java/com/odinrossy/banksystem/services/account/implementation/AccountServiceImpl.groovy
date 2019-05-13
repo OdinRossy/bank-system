@@ -97,7 +97,7 @@ class AccountServiceImpl implements AccountService {
 
     @Override
     def changeValue(Account account, BigDecimal value) {
-        account.value = account.value + value
-        return account.value
+        account.value = value
+        return update(account.id, account)
     }
 }
