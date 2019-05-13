@@ -40,7 +40,7 @@ class CloseBankDayServiceImpl implements CloseBankDayService {
 
                 if (diffDays > 0) {
                     def yearPercentValue = new BigDecimal((currentValue / 100) * percentage)
-                    todayPercentValue = (yearPercentValue / 360 ) * diffDays
+                    todayPercentValue = (yearPercentValue / CalendarConfig.DAYS_IN_YEAR) * diffDays
                 }
 
                 accountService.changeValue(contract.percent_account, todayPercentValue)
