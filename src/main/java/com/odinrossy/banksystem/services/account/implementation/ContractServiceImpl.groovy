@@ -79,7 +79,12 @@ class ContractServiceImpl implements ContractService {
 
     @Override
     def setDateOfIssue(Contract contract) {
-        contract.dateOfIssue = new Date()
+        Calendar calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        contract.dateOfIssue = calendar.getTime()
     }
 
     @Override
